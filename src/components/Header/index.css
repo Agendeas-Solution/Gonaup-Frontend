@@ -1,0 +1,8 @@
+.company_logo {
+  display: flex;
+  justify-content: start;
+  padding: 15px;
+}
+.company_logo img {
+  width: 7rem;
+}

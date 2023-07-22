@@ -1,0 +1,18 @@
+.client_detail_image_section {
+  width: 20%;
+}
+.client_detail_textfield_section {
+  width: 80%;
+}
+.client_detail_left_section {
+  width: 20%;
+}
+.client_detail_right_section {
+  width: 80%;
+}
+.client_text_field_left_section {
+  width: 30%;
+}
+.client_text_field_right_section {
+  width: 65%;
+}

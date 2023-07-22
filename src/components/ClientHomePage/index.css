@@ -1,0 +1,19 @@
+.post_job_button {
+  box-shadow: none !important;
+  height: 45px !important;
+  background-color: #7ac144 !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  text-transform: capitalize !important;
+  color: #fff !important;
+  white-space: nowrap;
+}
+.home_page_title {
+  display: flex;
+  justify-content: space-between;
+}
+.home_page_section {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  margin-top: 10px;
+}

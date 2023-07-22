@@ -1,0 +1,26 @@
+.add_experience_button {
+  padding: 20px !important;
+  text-transform: capitalize !important;
+  font-size: 18px !important;
+  border: 1px solid #e5e5e5 !important;
+}
+.experience_Detail_box {
+  border: 1px solid #e5e5e5 !important;
+  display: flex;
+  flex-direction: row;
+  width: 33%;
+  border-radius: 5px;
+  margin: 0 5px;
+  padding: 5px;
+}
+.experience_Detail_box img {
+  width: 20px;
+  height: 20px;
+}
+.experience_detail_box_button {
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 50% !important;
+  min-width: 0 !important;
+  color: #7ac144 !important;
+  margin: 2px !important;
+}

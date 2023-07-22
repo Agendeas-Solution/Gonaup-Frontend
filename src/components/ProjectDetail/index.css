@@ -1,0 +1,28 @@
+.project_detail_button {
+  padding: 20px !important;
+  text-transform: capitalize !important;
+  font-size: 18px !important;
+  border: 1px solid #e5e5e5 !important;
+}
+.project_detail_box {
+  border: 1px solid #e5e5e5 !important;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  border-radius: 5px;
+  margin: 0 5px;
+  padding: 5px;
+  height: 200px;
+}
+.project_detail_box img {
+  width: 100%;
+  height: 80%;
+  border-radius: 5px;
+}
+.project_detail_box_button {
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 50% !important;
+  min-width: 0 !important;
+  color: #7ac144 !important;
+  margin: 2px !important;
+}

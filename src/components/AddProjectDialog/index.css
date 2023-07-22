@@ -1,0 +1,17 @@
+.add_files_button {
+  border: 2px dashed #e5e5e5 !important;
+  text-transform: capitalize !important;
+  padding: 40px 20px !important;
+}
+._add_project_textfield_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+.add_project_textfield {
+  display: flex;
+  flex-direction: column;
+  width: 47%;
+}

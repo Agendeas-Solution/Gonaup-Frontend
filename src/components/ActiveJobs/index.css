@@ -1,0 +1,10 @@
+.active_job_section {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px;
+}
+.active_job_heading {
+  font-weight: 600;
+  font-size: 20px;
+}

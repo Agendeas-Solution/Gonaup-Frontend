@@ -1,0 +1,54 @@
+.joining_section {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #e5e5e5; */
+  width: 50%;
+  margin: 0 auto;
+  /* padding: 20px; */
+}
+.radio_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.client_developer_selection_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 5px;
+  width: 32%;
+  height: 100px;
+  position: relative;
+}
+.client_developer_radio_label {
+  margin: 0 !important;
+}
+.client_developer_radio_button {
+  position: absolute !important;
+  top: 0;
+  right: 0px;
+  padding: 0 !important;
+}
+.joining_heading {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  font-family: 'Preahvihear';
+  letter-spacing: 0.1rem;
+}
+.joining_submit_button {
+  background-color: #7ac144 !important;
+  text-transform: capitalize !important;
+  width: 50%;
+  font-size: 15px !important;
+  margin-top: 30px !important;
+}

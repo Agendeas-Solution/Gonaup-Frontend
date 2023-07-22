@@ -1,0 +1,50 @@
+.developer_job_main_section {
+  display: flex;
+  flex-direction: row;
+  margin: 1% 15% 0% 15%;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+.developer_job_detail_left_section {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  border-right: 1px solid #e5e5e5;
+  height: 100%;
+}
+.developer_job_detail_right_section {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.developer_job_title_desc {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.developer_job {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.developer_job_heading {
+  font-weight: 500;
+}
+.developer_job_sub_heading {
+  color: #8e8e8e;
+  word-wrap: break-word;
+}
+.developer_job_component {
+  min-width: 50%;
+  max-width: 50%;
+  display: flex;
+}
+.developer_job_heading {
+  font-weight: 600;
+}
+.developer_job_detail_button {
+  color: #7ac144 !important;
+}
