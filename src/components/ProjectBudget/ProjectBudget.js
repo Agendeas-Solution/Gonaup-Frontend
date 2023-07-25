@@ -22,8 +22,9 @@ const theme = createTheme({
 const ProjectBudget = () => {
     const [projectBudgetDetail, setProjectBudgetDetail] = useState({
         type: "0",
-        minHourlyRate: "",
-        maxHourlyRate: "",
+        minHourlyRate: null,
+        maxHourlyRate: null,
+        fixedBudget: null
     });
 
     //Update Password
@@ -43,13 +44,13 @@ const ProjectBudget = () => {
             },
             data: projectBudgetDetail.type === "0" ? {
                 budgetType: projectBudgetDetail.type,
-                minHourlyBudget: projectBudgetDetail.minHourlyBudget,
-                maxHourlyBudget: projectBudgetDetail.maxHourlyBudget,
+                minHourlyBudget: projectBudgetDetail.minHourlyRate,
+                maxHourlyBudget: projectBudgetDetail.maxHourlyRate,
                 projectId: parseInt(localStorage.getItem('projectId'))
             } : {
                 budgetType: projectBudgetDetail.type,
-
-                projectId: parseInt(localStorage.getItem('projectId'))
+                projectId: parseInt(localStorage.getItem('projectId')),
+                fixedBudget: projectBudgetDetail.fixedBudget
             }
         })
     }
@@ -95,22 +96,7 @@ const ProjectBudget = () => {
                         </RadioGroup>
                     </FormControl>
                     <Divider className='mt-4 mb-4' />
-                    {
-                        projectBudgetDetail.type === "budget" && <>
-                            <Box>
-                                <TextField
-                                    placeholder="Maximum project budget(USD)"
-                                    type="number"
-                                    value={projectBudgetDetail.fixedBudget}
-                                    onChange={(e) => {
-                                        setProjectBudgetDetail({ ...projectBudgetDetail, fixedBudget: e.target.value })
-                                    }}
-                                />
-                            </Box>
-                            <Typography variant='span'>You will have the option to create milestones which divide your project into manageable phases.</Typography>
-                        </>
-                    }
-                    {projectBudgetDetail.type === "hourly" &&
+                    {projectBudgetDetail.type === "0" &&
                         <>
                             <Box>
                                 <Box className="d-flex column">
@@ -141,6 +127,21 @@ const ProjectBudget = () => {
                                 </Box>
                             </Box>
                             <Typography variant='span'>You have to enter more than $5/hour (USD).</Typography>
+                        </>
+                    }
+                    {
+                        projectBudgetDetail.type === "1" && <>
+                            <Box>
+                                <TextField
+                                    placeholder="Maximum project budget(USD)"
+                                    type="number"
+                                    value={projectBudgetDetail.fixedBudget}
+                                    onChange={(e) => {
+                                        setProjectBudgetDetail({ ...projectBudgetDetail, fixedBudget: e.target.value })
+                                    }}
+                                />
+                            </Box>
+                            <Typography variant='span'>You will have the option to create milestones which divide your project into manageable phases.</Typography>
                         </>
                     }
                 </Box>

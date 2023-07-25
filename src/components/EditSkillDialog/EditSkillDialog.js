@@ -13,10 +13,10 @@ import { request } from '../../utils/axios-utils';
 import { useEffect } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 
-const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, handleClose }) => {
+const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, handleClose, handleUpdateProjectSkillService }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
-        skills: []
+        skills: editSkillDialogControl?.skills
     });
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
@@ -69,7 +69,7 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                         InputProps={{
                             startAdornment: (
                                 <div>
-                                    {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
+                                    {selectedSkillSets.skills && selectedSkillSets.skills.map((chip) => (
                                         <Chip
                                             key={chip.id}
                                             label={chip.name}
@@ -95,7 +95,10 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button className='save_button' onClick={handleClose}>Save</Button>
+                    <Button className='save_button' onClick={() => {
+                        handleUpdateProjectSkillService(selectedSkillSets)
+                    }}>
+                        Save</Button>
                     <Button className="cancel_button" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>

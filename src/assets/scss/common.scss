@@ -70,6 +70,13 @@
   background-color: #7ac144 !important;
   color: #fff !important;
   text-transform: capitalize !important;
+  white-space: nowrap;
+}
+.disable_button {
+  background-color: #ddd !important;
+  color: #fff !important;
+  text-transform: capitalize !important;
+  white-space: nowrap;
 }
 .cancel_button {
   border: 1px solid #7ac144 !important;

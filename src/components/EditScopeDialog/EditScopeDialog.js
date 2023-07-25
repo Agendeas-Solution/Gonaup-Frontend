@@ -6,12 +6,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 // import './index.css'
 import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material';
-const EditScopeDialog = ({ editScopeDialogControl, handleClose }) => {
-    const [value, setValue] = useState('female');
+import { PROJECT } from '../../constants/projectConstant';
+const EditScopeDialog = ({ editScopeDialogControl, setEditScopeDialogControl, handleUpdateProjectRequirement, handleClose }) => {
 
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
     return (
         <>
             <Dialog
@@ -27,41 +24,53 @@ const EditScopeDialog = ({ editScopeDialogControl, handleClose }) => {
                         <FormControl>
                             <FormLabel>Level of experience ?</FormLabel>
                             <RadioGroup
-                                value={value}
-                                onChange={handleChange}
+                                value={editScopeDialogControl.experienceNeeded}
+                                onChange={(e) => {
+                                    setEditScopeDialogControl({ ...editScopeDialogControl, experienceNeeded: e.target.value })
+                                }}
                             >
-                                <FormControlLabel value="0" control={<Radio />} label="Entry" />
-                                <FormControlLabel value="1" control={<Radio />} label="Intermediate" />
-                                <FormControlLabel value="2" control={<Radio />} label="Expert" />
+                                {
+                                    PROJECT.EXPERIENCE_LEVEL.map((data) => {
+                                        return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                                    })
+                                }
                             </RadioGroup>
                         </FormControl>
                         <FormControl>
                             <FormLabel>How long will your work take?</FormLabel>
                             <RadioGroup
-                                value={value}
-                                onChange={handleChange}
+                                value={editScopeDialogControl.projectDuration}
+                                onChange={(e) => {
+                                    setEditScopeDialogControl({ ...editScopeDialogControl, projectDuration: e.target.value })
+                                }}
                             >
-                                <FormControlLabel value="0" control={<Radio />} label="More than 6 months" />
-                                <FormControlLabel value="1" control={<Radio />} label="3 to 6 months" />
-                                <FormControlLabel value="2" control={<Radio />} label="1 to 3 months" />
-                                <FormControlLabel value="2" control={<Radio />} label="less than 1 months" />
+                                {
+                                    PROJECT.PROJECT_DURATION.map((data) => {
+                                        return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                                    })
+                                }
+
                             </RadioGroup>
                         </FormControl>
                         <FormControl>
                             <FormLabel>Hours per week</FormLabel>
                             <RadioGroup
-                                value={value}
-                                onChange={handleChange}
+                                value={editScopeDialogControl.hourePerWeek}
+                                onChange={(e) => {
+                                    setEditScopeDialogControl({ ...editScopeDialogControl, hourePerWeek: e.target.value })
+                                }}
                             >
-                                <FormControlLabel value="0" control={<Radio />} label="More than 30 hrs/week" />
-                                <FormControlLabel value="1" control={<Radio />} label="Less than 30 hrs/week" />
-                                <FormControlLabel value="2" control={<Radio />} label="I'm not sure" />
+                                {
+                                    PROJECT.HOUR_PER_WEEK.map((data) => {
+                                        return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                                    })
+                                }
                             </RadioGroup>
                         </FormControl>
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button className='save_button' onClick={handleClose}>Save</Button>
+                    <Button className='save_button' onClick={handleUpdateProjectRequirement}>Save</Button>
                     <Button className="cancel_button" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>

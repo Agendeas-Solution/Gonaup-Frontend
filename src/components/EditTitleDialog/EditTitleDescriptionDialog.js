@@ -5,23 +5,33 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import './index.css'
 import { TextField } from '@mui/material';
-const EditDescriptionDialog = ({ editDescriptionDialogControl, setEditDescriptionDialogControl, handleClose }) => {
+const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEditTitleDescriptionDialogControl, handleClose, handleUpdateTitleDescription }) => {
     return (
         <>
             <Dialog
-                open={editDescriptionDialogControl.status}
+                open={editTitleDescriptionDialogControl.status}
                 onClose={handleClose}
                 className="dialog_section"
             >
                 <DialogTitle className="dialog_heading">
-                    Edit description
+                    Edit Title & Description
                 </DialogTitle>
                 <DialogContent>
                     <TextField
-                        value={editDescriptionDialogControl.description}
-                        onChange={() => {
-                            setEditDescriptionDialogControl({ ...editDescriptionDialogControl, description: editDescriptionDialogControl.description })
+                        value={editTitleDescriptionDialogControl.title}
+                        onChange={(e) => {
+                            setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, title: e.target.value })
+                        }}
+                        className='w-100'
+                        variant="outlined"
+                        label="Job Title"
+                        type="text" />
+                    <TextField
+                        value={editTitleDescriptionDialogControl.description}
+                        onChange={(e) => {
+                            setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, description: e.target.value })
                         }}
                         className='w-100'
                         variant="outlined"
@@ -32,7 +42,7 @@ const EditDescriptionDialog = ({ editDescriptionDialogControl, setEditDescriptio
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button className='save_button' onClick={handleClose}>Save</Button>
+                    <Button className='save_button' onClick={handleUpdateTitleDescription}>Save</Button>
                     <Button className="cancel_button" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
@@ -42,4 +52,5 @@ const EditDescriptionDialog = ({ editDescriptionDialogControl, setEditDescriptio
         </>
     )
 }
-export default EditDescriptionDialog
+
+export default EditTitleDescriptionDialog

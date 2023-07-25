@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../Header/Header'
 // import './index.css';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,13 +10,23 @@ import FormLabel from '@mui/material/FormLabel';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
-
+import LinearProgress from '@mui/material/LinearProgress';
+import PropTypes from 'prop-types';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const theme = createTheme({
+    palette: {
+        secondary: {
+            main: '#7AC144',
+            darker: '#ddd',
+        },
+    },
+});
 const ProjectDurationDetail = () => {
     const [projectDurationDetail, setProjectDurationDetail] = useState({
-        experienceNeeded: 1,
-        projectDuration: 2,
-        hourePerWeek: 1,
-        projectId: 2,
+        experienceNeeded: null,
+        projectDuration: null,
+        hourePerWeek: null,
+        projectId: parseInt(localStorage.getItem('projectId')),
         isPublished: true
     })
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
@@ -26,13 +36,31 @@ const ProjectDurationDetail = () => {
             console.log(err);
         }
     });
-    UpdateProjectRequirement({
-        url: 'project/requirements',
-        method: 'get',
-        headers: {
-            Authorization: `${Cookie.get('userToken')}`,
-        },
-    })
+    const handleUpdateProjectRequirement = async () => {
+        await UpdateProjectRequirement({
+            url: 'project/requirements',
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: projectDurationDetail
+        })
+    }
+
+    function LinearProgressWithLabel(props) {
+        return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: '100%', mr: 1 }}>
+                    <ThemeProvider theme={theme}>
+                        <LinearProgress color="secondary" variant="determinate" {...props} />
+                    </ThemeProvider>
+                </Box>
+            </Box>
+        );
+    }
+    LinearProgressWithLabel.propTypes = {
+        value: PropTypes.number.isRequired,
+    };
     return (
         <>
             <Box className="main_section">
@@ -86,6 +114,10 @@ const ProjectDurationDetail = () => {
                             <FormControlLabel value="2" control={<Radio />} label="More than 30 hrs/week" />
                         </RadioGroup>
                     </FormControl>
+                </Box>
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgressWithLabel value={20} />
+                    <Button onClick={handleUpdateProjectRequirement} className="save_button">Next</Button>
                 </Box>
             </Box>
         </>

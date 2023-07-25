@@ -64,7 +64,7 @@ const ProjectDetail = () => {
                                     <Button className="project_detail_box_button"><DeleteOutlineRoundedIcon />
                                     </Button>
                                 </Box>
-                            </Box>
+                            </Box>Z
                         </Box>
                     })}
                 </Box>

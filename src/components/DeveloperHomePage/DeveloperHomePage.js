@@ -1,13 +1,37 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ActiveJobs from '../ActiveJobs/ActiveJobs'
 import { Box, Button, Tab, Typography } from '@mui/material'
+import { useMutation } from 'react-query'
+import { request } from '../../utils/axios-utils'
+import Cookie from 'js-cookie'
 const DeveloperHomePage = () => {
     const [value, setValue] = React.useState('1');
+    const [projectList, setProjectList] = useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    const { mutate: GetProjectList } = useMutation(request, {
+        onSuccess: (res) => {
+            setProjectList(res.data.data);
+            debugger;
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleGetProjectList = () => {
+        GetProjectList({
+            url: '/project/client/list?type=active',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+    useEffect(() => {
+        handleGetProjectList();
+    }, [])
     return (
         <>
             <Box className="developer_main_section">
@@ -21,7 +45,7 @@ const DeveloperHomePage = () => {
                                 <Tab label="Recently filled" value="3" />
                             </TabList>
                         </Box>
-                        <TabPanel sx={{ padding: 0 }} value="1"><ActiveJobs /></TabPanel>
+                        <TabPanel sx={{ padding: 0 }} value="1"><ActiveJobs projectList={projectList} /></TabPanel>
                         <TabPanel value="2">Item Two</TabPanel>
                         <TabPanel value="3">Item Three</TabPanel>
                     </TabContext>

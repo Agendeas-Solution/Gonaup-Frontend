@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie'
 import Uploader from '../Uploader/Uploader'
-
 const theme = createTheme({
     palette: {
         secondary: {
@@ -19,7 +18,7 @@ const theme = createTheme({
         },
     },
 });
-const ProfileDetail = () => {
+const ClientProfileDetail = () => {
     const [profileDetail, setProfileDetail] = useState({
         pincode: '',
         city: null,
@@ -262,4 +261,4 @@ const ProfileDetail = () => {
     )
 }
 
-export default ProfileDetail
+export default ClientProfileDetail

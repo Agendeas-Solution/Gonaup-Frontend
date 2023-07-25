@@ -16,12 +16,13 @@
   border-right: 1px solid #e5e5e5;
   height: 100%;
 }
-.client_project_detail_right_section {
+.project_detail_right_section {
   display: flex;
   flex-direction: column;
   width: 25%;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  padding: 10px;
 }
 .client_project_title_desc {
   display: flex;

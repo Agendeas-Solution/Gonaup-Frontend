@@ -11,11 +11,9 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { TextField, Typography } from '@mui/material';
 const EditBudgetDialog = ({ editBudgetDialogControl, setEditBudgetDialogControl, handleClose }) => {
     const [open, setOpen] = React.useState(false);
-
     const handleTooltipClose = () => {
         setOpen(false);
     };
-
     const handleTooltipOpen = () => {
         setOpen(true);
     };
@@ -31,6 +29,10 @@ const EditBudgetDialog = ({ editBudgetDialogControl, setEditBudgetDialogControl,
                 </DialogTitle>
                 <DialogContent>
                     <TextField
+                        value={editBudgetDialogControl.budget}
+                        onChange={(e) => {
+                            setEditBudgetDialogControl({ ...editBudgetDialogControl, budget: e.target.value });
+                        }}
                         className='w-100'
                         variant="outlined"
                         label="Maximum project budget(USD)"

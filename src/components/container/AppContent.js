@@ -37,6 +37,7 @@ import DeveloperProfile from '../DeveloperProfile/DeveloperProfile'
 import Notification from '../Notification/Notification'
 import DeveloperSetting from '../DeveloperSetting/DeveloperSetting'
 import { PERMISSION } from '../../constants/permissionConstant'
+import ClientProfileDetail from '../ClientProfileDetail/ClientProfileDetail'
 const AppContent = () => {
     const loading = (
         <div className="pt-3 text-center">
@@ -61,8 +62,10 @@ const AppContent = () => {
                             <Route path='/assignedProject' element={<AssignedProject />}></Route>
                             <Route path='/freelanceExperience' element={<FreelanceExperience />}></Route>
                             <Route path='/freelanceExperienceList' element={<FreelanceExperienceList />}></Route>
-                            <Route path="/developerhomepage" element={<DeveloperHomePage />}></Route>
+                            <Route path="/developerhomepage" element={<ClientHomePage />}></Route>
                             <Route path='/developerjobdetail/:id' element={<DeveloperJobDetail />}></Route>
+                            <Route path='/freelancerprojectdetails/:id' element={<ClientProjectDetails />}></Route>
+
                             <Route path="/developerprofile" element={<DeveloperProfile />}></Route>
                             <Route path='/notification' element={<Notification />}></Route>
                             <Route path="/developersetting" element={<DeveloperSetting />}></Route>
@@ -82,10 +85,11 @@ const AppContent = () => {
                             <Route path="/projectdurationdetail" element={<ProjectDurationDetail />}></Route>
                             <Route path='/clientdetails' element={<ClientDetails />}></Route>
                             <Route path="/clienthomepage" element={<ClientHomePage />}></Route>
-                            <Route path='/clientprojectdetails' element={<ClientProjectDetails />}></Route>
-                            <Route path='/editclientprojectdetails' element={<EditClientProjectDetails />}></Route>
+                            <Route path='/clientprojectdetails/:id' element={<ClientProjectDetails />}></Route>
+                            <Route path='/editclientprojectdetails/:id' element={<EditClientProjectDetails />}></Route>
                             <Route path='/clientprofile' element={<ClientProfile />}></Route>
-                            <Route path="/editclientprofile" element={<EditClientProfile />}></Route>
+                            <Route path="/editclientprofile/:id" element={<EditClientProfile />}></Route>
+                            <Route path="/clientprofiledetail" element={<ClientProfileDetail />}></Route>
                         </>
                     }
                 </Routes>

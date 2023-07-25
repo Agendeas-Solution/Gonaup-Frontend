@@ -28,7 +28,6 @@ const CompanyDetail = () => {
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
             },
-
         })
     }
     return (
