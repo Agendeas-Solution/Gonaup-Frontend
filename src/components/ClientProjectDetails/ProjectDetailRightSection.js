@@ -11,7 +11,6 @@ import { request } from '../../utils/axios-utils';
 const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogControl, deleteProjectDialogControl }) => {
     const { id } = useParams();
     const navigate = useNavigate();
-
     const [freelancerApplyJobDialogControl, setFreelancerApplyJobDialogControl] = useState({
         status: false,
         bidAmount: 0,

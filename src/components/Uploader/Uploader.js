@@ -25,18 +25,19 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            position: "relative"
                         }}
                     >
                         <AvatarEditor
                             ref={setEditor}
                             image={imageUrl}
                             style={{
-                                width: '100%',
-                                height: '100%',
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: "50%"
                             }}
                             border={0}
                             color={[255, 255, 255, 0.6]}
-                            borderRadius={100}
                             scale={scale}
                         />
                         <input
@@ -61,6 +62,7 @@ const Uploader = ({ imageUrl, setImageUrl }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
+                            position: "relative"
                         }}
                     >
                         <input

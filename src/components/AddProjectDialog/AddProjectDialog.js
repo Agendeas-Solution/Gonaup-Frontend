@@ -30,7 +30,6 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
     function onImageChange(e) {
         const files = Array.from(e.target.files);
         setImages(files);
-        debugger;
     }
     const { mutate: GetSkillList } = useMutation(request, {
         onSuccess: (res) => {
@@ -62,15 +61,46 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         for (let i = 0; i < images.length; i++) {
             formData.append('portfolio_image', images[i])
         }
+        if (addProjectDialogStatus?.id) {
+            formData.append('projectId', addProjectDialogStatus.id)
+        }
         AddProject({
             url: '/user/freelancer/project',
-            method: 'post',
+            method: addProjectDialogStatus?.id ? "put" : 'post',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
             },
             data: formData
         })
     }
+    const { mutate: GetFreelancerProjectDetails } = useMutation(request, {
+        onSuccess: (res) => {
+            let projectDetail = res.data.data
+            setAddProjectDialogStatus({
+                ...addProjectDialogStatus, id: projectDetail.id, title: projectDetail.title,
+                description: projectDetail.description,
+                projectUrl: projectDetail.project_url,
+                dateFrom: projectDetail.date_from,
+                dateTo: projectDetail.date_to,
+            })
+            setSelectedSkillSets({ ...selectedSkillSets, skills: projectDetail.skills })
+            setImageURLs(projectDetail.projectImageArray)
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    useEffect(() => {
+        {
+            addProjectDialogStatus.id && GetFreelancerProjectDetails({
+                url: `/user/freelancer/project?projectId=${addProjectDialogStatus.id}`,
+                method: 'get',
+                headers: {
+                    Authorization: `${Cookie.get('userToken')}`,
+                },
+            })
+        }
+    }, [addProjectDialogStatus.id])
     useEffect(() => {
         GetSkillList({
             url: '/search/skill/list',
@@ -144,7 +174,6 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     variant="outlined"
                                     onChange={() => {
                                         let data = selectedSkillSets.skills.map((chip) => (chip.id))
-                                        debugger;
                                         setAddProjectDialogStatus({ ...addProjectDialogStatus, skills: data })
                                     }}
                                     InputProps={{

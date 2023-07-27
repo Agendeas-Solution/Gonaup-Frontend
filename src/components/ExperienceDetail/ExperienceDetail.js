@@ -33,10 +33,6 @@ const ExperienceDetail = () => {
     const [experienceList, setExperienceList] = useState([])
     const { mutate: GetExperienceList } = useMutation(request, {
         onSuccess: (res) => {
-            // setServiceSkillList((prevState) => ({
-            //     ...prevState,
-            //     skillList: res.data.data,
-            // }));
             setExperienceList(res.data.data)
         },
         onError: (err) => {
@@ -125,7 +121,6 @@ const ExperienceDetail = () => {
                                         <Button className="Education_detail_box_button"
                                             onClick={() => {
                                                 setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: true, id: data.id })
-                                                debugger;
                                             }}
                                         ><DeleteOutlineRoundedIcon />
                                         </Button>

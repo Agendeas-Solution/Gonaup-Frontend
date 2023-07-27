@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Typography } from '@mui/material'
+import { Avatar, Box, Button, Chip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import './index.css'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -11,18 +11,188 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import Card from '@mui/material/Card';
 import EditHourlyRateDialog from './EditHourlyRateDialog';
 import EditUserNameDialog from './EditUserNameDialog';
+import EditRoleAndOverviewDialog from './EditRoleAndOverviewDialog';
+import EditSkillServiceDialog from './EditSkillServiceDialog';
+import EditProfileLinkDialog from './EditProfileLinkDialog';
+import EditContactDialog from './EditContactDialog';
+import AddEducationDialog from '../AddEducationDialog/AddEducationDialog';
+import DeleteEducationDialog from '../DeleteEducationDialog/DeleteEducationDialog';
+import AddExperienceDialog from '../AddExperienceDialog/AddExperienceDialog';
+import DeleteExperienceDialog from '../DeleteExperienceDialog/DeleteExperienceDialog';
+import AddProjectDialog from '../AddProjectDialog/AddProjectDialog';
+import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
 const DeveloperProfile = () => {
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
         skillList: []
     });
+    const [educationDetail, setEducationDetail] = useState({
+        school: "",
+        degree: "",
+        studyIn: "",
+        description: "",
+        dateFrom: null,
+        dateTo: null
+    })
+    const [developerDetail, setDeveloperDetail] = useState({})
+
     const [editUserNameDialogControl, setEditUserNameDialogControl] = useState({
         status: false, firstName: "", lastName: ""
     })
     const [editHourlyRateDialogControl, setEditHourlyRateDialogControl] = useState({
         status: false,
     })
-    const [developerDetail, setDeveloperDetail] = useState({})
+    const [editRoleAndOverviewDialogControl, setEditRoleAndOverviewDialogControl] = useState({
+        status: false
+    })
+    const [editSkillDialogControl, setEditSkillDialogControl] = useState({
+        status: false, skills: [], services: []
+    })
+    const [editProfileLinkDialogControl, setEditProfileLinkDialogControl] = useState({
+        status: false
+    })
+    const [editContactDialogControl, setEditContactDialogControl] = useState({
+        status: false
+    })
+    const [addEducationDialogStatus, setAddEducationDialogStatus] = useState(false)
+    const [deleteEducationDialogStatus, setDeleteEducationDialogStatus] = useState({
+        status: false,
+        id: null
+    })
+    const [addExperienceDialogStatus, setAddExperienceDialogStatus] = useState(false);
+    const [deleteExperienceDialogStatus, setDeleteExperienceDialogStatus] = useState({
+        status: false, id: null
+    })
+    const [deleteFreelancerProjectDialogControl, setDeleteFreelancerProjectDialogControl] = useState({
+        status: false, id: null
+    })
+    const [experienceDetail, setExperienceDetail] = useState({
+        title: null,
+        company: null,
+        countryId: null,
+        countryName: null,
+        countryCode: null,
+        isWorking: false,
+        cityName: null,
+        workingFrom: null,
+        workgingTo: null,
+        description: null
+    });
+    const [addProjectDialogStatus, setAddProjectDialogStatus] = useState({
+        status: false,
+        title: '',
+        projectUrl: '',
+        skills: '',
+        dateFrom: null,
+        dateTo: null,
+        description: "",
+    })
+    const { mutate: AddFreelancerExperience } = useMutation(request, {
+        onSuccess: (res) => {
+            setAddExperienceDialogStatus(false)
+        },
+        onError: (err) => {
+            debugger;
+        }
+    });
+    const { mutate: DeleteExperience } = useMutation(request, {
+        onSuccess: (res) => {
+            setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
+        },
+        onError: (err) => {
+            debugger;
+        }
+    });
+    const handleDeleteExperience = async (id) => {
+        await DeleteExperience({
+            url: '/user/freelancer/experience',
+            method: 'delete',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: { experienceId: id },
+        })
+    }
+    const handleAddExperience = async () => {
+        let data = {
+            title: experienceDetail.title,
+            company: experienceDetail.company,
+            countryId: experienceDetail.country.id,
+            countryName: experienceDetail.country.name,
+            countryCode: experienceDetail.country.iso2,
+            isWorking: experienceDetail.isWorking,
+            cityName: experienceDetail.cityName,
+            workingFrom: experienceDetail.workingFrom,
+            workgingTo: experienceDetail.workgingTo,
+            description: experienceDetail.description
+        }
+        if (experienceDetail.id) {
+            data["experienceId"] = experienceDetail.id
+        }
+        await AddFreelancerExperience({
+            url: '/user/freelancer/experience',
+            method: experienceDetail.id ? 'put' : 'post',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: data,
+        })
+    }
+    const { mutate: AddFreelancerEducation } = useMutation(request, {
+        onSuccess: (res) => {
+            handleClose();
+            setEducationDetail({
+                school: "",
+                degree: "",
+                studyIn: "",
+                description: "",
+                dateFrom: null,
+                dateTo: null
+            })
+        },
+        onError: (err) => {
+            debugger;
+        }
+    });
+    const handleAddEducationDetail = async () => {
+        let educationData = {
+            school: educationDetail.school,
+            degree: educationDetail.degree,
+            studyIn: educationDetail.studyIn,
+            description: educationDetail.description,
+            dateFrom: isNaN(educationDetail.dateFrom) ? educationDetail.dateFrom.year() : educationDetail.dateFrom,
+            dateTo: isNaN(educationDetail.dateTo) ? educationDetail.dateTo.year() : educationDetail.dateTo
+        };
+        if (educationDetail.id) {
+            educationData["educationId"] = educationDetail.id;
+        }
+        await AddFreelancerEducation({
+            url: '/user/freelancer/education',
+            method: educationDetail.id ? 'put' : 'post',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: educationData,
+        })
+    }
+    const { mutate: DeleteEducation } = useMutation(request, {
+        onSuccess: (res) => {
+            setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
+        },
+        onError: (err) => {
+            debugger;
+        }
+    });
+    const handleDeleteEducation = async (id) => {
+        await DeleteEducation({
+            url: '/user/freelancer/education',
+            method: 'delete',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: { educationId: id },
+        })
+    }
     const { mutate: GetDeveloperProfile } = useMutation(request, {
         onSuccess: (res) => {
             setDeveloperDetail(res.data.data)
@@ -95,7 +265,129 @@ const DeveloperProfile = () => {
     const handleClose = () => {
         setEditUserNameDialogControl({ ...editUserNameDialogControl, status: false })
         setEditHourlyRateDialogControl({ ...editHourlyRateDialogControl, status: false })
+        setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, status: false })
+        setEditSkillDialogControl({ ...editSkillDialogControl, status: false })
+        setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, status: false })
+        setEditContactDialogControl({ ...editContactDialogControl, status: false })
+        setAddEducationDialogStatus(false)
+        setAddExperienceDialogStatus(false);
+        setDeleteExperienceDialogStatus(false);
+        setAddProjectDialogStatus({ ...addProjectDialogStatus, status: false });
+        setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: false })
     }
+    const { mutate: EditRoleAndOverview } = useMutation(request, {
+        onSuccess: (res) => {
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleEditRoleAndOverviewDialog = () => {
+        EditRoleAndOverview({
+            url: '/user/freelancer/role',
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                professionalRole: editRoleAndOverviewDialogControl.professionalRole,
+                description: editRoleAndOverviewDialogControl.description
+            }
+        })
+    }
+    const { mutate: EditSkill } = useMutation(request, {
+        onSuccess: (res) => {
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleEditSkillDialog = (selectedSkillSets) => {
+        EditSkill({
+            url: '/user/freelancer/skill',
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                skills: selectedSkillSets.skills.map((data) => data.id).join(","),
+                offerServices: selectedSkillSets.services.map((data) => data.id).join(",")
+            }
+        })
+    }
+    const { mutate: EditProfileLink } = useMutation(request, {
+        onSuccess: (res) => {
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleEditProfileLink = () => {
+        EditProfileLink({
+            url: '/user/freelancer/profile-links',
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: {
+                githubProfile: editProfileLinkDialogControl.githubProfile,
+                linkdinProfile: editProfileLinkDialogControl.linkdinProfile,
+                freelanceProfile: editProfileLinkDialogControl.freelanceProfile
+            }
+        })
+    }
+    const { mutate: EditContactDetail } = useMutation(request, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleEditContactDetail = (image_url) => {
+        let contactDetail = new FormData();
+        contactDetail.append('contactNumber', editContactDialogControl.contactNumber)
+        contactDetail.append('skypeId', editContactDialogControl.skypeId)
+        contactDetail.append('address', editContactDialogControl.address)
+        contactDetail.append('countryId', editContactDialogControl.country.id)
+        contactDetail.append('countryCode', editContactDialogControl.country.iso2)
+        contactDetail.append('countryName', editContactDialogControl.country.name)
+        contactDetail.append('stateId', editContactDialogControl.state.id)
+        contactDetail.append('stateCode', editContactDialogControl.state.iso2)
+        contactDetail.append('stateName', editContactDialogControl.state.name)
+        contactDetail.append('cityId', editContactDialogControl.city.id)
+        contactDetail.append('cityName', editContactDialogControl.city.name)
+        contactDetail.append('zipCode', editContactDialogControl.zipCode)
+        if (typeof image_url !== 'string') {
+            contactDetail.append('profile_image', image_url)
+        }
+        EditContactDetail({
+            url: '/user/freelancer/contact-details',
+            method: 'put',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: contactDetail
+        })
+    }
+    const { mutate: DeleteFreelancerProject } = useMutation(request, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+        }
+    });
+    const handleDeleteFreelancerProject = async (id) => {
+        await DeleteFreelancerProject({
+            url: '/user/freelancer/project',
+            method: 'delete',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: { projectId: id },
+        })
+    }
+
     return (
         <>
             <Box className="developer_profile_main_section">
@@ -123,22 +415,26 @@ const DeveloperProfile = () => {
                         </Typography>
                     </Box>
                 </Box>
-            </Box >
+            </Box>
             <Box className="developer_profile_main_section">
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">{
                             developerDetail.professional_role}</Typography>
-                        <EditRoundedIcon className='circular_icon' />
+                        <EditRoundedIcon onClick={() => {
+                            setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, status: true, professionalRole: developerDetail.professional_role, description: developerDetail?.description })
+                        }} className='circular_icon' />
                     </Box>
                     <Typography>{developerDetail?.description}</Typography>
                 </Box>
             </Box >
-            <Box className="developer_profile_main_section ">
+            <Box className="developer_profile_main_section">
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Skills and Expertise</Typography>
-                        <EditRoundedIcon className='circular_icon' />
+                        <EditRoundedIcon onClick={() => {
+                            setEditSkillDialogControl({ ...editSkillDialogControl, status: true, skills: developerDetail.skills, services: developerDetail.services_offer })
+                        }} className='circular_icon' />
                     </Box>
                     <Box>
                         {developerDetail.skills && developerDetail.skills.map((chip) => (
@@ -168,7 +464,9 @@ const DeveloperProfile = () => {
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Portfolio Link</Typography>
-                        <EditRoundedIcon className='circular_icon' />
+                        <EditRoundedIcon onClick={() => {
+                            setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, status: true, linkdinProfile: developerDetail.linkdin_profile, freelanceProfile: developerDetail.freelance_profile, githubProfile: developerDetail.github_profile })
+                        }} className='circular_icon' />
                     </Box>
                     <Box className="w-100 d-flex row justify-content-between">
                         <Box className="w-50">
@@ -190,7 +488,27 @@ const DeveloperProfile = () => {
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Contact</Typography>
-                        <EditRoundedIcon className='circular_icon' />
+                        <EditRoundedIcon onClick={() =>
+                            setEditContactDialogControl({
+                                ...editContactDialogControl,
+                                status: true,
+                                image_url: developerDetail.image_url,
+                                contactNumber: developerDetail.contact_number,
+                                skypeId: developerDetail.skype_id,
+                                address: developerDetail.address,
+                                zipCode: developerDetail.zip_code,
+                                country: {
+                                    name: developerDetail.country_name,
+                                    id: developerDetail.country_id,
+                                    iso2: developerDetail.country_code
+                                },
+                                state: {
+                                    iso2: developerDetail.state_code,
+                                    id: developerDetail.state_id,
+                                    name: developerDetail.state_name
+                                },
+                                city: { name: developerDetail.city_name, id: developerDetail.city_id }
+                            })} className='circular_icon' />
                     </Box>
                     <Box className="w-100 d-flex row justify-content-between">
                         <Box className="w-50">
@@ -199,7 +517,7 @@ const DeveloperProfile = () => {
                         </Box>
                         <Box className="w-50">
                             <Typography className="sub_heading">Skype</Typography>
-                            <Typography>{developerDetail.skype_id}    </Typography>
+                            <Typography>{developerDetail.skype_id}</Typography>
                         </Box>
                         <Box className="w-50">
                             <Typography className="sub_heading">Country</Typography>
@@ -228,7 +546,9 @@ const DeveloperProfile = () => {
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Education</Typography>
-                        <AddRoundedIcon className='circular_icon' />
+                        <AddRoundedIcon onClick={() => {
+                            setAddEducationDialogStatus(true)
+                        }} className='circular_icon' />
                     </Box>
                     <Box className="d-flex column justify-content-between mt-2">
                         {developerDetail.education &&
@@ -238,8 +558,26 @@ const DeveloperProfile = () => {
                                         <Box className="d-flex column">
                                             <Typography className="developer_main_heading" variant="span">{data.school}</Typography>
                                             <Box className="d-flex column">
-                                                <EditRoundedIcon className='circular_icon' />
-                                                <DeleteRoundedIcon className='circular_icon' />
+                                                <EditRoundedIcon onClick={() => {
+                                                    setAddEducationDialogStatus(true)
+                                                    setEducationDetail({
+                                                        ...educationDetail,
+                                                        school: data.school,
+                                                        degree: data.degree,
+                                                        studyIn: data.study_in,
+                                                        description: data.description,
+                                                        dateFrom: data.date_from,
+                                                        dateTo: data.date_to,
+                                                        id: data.id
+                                                    });
+                                                    debugger;
+                                                }} className='circular_icon' />
+                                                <Button className="circular_icon"><DeleteRoundedIcon className="circular_icon"
+                                                    onClick={() => {
+                                                        setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: true, id: data.id })
+                                                    }}
+                                                />
+                                                </Button>
                                             </Box>
                                         </Box>
                                         <Typography variant="span">{data.degree}/</Typography>
@@ -255,7 +593,9 @@ const DeveloperProfile = () => {
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Experience </Typography>
-                        <AddRoundedIcon className='circular_icon' />
+                        <AddRoundedIcon onClick={() => {
+                            setAddExperienceDialogStatus(true);
+                        }} className='circular_icon' />
                     </Box>
                     {developerDetail.experience && developerDetail.experience.map((data) => {
                         return <Box>
@@ -265,8 +605,28 @@ const DeveloperProfile = () => {
                                     <Typography className='sub_heading' variant='span'>{data.working_from} - {data.working_to}</Typography>
                                 </Box>
                                 <Box className="d-flex column">
-                                    <EditRoundedIcon className='circular_icon' />
-                                    <DeleteRoundedIcon className='circular_icon' />
+                                    <Button onClick={() => {
+                                        setAddExperienceDialogStatus(true);
+                                        setExperienceDetail({
+                                            ...experienceDetail,
+                                            id: data.id,
+                                            title: data.title,
+                                            company: data.company,
+                                            country: { name: data.country_name, id: data.country_id },
+                                            isWorking: data.isWorking,
+                                            cityName: data.city_name,
+                                            workingFrom: data.working_from,
+                                            workgingTo: data.working_to,
+                                            description: data.description
+                                        })
+                                    }}> <EditRoundedIcon className='circular_icon' />
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: true, id: data.id })
+                                        }}
+                                    ><DeleteRoundedIcon className='circular_icon' />
+                                    </Button>
                                 </Box>
                             </Box>
                         </Box>
@@ -277,7 +637,9 @@ const DeveloperProfile = () => {
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
                         <Typography className="developer_main_heading" variant="span">Portfolio </Typography>
-                        <AddRoundedIcon className='circular_icon' />
+                        <AddRoundedIcon onClick={() => {
+                            setAddProjectDialogStatus({ ...addProjectDialogStatus, status: true });
+                        }} className='circular_icon' />
                     </Box>
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
@@ -289,22 +651,53 @@ const DeveloperProfile = () => {
                                     <Typography className="developer_main_heading m-2" variant="span">
                                         {data.title}
                                     </Typography>
-                                    <EditRoundedIcon className='circular_icon' />
-                                    <DeleteRoundedIcon className='circular_icon' />
+                                    <EditRoundedIcon onClick={() => {
+                                        setAddProjectDialogStatus({
+                                            ...addProjectDialogStatus,
+                                            status: true,
+                                            id: data.id
+                                        });
+                                    }} className='circular_icon' />
+                                    <DeleteRoundedIcon onClick={() => {
+                                        setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: true, id: data.id });
+                                    }} className='circular_icon' />
                                 </Box>
                             </Card>
                         })}
                     </Box>
                 </Box>
             </Box >
+
             <EditUserNameDialog editUserNameDialogControl={editUserNameDialogControl}
                 setEditUserNameDialogControl={setEditUserNameDialogControl} handleClose={handleClose}
-                handleEditUserName={handleEditUserName}
-            />
+                handleEditUserName={handleEditUserName} />
+
             <EditHourlyRateDialog editHourlyRateDialogControl={editHourlyRateDialogControl}
                 setEditHourlyRateDialogControl={setEditHourlyRateDialogControl}
-                handleClose={handleClose} handleEditHourlyRate={handleEditHourlyRate}
-            />
+                handleClose={handleClose} handleEditHourlyRate={handleEditHourlyRate} />
+
+            <EditRoleAndOverviewDialog editRoleAndOverviewDialogControl={editRoleAndOverviewDialogControl} setEditRoleAndOverviewDialogControl={setEditRoleAndOverviewDialogControl} handleEditRoleAndOverviewDialog={handleEditRoleAndOverviewDialog} handleClose={handleClose} />
+
+            {editSkillDialogControl.status && < EditSkillServiceDialog handleClose={handleClose} editSkillDialogControl={editSkillDialogControl} setEditSkillDialogControl={setEditSkillDialogControl} handleEditSkillDialog={handleEditSkillDialog} />}
+
+            <EditProfileLinkDialog editProfileLinkDialogControl={editProfileLinkDialogControl} setEditProfileLinkDialogControl={setEditProfileLinkDialogControl}
+                handleClose={handleClose} handleEditProfileLink={handleEditProfileLink} />
+
+            <EditContactDialog editContactDialogControl={editContactDialogControl} setEditContactDialogControl={setEditContactDialogControl} handleClose={handleClose} handleEditContactDetail={handleEditContactDetail} />
+
+            <AddEducationDialog addEducationDialogStatus={addEducationDialogStatus}
+                handleClose={handleClose} educationDetail={educationDetail} setEducationDetail={setEducationDetail} handleAddEducationDetail={handleAddEducationDetail} />
+
+            <DeleteEducationDialog deleteEducationDialogStatus={deleteEducationDialogStatus} handleClose={handleClose} handleDeleteEducation={handleDeleteEducation} />
+
+            <AddExperienceDialog experienceDetail={experienceDetail} setExperienceDetail={setExperienceDetail} addExperienceDialogStatus={addExperienceDialogStatus} handleClose={handleClose} handleAddExperience={handleAddExperience} />
+
+            <DeleteExperienceDialog deleteExperienceDialogStatus={deleteExperienceDialogStatus}
+                handleClose={handleClose} handleDeleteExperience={handleDeleteExperience} />
+
+            <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleClose} />
+
+            <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
         </>
     )
 }
