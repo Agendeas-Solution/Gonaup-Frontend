@@ -4,6 +4,7 @@ import './index.css'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
 import Cookie from 'js-cookie'
+import { PROJECT } from '../../constants/projectConstant'
 const CompanyDetail = () => {
     const [companyDetail, setCompanyDetail] = useState({
         companyName: "",
@@ -93,11 +94,9 @@ const CompanyDetail = () => {
                                         })
                                     }}
                                 >
-                                    <FormControlLabel value="1" control={<Radio />} label="It's just me" />
-                                    <FormControlLabel value="2" control={<Radio />} label="2-9 employees" />
-                                    <FormControlLabel value="3" control={<Radio />} label="10-99 employees" />
-                                    <FormControlLabel value="4" control={<Radio />} label="100-1000 employees" />
-                                    <FormControlLabel value="5" control={<Radio />} label="More than 1000 employees" />
+                                    {PROJECT.COMPANY_SIZE.map((data) => {
+                                        return < FormControlLabel value={data.id} control={< Radio />} label={data.type} />
+                                    })}
                                 </RadioGroup>
                             </FormControl>
                         </Box>

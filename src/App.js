@@ -3,29 +3,12 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Outlet,
 } from 'react-router-dom'
 import './App.scss'
 import DefaultLayout from './components/layout/DefaultLayout'
 import AdminLogin from './components/AdminLogin/AdminLogin'
-import ClientRegister from './components/ClientRegister/ClientRegister'
-import FreelancerRegister from './components/FreelancerRegister/FreelancerRegister'
-// import { clearLoginToken } from './services/storage'
-// import SideBar from './components/SideBar/SideBar'
-// import Header from './components/Header/Header'
-// import { Context as ContextSnackbar } from './context/pageContext'
+import RegisterUser from './components/RegisterUser/RegisterUser'
 const Login = React.lazy(() => import('./components/Login/Login'))
-// const DefaultLayout = React.lazy(() =>
-//   import('./components/layout/DefaultLayout'),
-// )
-// const ForgetPassword = React.lazy(() =>
-//   import('./components/ForgetPassword/ForgetPassword'),
-// )
-// const ForgotPasswordEmail = React.lazy(() =>
-//   import('./components/ForgotPasswordEmail/ForgotPasswordEmail'),
-// )
-// const SignUp = React.lazy(() => import('./components/SignUp/SignUp'))
-
 const App = () => {
   return (
     <>
@@ -34,16 +17,15 @@ const App = () => {
           <Routes>
             <Route exact path="/login" name="Login Page" element={<Login />} />
             <Route exact path="/adminlogin" name="Login Page" element={<AdminLogin />} />
-            <Route path="/clientregister" element={<ClientRegister />}> </Route>
-            <Route path="/freelancerregister" element={<FreelancerRegister />}></Route>
+            <Route path="/freelancerregister" element={<RegisterUser />}> </Route>
+            <Route path="/clientregister" element={<RegisterUser />}> </Route>
+            <Route path="/recruiterregister" element={<RegisterUser />}> </Route>
             {/* <Route path="/resetpassword" element={<ForgetPassword />}></Route> */}
             {/* <Route
               path="/forgotpassword"
               element={<ForgotPasswordEmail />}
             ></Route> */}
-            {/* <Route path="/signup" element={<SignUp />}></Route> */}
             <Route path="*" element={<DefaultLayout />} />
-            {/* <Route path="*" element={<DefaultLayout />} /> */}
           </Routes>
         </Suspense>
       </BrowserRouter >

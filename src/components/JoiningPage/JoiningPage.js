@@ -1,9 +1,11 @@
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import React from 'react'
 import './index.css'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const JoiningPage = () => {
     const [join, setJoin] = useState('');
+    const navigate = useNavigate();
     return (
         <>
             <Box className="joining_section">
@@ -17,22 +19,24 @@ const JoiningPage = () => {
                         }}
                     >
                         <Box className="client_developer_selection_box">
-                            <FormControlLabel className='client_developer_radio_label' value="clientregister" control={<Radio className="client_developer_radio_button" />} />
+                            <FormControlLabel className='client_developer_radio_label' value="freelancerregister" control={<Radio className="client_developer_radio_button" />} />
                             <Typography>I'm a developer,looking for a project</Typography>
                         </Box>
                         <Box className="client_developer_selection_box">
-                            <FormControlLabel className='client_developer_radio_label' value="developer" control={<Radio className="client_developer_radio_button" />} />
+                            <FormControlLabel className='client_developer_radio_label' value="clientregister" control={<Radio className="client_developer_radio_button" />} />
                             <Typography>I’m a client,like to offer a project</Typography>
                         </Box>
                         <Box className="client_developer_selection_box">
-                            <FormControlLabel className='client_developer_radio_label' value="recruiter" control={<Radio className="client_developer_radio_button" />} />
+                            <FormControlLabel className='client_developer_radio_label' value="recruiterregister" control={<Radio className="client_developer_radio_button" />} />
                             <Typography>  I’m a recruiter,want to hire a developer</Typography>
                         </Box>
                     </RadioGroup>
                 </FormControl>
                 <Button
                     className="joining_submit_button"
-                    // onClick={handleLogin}
+                    onClick={() => {
+                        navigate(`/${join}`)
+                    }}
                     type="submit"
                     variant='contained'
                 >

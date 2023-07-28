@@ -27,7 +27,7 @@ const ProfileLinks = () => {
     const { mutate: AddProfileLinks } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);

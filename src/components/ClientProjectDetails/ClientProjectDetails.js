@@ -161,7 +161,7 @@ const ClientProjectDetails = () => {
                         </Stack>
                     </Box>
                     <Divider className="mt-3" />
-                    {localStorage.getItem('type') == 1 && <Box className="client_project_title_desc">
+                    {(localStorage.getItem('type') == 1 || localStorage.getItem('type') == 2) && <Box className="client_project_title_desc">
                         <Typography className="project_detail_heading" variant="span"> Suggested  Talent</Typography>
                         <Stack direction="row" spacing={1}>
                             {projectDetail?.suggestedTalents && projectDetail?.suggestedTalents.map((data) => {

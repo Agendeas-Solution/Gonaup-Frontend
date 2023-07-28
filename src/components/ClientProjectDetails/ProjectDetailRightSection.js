@@ -43,11 +43,12 @@ const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogContro
     return (
         <>
             <Box className="project_detail_right_section">
-                {localStorage.getItem('type') == 1 && <>
+                {(localStorage.getItem('type') == 1 || localStorage.getItem('type') == 2) && <>
                     <Button
                         variant="standard"
                         onClick={() => {
-                            navigate(`/editclientprojectdetails/${id}`, { state: projectDetail })
+                            localStorage.getItem('type') == 1 && navigate(`/editclientprojectdetails/${id}`, { state: projectDetail })
+                            localStorage.getItem('type') == 2 && navigate(`/editrecruiterprojectdetails/${id}`, { state: projectDetail })
                         }}
                         className='client_project_detail_button'>
                         <EditIcon />Edit Posting</Button>

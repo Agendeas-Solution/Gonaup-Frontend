@@ -106,7 +106,7 @@ const ClientProfileDetail = () => {
     const { mutate: UpdateProfileDetail } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);
@@ -115,7 +115,7 @@ const ClientProfileDetail = () => {
     const handleUpdateProfileDetail = async (e) => {
         const formData = new FormData()
         console.log(profileDetail);
-        debugger;
+        ;
         formData.append('contactNumber', profileDetail.phoneno)
         formData.append('skypeId', profileDetail.skypeId)
         formData.append('address', profileDetail.address)

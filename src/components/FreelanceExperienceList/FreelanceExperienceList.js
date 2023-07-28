@@ -8,7 +8,7 @@ const FreelanceExperienceList = () => {
     const { mutate: GetFreelanceExperienceList } = useMutation(request, {
         onSuccess: (res) => {
             setExperienceList(res.data.data);
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);
@@ -16,7 +16,7 @@ const FreelanceExperienceList = () => {
     });
     const { mutate: DeleteFreeLanceExperience } = useMutation(request, {
         onSuccess: (res) => {
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);

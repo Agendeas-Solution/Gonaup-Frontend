@@ -55,7 +55,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     views={['year']}
-                                    value={educationDetail.dateFrom}
+                                    value={new Date(`${educationDetail.dateFrom}-01-01`)}
                                     onChange={(e) => {
                                         setEducationDetail({ ...educationDetail, dateFrom: e });
                                     }}
@@ -65,7 +65,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     views={['year']}
-                                    value={educationDetail.dateTo}
+                                    value={new Date(`${educationDetail.dateTo}-01-01`)}
                                     onChange={(e) => {
                                         setEducationDetail({ ...educationDetail, dateTo: e });
                                     }}

@@ -6,16 +6,18 @@ import ActiveJobs from '../ActiveJobs/ActiveJobs'
 import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
 import Cookie from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 const ClientHomePage = () => {
     const [value, setValue] = useState('active');
     const [projectList, setProjectList] = useState([])
+    const navigate = useNavigate();
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);
@@ -23,26 +25,13 @@ const ClientHomePage = () => {
         }
     });
     const handleGetProjectList = () => {
-        {
-            localStorage.getItem('type') == 1 &&
-                GetProjectList({
-                    url: `/project/client/list?type=${value}`,
-                    method: 'get',
-                    headers: {
-                        Authorization: `${Cookie.get('userToken')}`,
-                    },
-                })
-        }
-        {
-            localStorage.getItem('type') == 0 &&
-                GetProjectList({
-                    url: `/project/freelancer/list?type=${value}`,
-                    method: 'get',
-                    headers: {
-                        Authorization: `${Cookie.get('userToken')}`,
-                    },
-                })
-        }
+        GetProjectList({
+            url: localStorage.getItem('type') == 0 ? `/project/freelancer/list?type=${value}` : `/project/client/list?type=${value}`,
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
     }
     useEffect(() => {
         handleGetProjectList();
@@ -52,14 +41,21 @@ const ClientHomePage = () => {
             <Box className="client_main_section">
                 <Box className="home_page_title">
                     <Typography className="client_main_heading" variant="span">My Jobs</Typography>
-                    <Button variant='outlined' className="post_job_button">Post a New Job</Button>
+                    {
+                        localStorage.getItem('type') != 0 && <Button
+                            onClick={() => {
+                                navigate("/jobdetail")
+                            }}
+                            variant='outlined' className="post_job_button">Post a New Job</Button>
+                    }
                 </Box>
                 <Box className="home_page_section">
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} >
                                 <Tab label="Active" value="active" />
-                                <Tab label="Draft" value="draft" />
+                                {localStorage.getItem('type') == 0 && <Tab label="Invited" value="invited" />}
+                                {localStorage.getItem('type') == 1 && <Tab label="Draft" value="draft" />}
                                 <Tab label="Recently filled" value="recently-filled" />
                             </TabList>
                         </Box>

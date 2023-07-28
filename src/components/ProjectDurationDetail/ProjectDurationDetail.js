@@ -13,6 +13,7 @@ import Cookie from 'js-cookie';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PROJECT } from '../../constants/projectConstant';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -27,7 +28,7 @@ const ProjectDurationDetail = () => {
         projectDuration: null,
         hourePerWeek: null,
         projectId: parseInt(localStorage.getItem('projectId')),
-        isPublished: true
+        isPublished: false
     })
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
@@ -78,9 +79,9 @@ const ProjectDurationDetail = () => {
                                     experienceNeeded: parseInt(e.target.value),
                                 })
                             }}>
-                            <FormControlLabel value="0" control={<Radio />} label="Entry" />
-                            <FormControlLabel value="1" control={<Radio />} label="Intermediate" />
-                            <FormControlLabel value="2" control={<Radio />} label="Expert" />
+                            {PROJECT.EXPERIENCE_LEVEL.map((data) => {
+                                return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                            })}
                         </RadioGroup>
                     </FormControl>
                     <FormControl className="w-25">
@@ -93,10 +94,9 @@ const ProjectDurationDetail = () => {
                                     projectDuration: parseInt(e.target.value),
                                 })
                             }}>
-                            <FormControlLabel value="0" control={<Radio />} label="less than 1 months" />
-                            <FormControlLabel value="1" control={<Radio />} label="1 to 3 months" />
-                            <FormControlLabel value="3" control={<Radio />} label="3 to 6 months" />
-                            <FormControlLabel value="6" control={<Radio />} label="More than 6 months" />
+                            {PROJECT.PROJECT_DURATION.map((data) => {
+                                return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                            })}
                         </RadioGroup>
                     </FormControl>
                     <FormControl className="w-25">
@@ -109,9 +109,9 @@ const ProjectDurationDetail = () => {
                                     hourePerWeek: parseInt(e.target.value),
                                 })
                             }}>
-                            <FormControlLabel value="0" control={<Radio />} label="I'm not sure" />
-                            <FormControlLabel value="1" control={<Radio />} label="Less than 30 hrs/week" />
-                            <FormControlLabel value="2" control={<Radio />} label="More than 30 hrs/week" />
+                            {PROJECT.HOUR_PER_WEEK.map((data) => {
+                                return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                            })}
                         </RadioGroup>
                     </FormControl>
                 </Box>

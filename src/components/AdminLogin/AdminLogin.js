@@ -32,10 +32,10 @@ const AdminLogin = () => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.type)
             navigate("/adminProfile")
-            debugger;
+                ;
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleLogin = async (e) => {

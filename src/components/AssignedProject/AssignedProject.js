@@ -9,7 +9,7 @@ const AssignedProject = () => {
         onSuccess: (response) => {
             console.log(response);
             setAssignedProjectList(response.data.data);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);

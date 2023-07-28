@@ -8,6 +8,7 @@ import AddProjectDialog from '../AddProjectDialog/AddProjectDialog';
 import { request } from '../../utils/axios-utils';
 import { useMutation } from 'react-query';
 import Cookie from 'js-cookie';
+import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
 const ProjectDetail = () => {
     const [addProjectDialogStatus, setAddProjectDialogStatus] = useState({
         status: false,
@@ -19,13 +20,16 @@ const ProjectDetail = () => {
         description: "",
     })
     const [projectList, setProjectList] = useState([]);
+    const [deleteFreelancerProjectDialogControl, setDeleteFreelancerProjectDialogControl] = useState({
+        status: false, id: null
+    })
     const handleDialogClose = () => {
         setAddProjectDialogStatus({ ...addProjectDialogStatus, status: false });
     }
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);
@@ -43,6 +47,26 @@ const ProjectDetail = () => {
     useEffect(() => {
         handleGetProjectList();
     }, [])
+    const handleClose = () => {
+        setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: false })
+    }
+    const { mutate: DeleteFreelancerProject } = useMutation(request, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+        }
+    });
+    const handleDeleteFreelancerProject = async (id) => {
+        await DeleteFreelancerProject({
+            url: '/user/freelancer/project',
+            method: 'delete',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+            data: { projectId: id },
+        })
+    }
     return (
         <>
             <Box className="main_section">
@@ -60,9 +84,16 @@ const ProjectDetail = () => {
                             <Box className="d-flex justify-content-between align-items-center">
                                 <Typography variant='subtitle1'>{data.title}</Typography>
                                 <Box>
-                                    <Button className="project_detail_box_button"><EditRoundedIcon /></Button>
-                                    <Button className="project_detail_box_button"><DeleteOutlineRoundedIcon />
-                                    </Button>
+                                    <EditRoundedIcon onClick={() => {
+                                        setAddProjectDialogStatus({
+                                            ...addProjectDialogStatus,
+                                            status: true,
+                                            id: data.id
+                                        });
+                                    }} className='circular_icon' />
+                                    <DeleteOutlineRoundedIcon onClick={() => {
+                                        setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: true, id: data.id });
+                                    }} className='circular_icon' />
                                 </Box>
                             </Box>
                         </Box>
@@ -70,6 +101,8 @@ const ProjectDetail = () => {
                 </Box>
             </Box>
             <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleDialogClose} />
+
+            <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
         </ >
     )
 }

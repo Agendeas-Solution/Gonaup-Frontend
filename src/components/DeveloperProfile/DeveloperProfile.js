@@ -21,6 +21,7 @@ import AddExperienceDialog from '../AddExperienceDialog/AddExperienceDialog';
 import DeleteExperienceDialog from '../DeleteExperienceDialog/DeleteExperienceDialog';
 import AddProjectDialog from '../AddProjectDialog/AddProjectDialog';
 import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
+import ProjectDetailDialog from './ProjectDetailDialog';
 const DeveloperProfile = () => {
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
@@ -66,6 +67,9 @@ const DeveloperProfile = () => {
     const [deleteFreelancerProjectDialogControl, setDeleteFreelancerProjectDialogControl] = useState({
         status: false, id: null
     })
+    const [projectDetailDialogControl, setProjectDetailDialogControl] = useState({
+        status: false,
+    })
     const [experienceDetail, setExperienceDetail] = useState({
         title: null,
         company: null,
@@ -92,7 +96,6 @@ const DeveloperProfile = () => {
             setAddExperienceDialogStatus(false)
         },
         onError: (err) => {
-            debugger;
         }
     });
     const { mutate: DeleteExperience } = useMutation(request, {
@@ -100,7 +103,6 @@ const DeveloperProfile = () => {
             setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
         },
         onError: (err) => {
-            debugger;
         }
     });
     const handleDeleteExperience = async (id) => {
@@ -151,7 +153,7 @@ const DeveloperProfile = () => {
             })
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleAddEducationDetail = async () => {
@@ -180,7 +182,7 @@ const DeveloperProfile = () => {
             setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleDeleteEducation = async (id) => {
@@ -272,6 +274,7 @@ const DeveloperProfile = () => {
         setAddEducationDialogStatus(false)
         setAddExperienceDialogStatus(false);
         setDeleteExperienceDialogStatus(false);
+        setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
         setAddProjectDialogStatus({ ...addProjectDialogStatus, status: false });
         setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: false })
     }
@@ -570,7 +573,7 @@ const DeveloperProfile = () => {
                                                         dateTo: data.date_to,
                                                         id: data.id
                                                     });
-                                                    debugger;
+                                                    ;
                                                 }} className='circular_icon' />
                                                 <Button className="circular_icon"><DeleteRoundedIcon className="circular_icon"
                                                     onClick={() => {
@@ -644,7 +647,9 @@ const DeveloperProfile = () => {
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
                             return <Card className="d-flex row" sx={{ maxWidth: "33%" }}>
-                                <img
+                                <img onClick={() => {
+                                    setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
+                                }}
                                     src={data.project_image_url}
                                 />
                                 <Box className="d-flex">
@@ -698,6 +703,8 @@ const DeveloperProfile = () => {
             <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleClose} />
 
             <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
+
+            <ProjectDetailDialog projectDetailDialogControl={projectDetailDialogControl} handleClose={handleClose} />
         </>
     )
 }

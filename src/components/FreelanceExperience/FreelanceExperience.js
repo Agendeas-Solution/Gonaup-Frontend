@@ -30,7 +30,7 @@ const FreelanceExperience = () => {
     const { mutate: GetFrameWorkList } = useMutation(request, {
         onSuccess: (res) => {
             setFrameWorkList(res.data.data)
-            debugger;
+                ;
         },
         onError: (err) => {
             console.log(err);
@@ -38,7 +38,7 @@ const FreelanceExperience = () => {
     });
     const { mutate: AddFreeLanceExperience } = useMutation(request, {
         onSuccess: (res) => {
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);

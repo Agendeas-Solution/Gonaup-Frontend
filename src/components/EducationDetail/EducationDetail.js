@@ -52,7 +52,7 @@ const EducationDetail = () => {
         onSuccess: (res) => {
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleAddEducationDetail = async () => {
@@ -78,7 +78,7 @@ const EducationDetail = () => {
             setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleDeleteEducation = async (id) => {
@@ -108,11 +108,24 @@ const EducationDetail = () => {
                                 <Box className="d-flex w-100 justify-content-between align-items-center">
                                     <Typography variant='subtitle1'>{data.school}</Typography>
                                     <Box>
-                                        <Button className="Education_detail_box_button"><EditRoundedIcon /></Button>
+                                        <Button className="Education_detail_box_button"><EditRoundedIcon
+                                            onClick={() => {
+                                                setAddEducationDialogStatus(true)
+                                                setEducationDetail({
+                                                    ...educationDetail,
+                                                    school: data.school,
+                                                    degree: data.degree,
+                                                    studyIn: data.study_in,
+                                                    description: data.description,
+                                                    dateFrom: data.date_from,
+                                                    dateTo: data.date_to,
+                                                    id: data.id
+                                                });
+                                            }}
+                                        /></Button>
                                         <Button className="Education_detail_box_button"><DeleteOutlineRoundedIcon
                                             onClick={() => {
                                                 setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: true, id: data.id })
-                                                debugger;
                                             }}
                                         />
                                         </Button>
@@ -124,7 +137,6 @@ const EducationDetail = () => {
                             </Box>
                         </Box>
                     })}
-
                 </Box>
                 <AddEducationDialog addEducationDialogStatus={addEducationDialogStatus}
                     handleClose={handleClose} educationDetail={educationDetail} setEducationDetail={setEducationDetail} handleAddEducationDetail={handleAddEducationDetail} />

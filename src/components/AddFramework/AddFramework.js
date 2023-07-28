@@ -15,7 +15,7 @@ const AddFramework = () => {
                 Authorization: `${Cookie.get('userToken')}`,
             },
             onSuccess: (res) => {
-                debugger;
+                ;
             },
             onError: (res) => {
 

@@ -18,18 +18,33 @@ import { setLoginToken } from '../../hooks/storage'
 import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import Header from '../Header/Header'
+import { PERMISSION } from '../../constants/permissionConstant'
 const Login = () => {
     const [userDetail, setUserDetail] = useState({
         email: '',
         password: '',
     })
     const navigate = useNavigate()
+    const handleLoginRoute = (loginDetail) => {
+        if ((loginDetail?.usedDetails?.type === 0 || loginDetail?.usedDetails?.type === 1 || loginDetail?.usedDetails?.type === 2) && loginDetail?.usedDetails?.signupCompleted === 0) {
+            navigate("/companydetail")
+        }
+        else if (loginDetail?.usedDetails?.type === 0) {
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        }
+        else if (loginDetail?.usedDetails?.type === 1) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        }
+        else if (loginDetail?.usedDetails?.type === 2) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        }
+    }
     const { mutate } = useMutation(request, {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
-            res?.data?.data?.usedDetails?.type === 0 ? navigate("/userProfile") : navigate("/adminProfile")
+            handleLoginRoute(res.data.data);
         },
         onError: (err) => {
 

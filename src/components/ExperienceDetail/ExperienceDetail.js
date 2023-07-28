@@ -53,7 +53,7 @@ const ExperienceDetail = () => {
             setAddExperienceDialogStatus(false)
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const { mutate: DeleteExperience } = useMutation(request, {
@@ -61,7 +61,7 @@ const ExperienceDetail = () => {
             setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
         },
         onError: (err) => {
-            debugger;
+            ;
         }
     });
     const handleDeleteExperience = async (id) => {
@@ -117,6 +117,21 @@ const ExperienceDetail = () => {
                                     </Box>
                                     <Box>
                                         <Button className="Education_detail_box_button"><EditRoundedIcon
+                                            onClick={() => {
+                                                setAddExperienceDialogStatus(true);
+                                                setExperienceDetail({
+                                                    ...experienceDetail,
+                                                    id: data.id,
+                                                    title: data.title,
+                                                    company: data.company,
+                                                    country: { name: data.country_name, id: data.country_id },
+                                                    isWorking: data.isWorking,
+                                                    cityName: data.city_name,
+                                                    workingFrom: data.working_from,
+                                                    workgingTo: data.working_to,
+                                                    description: data.description
+                                                })
+                                            }}
                                         /></Button>
                                         <Button className="Education_detail_box_button"
                                             onClick={() => {

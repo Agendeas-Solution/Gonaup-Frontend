@@ -14,7 +14,7 @@ const DeveloperHomePage = () => {
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);

@@ -81,7 +81,7 @@ const SkillDetail = () => {
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);

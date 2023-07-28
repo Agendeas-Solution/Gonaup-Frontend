@@ -44,7 +44,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);

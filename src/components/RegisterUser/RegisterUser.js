@@ -7,30 +7,25 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { REGISTER } from '../../constants/registerConstant'
-// import './index.css'
+import './index.css'
 import { useMutation } from 'react-query'
-import { request, handleApiCountryStateCityGetCall } from '../../utils/axios-utils'
+import { request } from '../../utils/axios-utils'
 import { Link, useNavigate } from 'react-router-dom'
-const ClientRegister = () => {
+import { useLocation } from 'react-router-dom';
+const RegisterUser = () => {
     const [values, setValues] = useState({
         email: '',
         showPassword: false,
     })
+    const location = useLocation();
+    const routePath = location.pathname;
+
     const navigate = useNavigate();
     const [registerData, setRegisterData] = useState({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
-    })
-    const [cityList, setCityList] = useState([])
-    const [stateList, setStateList] = useState([])
-    const [countryList, setCountryList] = useState([])
-    const [otpValue, setOtpValue] = useState({
-        value: null,
-        emailVerifyStatus: false,
-        otpVerifyStatus: false,
     })
     const { mutate } = useMutation(request);
     const handleRegister = async (e) => {
@@ -40,13 +35,11 @@ const ClientRegister = () => {
             email: registerData.email,
             password: registerData.password,
         }
-
         await mutate({
-            url: '/auth/freelancer/signup',
+            url: routePath === "/clientregister" ? '/auth/client/signup' : routePath === "/freelancerregister" ? '/auth/freelancer/signup' : "/auth/recruiter/signup",
             method: 'post',
             data: data,
             onSuccess: (response, variables) => {
-                console.log(variables);
                 navigate('/login')
             },
             onError: (response) => {
@@ -54,10 +47,6 @@ const ClientRegister = () => {
             }
         })
     };
-    const filterOptions = createFilterOptions({
-        matchFrom: 'start',
-        stringify: option => option?.name,
-    })
     const handleClickShowPassword = () => {
         setValues({
             ...values,
@@ -66,54 +55,6 @@ const ClientRegister = () => {
     }
     const handleMouseDownPassword = event => {
         event.preventDefault()
-    }
-    const handleSentOtp = () => {
-        // SentOtp(
-        //     { email: registerData?.email },
-        //     res => {
-        //         if (res.success) {
-        //             setOtpValue({
-        //                 ...otpValue,
-        //                 emailVerifyStatus: true,
-        //             })
-        //             // setSuccessSnackbar({
-        //             //     ...successSnackbar,
-        //             //     message: res?.message,
-        //             //     status: true,
-        //             // })
-        //         }
-        //     },
-        //     err => {
-        //         // setErrorSnackbar({
-        //         //     ...errorSnackbar,
-        //         //     status: true,
-        //         //     message: err?.response?.data?.message,
-        //         // })
-        //     },
-        // )
-    }
-    const handleOtp = () => {
-        // VerifyOTP(
-        //     { email: registerData?.email, otp: otpValue.value },
-        //     res => {
-        //         setOtpValue({
-        //             ...otpValue,
-        //             otpVerifyStatus: true,
-        //         })
-        //         // setSuccessSnackbar({
-        //         //     ...successSnackbar,
-        //         //     message: res?.message,
-        //         //     status: true,
-        //         // })
-        //     },
-        //     err => {
-        //         // setErrorSnackbar({
-        //         //     ...errorSnackbar,
-        //         //     status: true,
-        //         //     message: err?.response?.data?.message,
-        //         // })
-        //     },
-        // )
     }
     return (
         <>
@@ -163,23 +104,6 @@ const ClientRegister = () => {
                                     onChange={e => {
                                         setRegisterData({ ...registerData, email: e.target.value })
                                     }}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <Button
-                                                    sx={{
-                                                        margin: '0px',
-                                                        backgroundColor: '#7ac144',
-                                                        boxShadow: 'none',
-                                                    }}
-                                                    variant="contained"
-                                                    onClick={handleSentOtp}
-                                                >
-                                                    Send Otp
-                                                </Button>
-                                            </InputAdornment>
-                                        ),
-                                    }}
                                 />
                             </Box>
                             <Box className="register_page_fields">
@@ -223,45 +147,6 @@ const ClientRegister = () => {
                                     />
                                 </Box>
                             </Box>
-                            {/* <Box className="register_page_fields">
-                                <TextField
-                                    className="register_input_fields"
-                                    label="Freelance Profile"
-                                    placeholder="Freelance Profile"
-                                    value={registerData?.freelanceProfile
-                                    }
-                                    onChange={e => {
-                                        setRegisterData({ ...registerData, freelanceProfile: e.target.value })
-                                    }}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    className="register_input_fields"
-                                    label="Linkedin Profile"
-                                    placeholder="Linkedin Profile"
-                                    value={registerData?.linkedinProfile}
-                                    onChange={e => {
-                                        setRegisterData({ ...registerData, linkedinProfile: e.target.value })
-                                    }}
-                                    variant="outlined"
-                                />
-                            </Box> */}
-                            {/* <Box className="register_page_fields">
-                                <TextField
-                                    className="register_input_fields"
-                                    label="Contact No"
-                                    placeholder="ContactNo"
-                                    type="number"
-                                    value={registerData?.contact_number}
-                                    onChange={e => {
-                                        setRegisterData({
-                                            ...registerData,
-                                            contact_number: e.target.value,
-                                        })
-                                    }}
-                                    variant="outlined"
-                                />
-                            </Box> */}
                             <FormGroup sx={{ marginTop: '10px' }}>
                                 <FormControlLabel
                                     control={
@@ -302,4 +187,4 @@ const ClientRegister = () => {
     )
 }
 
-export default ClientRegister
+export default RegisterUser

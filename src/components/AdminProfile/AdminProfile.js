@@ -8,7 +8,7 @@ const AdminProfile = () => {
     const { mutate } = useMutation(requestAdmin, {
         onSuccess: (response) => {
             setUserDetail(response.data.data);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);

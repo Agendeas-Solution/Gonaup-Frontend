@@ -39,7 +39,7 @@ const JobDetail = () => {
     //Add Project Title
     const { mutate: AddProjectTitle } = useMutation(request, {
         onSuccess: (res) => {
-            debugger;
+            ;
         },
         onError: (err) => {
             console.log(err);

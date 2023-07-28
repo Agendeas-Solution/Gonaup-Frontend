@@ -12,7 +12,7 @@ const ProjectList = () => {
         onSuccess: (response) => {
             console.log(response);
             setProjectDetail(response.data.data);
-            debugger
+
         },
         onError: (err) => {
             console.log(err);

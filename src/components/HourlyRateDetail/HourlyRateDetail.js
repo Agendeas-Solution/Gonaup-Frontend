@@ -22,7 +22,7 @@ const HourlyRateDetail = () => {
     const { mutate: AddHourlyRate } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            debugger
+
         },
         onError: (response) => {
             console.log(response);

@@ -59,6 +59,9 @@ const ActiveJobs = ({ projectList }) => {
                             else if (parseInt(type) === 1) {
                                 navigate(`/clientprojectdetails/${data.id}`);
                             }
+                            else if (parseInt(type) === 2) {
+                                navigate(`/recruiterprojectdetails/${data.id}`);
+                            }
                         }}
                     >
                         {

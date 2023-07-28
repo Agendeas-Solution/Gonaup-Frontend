@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import React from 'react'
 
 const FreelancerApplyJobDialog = ({ setFreelancerApplyJobDialogControl, freelancerApplyJobDialogControl, handleApplyProject, handleDialogClose }) => {
@@ -10,10 +10,12 @@ const FreelancerApplyJobDialog = ({ setFreelancerApplyJobDialogControl, freelanc
                 sx={{ width: "75%", maxWidth: "auto", margin: "0 auto" }}
             >
                 <DialogTitle>
-                    Add Project
+                    Apply For Job
                 </DialogTitle>
                 <DialogContent>
                     <Box>
+                        <Typography variant="span">Are you sure, Do you want to apply for this
+                            job?</Typography>
                         <Box className="add_project_textfield">
                             <TextField
                                 value={freelancerApplyJobDialogControl.bidAmount}
