@@ -20,7 +20,6 @@ import ClientHomePage from '../ClientHomePage/ClientHomePage'
 import ClientProjectDetails from '../ClientProjectDetails/ClientProjectDetails'
 import EditClientProjectDetails from '../EditClientProjectDetails/EditClientProjectDetails'
 import ClientProfile from '../ClientProfile/ClientProfile'
-import EditClientProfile from '../EditClientProfile/EditClientProfile'
 import DeveloperHomePage from '../DeveloperHomePage/DeveloperHomePage'
 import DeveloperJobDetail from '../DeveloperJobDetail/DeveloperJobDetail'
 import DeveloperProfile from '../DeveloperProfile/DeveloperProfile'
@@ -42,7 +41,6 @@ const AppContent = () => {
                 <Routes>
                     <Route path="/join" element={<JoiningPage />}>   </Route>
                     <Route path='/companydetail' element={<CompanyDetail />}></Route>
-
                     {/* Developer Routes */}
                     {localStorage.getItem('type') == 0 &&
                         <>
@@ -58,13 +56,11 @@ const AppContent = () => {
                             <Route path='/freelanceExperience' element={<FreelanceExperience />}></Route>
                             <Route path='/freelanceExperienceList' element={<FreelanceExperienceList />}></Route>
                             <Route path="/developerhomepage" element={<ClientHomePage />}></Route>
-                            {/* <Route path='/developerjobdetail/:id' element={<DeveloperJobDetail />}></Route> */}
                             <Route path='/freelancerprojectdetails/:id' element={<ClientProjectDetails />}></Route>
                             <Route path="/developerprofile" element={<DeveloperProfile />}></Route>
                             <Route path='/notification' element={<Notification />}></Route>
                             <Route path="/developersetting" element={<DeveloperSetting />}></Route>
                         </>}
-
                     {/* Client Routes */}
                     {localStorage.getItem('type') == 1 &&
                         <>
@@ -84,11 +80,9 @@ const AppContent = () => {
                             <Route path='/clientprojectdetails/:id' element={<ClientProjectDetails />}></Route>
                             <Route path='/editclientprojectdetails/:id' element={<EditClientProjectDetails />}></Route>
                             <Route path='/clientprofile' element={<ClientProfile />}></Route>
-                            <Route path="/editclientprofile/:id" element={<EditClientProfile />}></Route>
                             <Route path="/clientprofiledetail" element={<ClientProfileDetail />}></Route>
                         </>
                     }
-
                     {/* Recruiter Routes */}
                     {localStorage.getItem('type') == 2 &&
                         <>
@@ -97,7 +91,6 @@ const AppContent = () => {
                             <Route path="/recruiterhomepage" element={<ClientHomePage />}></Route>
                             <Route path="/jobdetail" element={<JobDetail />}></Route>
                             <Route path="/recruiterprojectdetails/:id" element={<ClientProjectDetails />}></Route>
-                            <Route path='/editrecruiterprojectdetails/:id' element={<EditClientProjectDetails />}></Route>
                             <Route path='/clientprofile' element={<ClientProfile />}></Route>
                         </>
                     }

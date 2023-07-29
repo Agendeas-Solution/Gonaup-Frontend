@@ -277,6 +277,7 @@ const DeveloperProfile = () => {
         setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
         setAddProjectDialogStatus({ ...addProjectDialogStatus, status: false });
         setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: false })
+        setProjectDetailDialogControl({ ...projectDetailDialogControl, status: false })
     }
     const { mutate: EditRoleAndOverview } = useMutation(request, {
         onSuccess: (res) => {
