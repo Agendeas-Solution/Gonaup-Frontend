@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.css'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
@@ -13,6 +13,23 @@ const CompanyDetail = () => {
         linkdinProfile: "",
         size: ""
     })
+    const { mutate: GetFreelancerStep } = useMutation(request, {
+        onSuccess: (res) => {
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleGetFreelancerStep = async (e) => {
+        await GetFreelancerStep({
+            url: '/user/freelancer/steps',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+
     const { mutate: AddCompany } = useMutation(request, {
         onSuccess: (res) => {
 
@@ -31,6 +48,9 @@ const CompanyDetail = () => {
             },
         })
     }
+    useEffect(() => {
+        handleGetFreelancerStep();
+    }, [])
     return (
         <>
             <Box className='main_section'>

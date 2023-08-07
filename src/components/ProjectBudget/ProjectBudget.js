@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import Header from '../Header/Header'
 import { Box, InputLabel, TextField, Typography, Chip, FormControl, RadioGroup, FormControlLabel, Radio, Divider, Button } from '@mui/material'
 import './index.css';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -26,10 +25,15 @@ const ProjectBudget = () => {
         maxHourlyRate: null,
         fixedBudget: null
     });
+    const navigate = useNavigate();
 
     //Update Password
     const { mutate: UpdateProjectBudget } = useMutation(request, {
         onSuccess: (res) => {
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+                + 1].path)
+            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+                + 1)
         },
         onError: (err) => {
             console.log(err);

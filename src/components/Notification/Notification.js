@@ -43,15 +43,6 @@ const Notification = () => {
                         </Box>
                     })
                 }
-
-                <Divider className="mt-2" />
-                <Box className="d-flex column align-items-center">
-                    <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                    <Box className="d-flex row" sx={{ marginLeft: "10px" }}>
-                        <Typography variant="span">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been.</Typography>
-                        <Typography className="sub_heading" variant="span">May 11, 2023</Typography>
-                    </Box>
-                </Box>
                 <Divider className="mt-2" />
             </Box>
         </>

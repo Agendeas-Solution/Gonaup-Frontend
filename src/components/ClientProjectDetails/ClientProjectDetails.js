@@ -111,7 +111,7 @@ const ClientProjectDetails = () => {
                                     <Typography className='mx-1 project_detail_heading'>
                                         {
                                             projectDetail.budget_type === 0 ?
-                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + "to" + projectDetail.max_hourly_budget
+                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + "to" + projectDetail.max_hourly_budget + "/hr"
                                         }
                                     </Typography>
                                     <Typography className='project_detail_sub_heading'>Budget</Typography>

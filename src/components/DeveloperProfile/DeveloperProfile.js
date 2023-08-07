@@ -648,22 +648,25 @@ const DeveloperProfile = () => {
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
                             return <Card className="d-flex row" sx={{ maxWidth: "33%" }}>
-                                <img onClick={() => {
-                                    setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
-                                }}
+                                <img
+                                    onClick={() => {
+                                        setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
+                                    }}
                                     src={data.project_image_url}
                                 />
                                 <Box className="d-flex">
                                     <Typography className="developer_main_heading m-2" variant="span">
                                         {data.title}
                                     </Typography>
-                                    <EditRoundedIcon onClick={() => {
-                                        setAddProjectDialogStatus({
-                                            ...addProjectDialogStatus,
-                                            status: true,
-                                            id: data.id
-                                        });
-                                    }} className='circular_icon' />
+                                    <EditRoundedIcon
+                                        onClick={() => {
+                                            setAddProjectDialogStatus({
+                                                ...addProjectDialogStatus,
+                                                status: true,
+                                                id: data.id
+                                            });
+                                        }}
+                                        className='circular_icon' />
                                     <DeleteRoundedIcon onClick={() => {
                                         setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: true, id: data.id });
                                     }} className='circular_icon' />

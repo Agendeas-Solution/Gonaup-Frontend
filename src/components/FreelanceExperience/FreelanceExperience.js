@@ -163,4 +163,4 @@ const FreelanceExperience = () => {
     )
 }
 
-export default FreelanceExperience
+export default FreelanceExperience;

@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -22,6 +24,7 @@ const ServiceDetail = () => {
         professionalRole: "Sr. Software Eng.",
         description: "My Description"
     })
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -39,7 +42,10 @@ const ServiceDetail = () => {
     const { mutate: AddProfileLinks } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+                + 1].path)
+            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+                + 1)
         },
         onError: (response) => {
             console.log(response);

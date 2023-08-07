@@ -6,3 +6,7 @@
 .company_logo img {
   width: 7rem;
 }
+.user_profession_detail {
+  display: flex;
+  flex-direction: column;
+}

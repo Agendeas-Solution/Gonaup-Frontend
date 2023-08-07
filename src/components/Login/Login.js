@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Typography,
@@ -25,33 +25,77 @@ const Login = () => {
         password: '',
     })
     const navigate = useNavigate()
-    const handleLoginRoute = (loginDetail) => {
-        if ((loginDetail?.usedDetails?.type === 0 || loginDetail?.usedDetails?.type === 1 || loginDetail?.usedDetails?.type === 2) && loginDetail?.usedDetails?.signupCompleted === 0) {
+    const handleLoginRoute = (loginStep) => {
+        const storedData = localStorage.getItem('loginDetail');
+        const loginDetail = JSON.parse(storedData);
+        console.log("Printing LoginDetail", loginDetail?.usedDetails?.type === 0);
+        debugger
+        if ((loginDetail?.usedDetails?.type == 0 || loginDetail?.usedDetails?.type == 1 || loginDetail?.usedDetails?.type == 2) && loginDetail?.usedDetails?.signupCompleted == 1) {
             navigate("/companydetail")
         }
-        else if (loginDetail?.usedDetails?.type === 0) {
-            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        else if (loginDetail?.usedDetails?.type == 0) {
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+            debugger;
         }
-        else if (loginDetail?.usedDetails?.type === 1) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        else if (loginDetail?.usedDetails?.type == 1) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+            debugger;
         }
-        else if (loginDetail?.usedDetails?.type === 2) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        else if (loginDetail?.usedDetails?.type == 2) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+            debugger;
         }
     }
-    const { mutate } = useMutation(request, {
+    const { mutate: Login } = useMutation(request, {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
+            const dataToStore = JSON.stringify(res?.data?.data);
+            localStorage.setItem('loginDetail', dataToStore);
+            handleGetAccountList();
+            if (res?.data?.data?.usedDetails?.signupCompleted == 0) {
+                handleGetFreelancerSteps()
+            }
+        },
+        onError: (err) => {
+        }
+    });
+    const { mutate: GetAccountList } = useMutation(request, {
+        onSuccess: (res) => {
+            const dataToStore = JSON.stringify(res?.data?.data);
+            localStorage.setItem('accountList', dataToStore);
+        },
+        onError: (err) => {
+        }
+    });
+    const handleGetAccountList = async (e) => {
+        await GetAccountList({
+            url: '/auth/accounts',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+    const { mutate: GetFreelancerSteps } = useMutation(request, {
+        onSuccess: (res) => {
             handleLoginRoute(res.data.data);
         },
         onError: (err) => {
-
         }
     });
+    const handleGetFreelancerSteps = async () => {
+        await GetFreelancerSteps({
+            url: '/user/freelancer/steps',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
     const handleLogin = async (e) => {
-        await mutate({
+        await Login({
             url: '/auth/login',
             method: 'post',
             data: userDetail,

@@ -9,6 +9,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -26,6 +28,7 @@ const ClientSkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const navigate = useNavigate();
     const { mutate: GetServiceList } = useMutation(request, {
         onSuccess: (res) => {
             setServiceSkillList((prevState) => ({
@@ -86,7 +89,11 @@ const ClientSkillDetail = () => {
     //Add Skill and Services
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+                + 1].path)
+            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+                + 1)
+                ;
         },
         onError: (err) => {
             console.log(err);

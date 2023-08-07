@@ -1,5 +1,5 @@
-import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -7,9 +7,10 @@ import DoneIcon from '@mui/icons-material/Done';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import { RMIUploader } from "react-multiple-image-uploader";
 import Cookie from 'js-cookie';
-const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose }) => {
+import { useNavigate } from 'react-router-dom';
+const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, }) => {
+    // const navigate = useNavigate();
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
         skills: []
@@ -44,7 +45,10 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+            // navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+            //     + 1].path)
+            // localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+            //     + 1)
         },
         onError: (err) => {
             console.log(err);

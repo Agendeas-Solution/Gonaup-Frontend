@@ -8,6 +8,8 @@ import './index.css';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -25,6 +27,7 @@ const SkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -80,8 +83,10 @@ const SkillDetail = () => {
 
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
-
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+                + 1].path)
+            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+                + 1)
         },
         onError: (response) => {
             console.log(response);

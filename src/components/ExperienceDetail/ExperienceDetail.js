@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import './index.css';
 import EducationLogo from '../../assets/images/education.svg'
@@ -8,16 +8,24 @@ import AddExperienceDialog from '../AddExperienceDialog/AddExperienceDialog';
 import DeleteExperienceDialog from '../DeleteExperienceDialog/DeleteExperienceDialog';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
+import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
+// import { useNavigate } from 'react-router-dom';
+// import { handleNextDeveloper } from '../../hooks/storage';
+const theme = createTheme({
+    palette: {
+        secondary: {
+            main: '#0971f1',
+            darker: '#053e85',
+        },
+    },
+});
 const ExperienceDetail = () => {
     const [addExperienceDialogStatus, setAddExperienceDialogStatus] = useState(false);
-    const handleClose = () => {
-        setAddExperienceDialogStatus(false);
-        setDeleteExperienceDialogStatus(false);
-    };
     const [deleteExperienceDialogStatus, setDeleteExperienceDialogStatus] = useState({
         status: false, id: null
     })
+    // const navigate = useNavigate()
     const [experienceDetail, setExperienceDetail] = useState({
         title: null,
         company: null,
@@ -31,6 +39,10 @@ const ExperienceDetail = () => {
         description: null
     });
     const [experienceList, setExperienceList] = useState([])
+    const handleClose = () => {
+        setAddExperienceDialogStatus(false);
+        setDeleteExperienceDialogStatus(false);
+    };
     const { mutate: GetExperienceList } = useMutation(request, {
         onSuccess: (res) => {
             setExperienceList(res.data.data)
@@ -51,6 +63,7 @@ const ExperienceDetail = () => {
     const { mutate: AddFreelancerExperience } = useMutation(request, {
         onSuccess: (res) => {
             setAddExperienceDialogStatus(false)
+
         },
         onError: (err) => {
             ;
@@ -61,7 +74,6 @@ const ExperienceDetail = () => {
             setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
         },
         onError: (err) => {
-            ;
         }
     });
     const handleDeleteExperience = async (id) => {
@@ -96,6 +108,20 @@ const ExperienceDetail = () => {
             data: data,
         })
     }
+    function LinearProgressWithLabel(props) {
+        return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: '100%', mr: 1 }}>
+                    <ThemeProvider theme={theme}>
+                        <LinearProgress color="secondary" variant="determinate" {...props} />
+                    </ThemeProvider>
+                </Box>
+            </Box>
+        );
+    }
+    LinearProgressWithLabel.propTypes = {
+        value: PropTypes.number.isRequired,
+    };
     return (
         <>
             <Box className="main_section">
@@ -152,6 +178,10 @@ const ExperienceDetail = () => {
                     deleteExperienceDialogStatus={deleteExperienceDialogStatus}
                     handleClose={handleClose} handleDeleteExperience={handleDeleteExperience}
                 />
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgressWithLabel value={10} />
+                    {/* <Button onClick={() => handleNextDeveloper(navigate)} className="save_button">Next</Button> */}
+                </Box>
             </Box >
         </ >
     )

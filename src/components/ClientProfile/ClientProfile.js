@@ -554,56 +554,57 @@ const ClientProfile = () => {
                     <Button onClick={handleUpdateProfileDetail} className="save_button">Save</Button>
                     <Button onClick={handleEditCompanyContactDetail} className="cancel_button">Cancel</Button>
                 </Box>
-            </Box> : <Box className="client_profile_main_section">
-                <Box className="d-flex justify-content-between p-4">
-                    <Typography className="profile_section_heading" variant="span">Company contacts</Typography>
-                    <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon" />
-                </Box>
-                <Box className="d-flex row">
-                    <Box className="d-flex column w-50 align-items-end p-3" >
-                        <Box className="d-flex row px-2">
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Phone</Typography>
-                                <Typography variant='span' className='profile_section_heading'>
-                                    {clientDetail?.contact_number}</Typography>
+            </Box> :
+                <Box className="client_profile_main_section">
+                    <Box className="d-flex justify-content-between p-4">
+                        <Typography className="profile_section_heading" variant="span">Company contacts</Typography>
+                        <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon" />
+                    </Box>
+                    <Box className="d-flex row">
+                        <Box className="d-flex column w-50 align-items-end p-3" >
+                            <Box className="d-flex row px-2">
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Phone</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>
+                                        {clientDetail?.contact_number}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Country </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>
+                                        {clientDetail?.country_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>State </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.state_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Address </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{
+                                        clientDetail?.address
+                                    }</Typography>
+                                </Box>
                             </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Country </Typography>
-                                <Typography variant='span' className='profile_section_heading'>
-                                    {clientDetail?.country_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>State </Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.state_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Address </Typography>
-                                <Typography variant='span' className='profile_section_heading'>{
-                                    clientDetail?.address
-                                }</Typography>
+                        </Box>
+                        <Box className="d-flex column w-50 align-items-end p-3 ">
+                            <Box className="d-flex row px-2">
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{
+                                        clientDetail?.skype_id
+                                    }</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>City</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.city_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Zip/Postal Code</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.zip_code}</Typography>
+                                </Box>
                             </Box>
                         </Box>
                     </Box>
-                    <Box className="d-flex column w-50 align-items-end p-3 ">
-                        <Box className="d-flex row px-2">
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{
-                                    clientDetail?.skype_id
-                                }</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>City</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.city_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Zip/Postal Code</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.zip_code}</Typography>
-                            </Box>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>}
+                </Box>}
         </>
     )
 }
