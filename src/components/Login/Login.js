@@ -14,7 +14,7 @@ import Logo from '../../assets/images/logo.svg'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
-import { setLoginToken } from '../../hooks/storage'
+import { setLoginToken, setUserType } from '../../hooks/storage'
 import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import Header from '../Header/Header'
@@ -28,34 +28,47 @@ const Login = () => {
     const handleLoginRoute = (loginStep) => {
         const storedData = localStorage.getItem('loginDetail');
         const loginDetail = JSON.parse(storedData);
-        console.log("Printing LoginDetail", loginDetail?.usedDetails?.type === 0);
-        debugger
-        if ((loginDetail?.usedDetails?.type == 0 || loginDetail?.usedDetails?.type == 1 || loginDetail?.usedDetails?.type == 2) && loginDetail?.usedDetails?.signupCompleted == 1) {
-            navigate("/companydetail")
+        if (loginDetail?.usedDetails?.signupCompleted == 1) {
+            if (loginDetail?.usedDetails?.type == 0 || loginDetail?.usedDetails?.hasCompany) {
+                navigate("/homepage")
+            }
+            else if (!loginDetail?.usedDetails?.hasCompany) {
+                navigate("/companydetail")
+            }
         }
         else if (loginDetail?.usedDetails?.type == 0) {
             navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
-            debugger;
+        }
+        else if (loginDetail?.usedDetails?.type == 1 && loginDetail?.usedDetails?.hasCompany) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
         }
         else if (loginDetail?.usedDetails?.type == 1) {
+            navigate("/companydetail")
+        }
+        else if (loginDetail?.usedDetails?.type == 2 && loginDetail?.usedDetails?.hasCompany) {
             navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
-            debugger;
         }
         else if (loginDetail?.usedDetails?.type == 2) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
-            debugger;
+            navigate("/companydetail")
         }
     }
     const { mutate: Login } = useMutation(request, {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
+            setUserType(res?.data?.data?.usedDetails?.type)
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
             const dataToStore = JSON.stringify(res?.data?.data);
             localStorage.setItem('loginDetail', dataToStore);
-            handleGetAccountList();
+            if (res?.data?.data?.usedDetails?.type == 0) {
+                handleGetAccountList();
+            }
             if (res?.data?.data?.usedDetails?.signupCompleted == 0) {
                 handleGetFreelancerSteps()
+                debugger;
+            }
+            else {
+                handleLoginRoute();
             }
         },
         onError: (err) => {
@@ -80,6 +93,7 @@ const Login = () => {
     }
     const { mutate: GetFreelancerSteps } = useMutation(request, {
         onSuccess: (res) => {
+            localStorage.setItem('stepStatus', res?.data?.data?.stepStatus - 1);
             handleLoginRoute(res.data.data);
         },
         onError: (err) => {

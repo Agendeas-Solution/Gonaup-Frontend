@@ -1,5 +1,5 @@
-import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import './index.css';
 import EducationLogo from '../../assets/images/education.svg'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -10,8 +10,8 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
-// import { useNavigate } from 'react-router-dom';
-// import { handleNextDeveloper } from '../../hooks/storage';
+import { useNavigate } from 'react-router-dom';
+import { handleNextDeveloper } from '../../hooks/storage';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -25,7 +25,7 @@ const ExperienceDetail = () => {
     const [deleteExperienceDialogStatus, setDeleteExperienceDialogStatus] = useState({
         status: false, id: null
     })
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [experienceDetail, setExperienceDetail] = useState({
         title: null,
         company: null,
@@ -180,7 +180,7 @@ const ExperienceDetail = () => {
                 />
                 <Box sx={{ width: '100%' }}>
                     <LinearProgressWithLabel value={10} />
-                    {/* <Button onClick={() => handleNextDeveloper(navigate)} className="save_button">Next</Button> */}
+                    <Button onClick={() => handleNextDeveloper(navigate)} className="save_button">Next</Button>
                 </Box>
             </Box >
         </ >

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie'
 import Uploader from '../Uploader/Uploader'
+import { useNavigate } from 'react-router-dom'
 
 const theme = createTheme({
     palette: {
@@ -30,6 +31,7 @@ const ProfileDetail = () => {
         skypeId: null,
     });
     const [imageUrl, setImageUrl] = useState();
+    const navigate = useNavigate();
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [cityList, setCityList] = useState([]);
@@ -106,8 +108,11 @@ const ProfileDetail = () => {
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
-
+            debugger;
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
+            debugger
+            navigate('/homepage')
         },
         onError: (response) => {
             console.log(response);

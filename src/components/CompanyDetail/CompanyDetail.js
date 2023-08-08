@@ -5,7 +5,9 @@ import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
 import Cookie from 'js-cookie'
 import { PROJECT } from '../../constants/projectConstant'
+import { useNavigate } from 'react-router-dom'
 const CompanyDetail = () => {
+    const navigate = useNavigate();
     const [companyDetail, setCompanyDetail] = useState({
         companyName: "",
         position: "",
@@ -13,22 +15,22 @@ const CompanyDetail = () => {
         linkdinProfile: "",
         size: ""
     })
-    const { mutate: GetFreelancerStep } = useMutation(request, {
-        onSuccess: (res) => {
-        },
-        onError: (err) => {
-            console.log(err);
-        }
-    });
-    const handleGetFreelancerStep = async (e) => {
-        await GetFreelancerStep({
-            url: '/user/freelancer/steps',
-            method: 'get',
-            headers: {
-                Authorization: `${Cookie.get('userToken')}`,
-            },
-        })
-    }
+    // const { mutate: GetFreelancerStep } = useMutation(request, {
+    //     onSuccess: (res) => {
+    //     },
+    //     onError: (err) => {
+    //         console.log(err);
+    //     }
+    // });
+    // const handleGetFreelancerStep = async (e) => {
+    //     await GetFreelancerStep({
+    //         url: '/user/freelancer/steps',
+    //         method: 'get',
+    //         headers: {
+    //             Authorization: `${Cookie.get('userToken')}`,
+    //         },
+    //     })
+    // }
 
     const { mutate: AddCompany } = useMutation(request, {
         onSuccess: (res) => {
@@ -48,9 +50,9 @@ const CompanyDetail = () => {
             },
         })
     }
-    useEffect(() => {
-        handleGetFreelancerStep();
-    }, [])
+    // useEffect(() => {
+    //     handleGetFreelancerStep();
+    // }, [])
     return (
         <>
             <Box className='main_section'>

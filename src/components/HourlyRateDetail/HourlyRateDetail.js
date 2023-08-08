@@ -25,9 +25,9 @@ const HourlyRateDetail = () => {
     const { mutate: AddHourlyRate } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
-            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
         },
         onError: (response) => {

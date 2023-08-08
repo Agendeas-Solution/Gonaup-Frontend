@@ -11,6 +11,7 @@ import ProjectDurationDetail from "../components/ProjectDurationDetail/ProjectDu
 import ServiceDetail from "../components/ServiceDetail/ServiceDetail";
 import SkillDetail from "../components/SkillDetail/SkillDetail";
 export const PERMISSION = {
+
     DEVELOPER_PERMISSION_ROUTE: [
         { path: '/profilelinks', component: <ProfileLinks />, id: 1 },
         { path: '/educationDetail', component: <EducationDetail />, id: 2 },

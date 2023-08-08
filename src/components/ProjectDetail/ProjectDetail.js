@@ -1,15 +1,26 @@
-import { Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import './index.css';
-import EducationLogo from '../../assets/images/education.svg'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import AddProjectDialog from '../AddProjectDialog/AddProjectDialog';
 import { request } from '../../utils/axios-utils';
 import { useMutation } from 'react-query';
+import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
 import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
+import { useNavigate } from 'react-router-dom';
+// import { PERMISSION } from '../../constants/permissionConstant';
+const theme = createTheme({
+    palette: {
+        secondary: {
+            main: '#0971f1',
+            darker: '#053e85',
+        },
+    },
+});
 const ProjectDetail = () => {
+    const navigate = useNavigate();
     const [addProjectDialogStatus, setAddProjectDialogStatus] = useState({
         status: false,
         title: '',
@@ -29,7 +40,6 @@ const ProjectDetail = () => {
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            ;
         },
         onError: (err) => {
             console.log(err);
@@ -67,10 +77,29 @@ const ProjectDetail = () => {
             data: { projectId: id },
         })
     }
+    // const handleNextPage = () => {
+    //     navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+    //         + 1].path)
+    //     localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+    //         + 1)
+    // }
+    function LinearProgressWithLabel(props) {
+        return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ width: '100%', mr: 1 }}>
+                    <ThemeProvider theme={theme}>
+                        <LinearProgress color="secondary" variant="determinate" {...props} />
+                    </ThemeProvider>
+                </Box>
+            </Box>
+        );
+    }
+    LinearProgressWithLabel.propTypes = {
+        value: PropTypes.number.isRequired,
+    };
     return (
         <>
             <Box className="main_section">
-
                 <Typography className="main_section_heading" variant='span'>3/7</Typography>
                 <Typography className="main_section_heading" variant='span'>Share Past Project Images, Links, Titles, Descriptions, and Timelines</Typography>
                 <Typography className="main_section_description" variant='span'>Highlight your expertise and track record by sharing the visual essence of your past projects. This comprehensive showcase of your professional journey allows us to gain insight into your capabilities and accomplishments.</Typography>
@@ -99,10 +128,15 @@ const ProjectDetail = () => {
                         </Box>
                     })}
                 </Box>
+                <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleDialogClose} />
+                <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgressWithLabel value={10} />
+                    {/* <Button onClick={handleNextPage} className="save_button">Next</Button> */}
+                </Box>
             </Box>
-            <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleDialogClose} />
 
-            <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
+
         </ >
     )
 }

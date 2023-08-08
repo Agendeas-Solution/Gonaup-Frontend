@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Header/Header'
 import { Autocomplete, Box, Button, Input, InputLabel, TextField, Typography, createFilterOptions } from '@mui/material'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
@@ -10,6 +9,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie'
 import Uploader from '../Uploader/Uploader'
+import { useNavigate } from 'react-router-dom'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -32,6 +32,7 @@ const ClientProfileDetail = () => {
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [cityList, setCityList] = useState([]);
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -105,7 +106,6 @@ const ClientProfileDetail = () => {
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
 
         },
         onError: (response) => {
@@ -114,8 +114,6 @@ const ClientProfileDetail = () => {
     });
     const handleUpdateProfileDetail = async (e) => {
         const formData = new FormData()
-        console.log(profileDetail);
-        ;
         formData.append('contactNumber', profileDetail.phoneno)
         formData.append('skypeId', profileDetail.skypeId)
         formData.append('address', profileDetail.address)

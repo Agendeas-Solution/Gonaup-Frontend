@@ -30,9 +30,9 @@ const ProjectBudget = () => {
     //Update Password
     const { mutate: UpdateProjectBudget } = useMutation(request, {
         onSuccess: (res) => {
-            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
-            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
         },
         onError: (err) => {

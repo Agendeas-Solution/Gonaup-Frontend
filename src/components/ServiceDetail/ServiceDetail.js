@@ -21,8 +21,8 @@ const theme = createTheme({
 });
 const ServiceDetail = () => {
     const [serviceDetail, setServiceDetail] = useState({
-        professionalRole: "Sr. Software Eng.",
-        description: "My Description"
+        professionalRole: "",
+        description: ""
     })
     const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
@@ -42,9 +42,9 @@ const ServiceDetail = () => {
     const { mutate: AddProfileLinks } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
-            localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
         },
         onError: (response) => {

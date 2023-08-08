@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../Header/Header'
 // import './index.css';
 import { Box, Button, Typography } from '@mui/material';
 import Radio from '@mui/material/Radio';
@@ -15,7 +14,6 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PROJECT } from '../../constants/projectConstant';
 import { useNavigate } from 'react-router-dom';
-// import { PERMISSION } from '../../constants/permissionConstant';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -25,7 +23,6 @@ const theme = createTheme({
     },
 });
 const ProjectDurationDetail = () => {
-    const navigate = useNavigate();
     const [projectDurationDetail, setProjectDurationDetail] = useState({
         experienceNeeded: null,
         projectDuration: null,
@@ -35,10 +32,6 @@ const ProjectDurationDetail = () => {
     })
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
-            // navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('signupCompleted'))
-            //     + 1].path)
-            // localStorage.setItem('signupCompleted', parseInt(localStorage.getItem('signupCompleted'))
-            //     + 1)
         },
         onError: (err) => {
             console.log(err);
@@ -54,7 +47,6 @@ const ProjectDurationDetail = () => {
             data: projectDurationDetail
         })
     }
-
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>

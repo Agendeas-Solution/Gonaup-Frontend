@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material'
 import './index.css'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
@@ -12,7 +10,6 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { PROJECT } from '../../constants/projectConstant';
-import ProjectDetail from '../ProjectDetail/ProjectDetail';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import ProjectDetailRightSection from './ProjectDetailRightSection';
 const ClientProjectDetails = () => {
