@@ -1,4 +1,9 @@
-client_profile_main_section.main_section {
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.client_profile_main_section.main_section {
   display: flex;
   flex-direction: column;
   padding: 1% 5% 0% 5%;
@@ -98,6 +103,8 @@ client_profile_main_section.main_section {
   background-color: #7ac144 !important;
   color: #fff !important;
   text-transform: capitalize !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
 }
 .developer_title_desc {
   display: flex;
@@ -105,4 +112,7 @@ client_profile_main_section.main_section {
 }
 .cancel_icon {
   color: #f11f12 !important;
+}
+.main_section {
+  height: 90vh;
 }

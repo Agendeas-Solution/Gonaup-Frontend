@@ -7,6 +7,7 @@ import {
     InputAdornment,
     IconButton,
     InputLabel,
+    Divider,
 } from '@mui/material'
 import './index.css'
 import { Link, useNavigate } from 'react-router-dom'
@@ -17,8 +18,8 @@ import { useMutation } from 'react-query'
 import { setLoginToken, setUserType } from '../../hooks/storage'
 import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
-import Header from '../Header/Header'
 import { PERMISSION } from '../../constants/permissionConstant'
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const Login = () => {
     const [userDetail, setUserDetail] = useState({
         email: '',
@@ -123,7 +124,7 @@ const Login = () => {
     return (
         <>
             <Box className="login_page">
-                <Header />
+                <HeaderLogo />
                 <Box className="login_form_section">
                     <Box className="login_form_body">
                         <Box className="login_form_box">
@@ -208,8 +209,9 @@ const Login = () => {
                                     }}
                                 >
                                     <Button
-                                        className="dialogue_bottom_button"
+                                        className="common_button"
                                         onClick={handleLogin}
+                                        sx={{ width: "80%" }}
                                         variant="contained"
                                         type="submit"
                                     >
@@ -217,6 +219,10 @@ const Login = () => {
                                     </Button>
                                 </Box>
                             </form>
+                            <Divider className="mt-3">
+                                Don’t have an GonaUp Account?
+                            </Divider>
+                            <Button sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
                         </Box>
                     </Box>
                     <Box className="login_footer">
@@ -226,7 +232,6 @@ const Login = () => {
                     </Box>
                 </Box>
             </Box>
-            {/* <ErrorSnackbar /> */}
         </>
     )
 }

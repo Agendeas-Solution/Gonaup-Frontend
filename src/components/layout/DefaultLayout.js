@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import AppContent from '../container/AppContent'
 import Cookie from 'js-cookie'
-import { Navigate } from 'react-router-dom'
-import Header from '../Header/Header'
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
+import Header from '../Header/Header'
+import { PERMISSION } from '../../constants/permissionConstant'
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const DefaultLayout = () => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
+    const location = useLocation();
+    const routePath = location.pathname;
     useEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth)
@@ -24,7 +28,7 @@ const DefaultLayout = () => {
         <>
             {screenWidth > 400 ? (
                 <Box>
-                    <Header />
+                    {PERMISSION.HEADER_DISPLAY_SETTING.some(item => item.path === routePath) ? <HeaderLogo /> : <Header />}
                     <Box className={'width-main'}>
                         <AppContent />
                     </Box>

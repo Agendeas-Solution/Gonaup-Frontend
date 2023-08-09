@@ -34,8 +34,7 @@ const AppContent = () => {
         <>
             <Suspense fallback={loading}>
                 <Routes>
-                    <Route path="/join" element={<JoiningPage />}>   </Route>
-                    <Route path='/companydetail' element={<CompanyDetail />}></Route>
+
                     {/* Developer Routes */}
                     {Cookie.get('userType') == 0 &&
                         <>

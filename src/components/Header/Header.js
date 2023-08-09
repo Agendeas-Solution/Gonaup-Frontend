@@ -83,6 +83,7 @@ const Header = () => {
     }
     return (
         <>
+
             <Box className="company_logo">
                 <img src={Logo} alt="Company logo" />
                 {Cookie.get('userToken') && accountList && accountList.map((data) => {
@@ -175,6 +176,7 @@ const Header = () => {
                     </>
                 }
             </Box>
+
         </>
     )
 }

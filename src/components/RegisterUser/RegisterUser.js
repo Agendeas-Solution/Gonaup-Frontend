@@ -12,6 +12,7 @@ import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const RegisterUser = () => {
     const [values, setValues] = useState({
         email: '',
@@ -59,6 +60,7 @@ const RegisterUser = () => {
     return (
         <>
             <Box className="register_page">
+                <HeaderLogo />
                 <Box className="register_section">
                     <Box className="register_form_body">
                         <Box className="register_form_box">

@@ -8,6 +8,8 @@ import './App.scss'
 import DefaultLayout from './components/layout/DefaultLayout'
 import AdminLogin from './components/AdminLogin/AdminLogin'
 import RegisterUser from './components/RegisterUser/RegisterUser'
+import JoiningPage from './components/JoiningPage/JoiningPage'
+import CompanyDetail from './components/CompanyDetail/CompanyDetail'
 const Login = React.lazy(() => import('./components/Login/Login'))
 const App = () => {
   return (
@@ -16,10 +18,11 @@ const App = () => {
         <Suspense>
           <Routes>
             <Route exact path="/login" name="Login Page" element={<Login />} />
-            <Route exact path="/adminlogin" name="Login Page" element={<AdminLogin />} />
             <Route path="/freelancerregister" element={<RegisterUser />}> </Route>
             <Route path="/clientregister" element={<RegisterUser />}> </Route>
             <Route path="/recruiterregister" element={<RegisterUser />}> </Route>
+            <Route path="/join" element={<JoiningPage />}></Route>
+            <Route path='/companydetail' element={<CompanyDetail />}></Route>
             {/* <Route path="/resetpassword" element={<ForgetPassword />}></Route> */}
             {/* <Route
               path="/forgotpassword"

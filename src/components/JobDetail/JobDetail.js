@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../Header/Header'
 import { Box, TextField, Typography, Button } from '@mui/material'
 import './index.css';
 import Cookie from 'js-cookie';

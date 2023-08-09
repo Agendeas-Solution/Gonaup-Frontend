@@ -11,7 +11,6 @@ import ProjectDurationDetail from "../components/ProjectDurationDetail/ProjectDu
 import ServiceDetail from "../components/ServiceDetail/ServiceDetail";
 import SkillDetail from "../components/SkillDetail/SkillDetail";
 export const PERMISSION = {
-
     DEVELOPER_PERMISSION_ROUTE: [
         { path: '/profilelinks', component: <ProfileLinks />, id: 1 },
         { path: '/educationDetail', component: <EducationDetail />, id: 2 },
@@ -19,7 +18,8 @@ export const PERMISSION = {
         { path: '/projectdetail', component: <ProjectDetail />, id: 4 },
         {
             path: '/serviceDetail',
-            component: <ServiceDetail />, id: 5
+            component: <ServiceDetail />,
+            id: 5
         },
         {
             path: '/skillDetail',
@@ -42,5 +42,31 @@ export const PERMISSION = {
         { path: '/clientskilldetail', component: <ClientSkillDetail />, id: 2 },
         { path: '/projectbudget', component: <ProjectBudget />, id: 3 },
         { path: '/projectdurationdetail', component: <ProjectDurationDetail />, id: 4 },
+    ],
+    HEADER_DISPLAY_SETTING: [
+        { path: '/profilelinks', component: <ProfileLinks /> },
+        { path: '/educationDetail', component: <EducationDetail /> },
+        { path: '/experienceDetail', component: <ExperienceDetail /> },
+        { path: '/projectdetail', component: <ProjectDetail /> },
+        {
+            path: '/serviceDetail',
+            component: <ServiceDetail />,
+        },
+        {
+            path: '/skillDetail',
+            component: <SkillDetail />,
+        },
+        {
+            path: '/hourlyratedetail',
+            component: <HourlyRateDetail />,
+        },
+        {
+            path: '/profiledetail',
+            component: <ProfileDetail />,
+        },
+        { path: '/jobdetail', component: <JobDetail /> },
+        { path: '/clientskilldetail', component: <ClientSkillDetail /> },
+        { path: '/projectbudget', component: <ProjectBudget /> },
+        { path: '/projectdurationdetail', component: <ProjectDurationDetail /> },
     ]
 }

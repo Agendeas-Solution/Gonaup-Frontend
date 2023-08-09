@@ -48,6 +48,26 @@ const DeveloperSetting = () => {
         }
     });
 
+
+    const { mutate: CloseAccount } = useMutation(request, {
+        onSuccess: (res) => {
+            handleClose();
+        },
+        onError: (err) => {
+            console.log(err);
+        }
+    });
+    const handleCloseAccount = async () => {
+        await CloseAccount({
+            url: '/user/close-account',
+            method: 'DELETE',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+
+
     //Update Name And Email
     const { mutate: UpdateNameEmail } = useMutation(request, {
         onSuccess: (res) => {
@@ -155,7 +175,7 @@ const DeveloperSetting = () => {
                     Take the reins of your success and post your projects here to hire other skilled professionals and build your dream team.Click the button now and make the leap to becoming a client on Gonaup!"
                 </Box>
             </Box>
-            <CloseAccountDialog accountCloseDialogControl={accountCloseDialogControl} setAccountCloseDialogControl={setAccountCloseDialogControl} handleClose={handleClose} />
+            <CloseAccountDialog handleCloseAccount={handleCloseAccount} accountCloseDialogControl={accountCloseDialogControl} setAccountCloseDialogControl={setAccountCloseDialogControl} handleClose={handleClose} />
             <EditAccountDetailDialog editAccountDetailDialogControl={editAccountDetailDialogControl} setEditAccountDetailDialogControl={setEditAccountDetailDialogControl} handleClose={handleClose} handleUpdateNameEmail={handleUpdateNameEmail} />
             <DeveloperChangePasswordDialog changePasswordDialogControl={changePasswordDialogControl} setChangePasswordDialogControl={setChangePasswordDialogControl} handleClose={handleClose}
                 handleUpdatePassword={handleUpdatePassword}
