@@ -24,7 +24,7 @@ const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEdit
                         onChange={(e) => {
                             setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, title: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Job Title"
                         type="text" />
@@ -33,7 +33,7 @@ const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEdit
                         onChange={(e) => {
                             setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, description: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Detailed Job description here"
                         type="text"

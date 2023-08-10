@@ -141,7 +141,7 @@ const EditClientProjectDetails = () => {
                 <Box className="edit_client_project_title_desc">
                     <Typography>{projectDetail?.description} </Typography>
                 </Box>
-                <Divider className="mt-3" />
+                <Divider />
                 <Box className="edit_client_project_title_desc">
                     <Box className="project_detail">
                         <Box className="edit_project_detail_component">

@@ -14,6 +14,7 @@ import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneR
 import Cookie from 'js-cookie'
 import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
+
 const Header = () => {
     const navigate = useNavigate()
     let accountList = []
@@ -34,7 +35,15 @@ const Header = () => {
         storedData = localStorage.getItem('accountList');
         accountList = JSON.parse(storedData);
     }
-
+    const tabStyles = {
+        textTransform: 'capitalize',
+        textDecoration: 'none',
+        fontWeight: '500',
+        fontFamily: "Poppins",
+        '&.Mui-selected': {
+            color: '#7AC144',
+        },
+    };
     const { mutate: GetAccountList } = useMutation(request, {
         onSuccess: (res) => {
             const dataToStore = JSON.stringify(res?.data?.data);
@@ -85,98 +94,101 @@ const Header = () => {
         <>
 
             <Box className="company_logo">
-                <img src={Logo} alt="Company logo" />
-                {Cookie.get('userToken') && accountList && accountList.map((data) => {
-                    if (data.main) {
-                        return <>
-                            <Box className="user_profession_detail">
-                                <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
+                <Box className="d-flex column align-items-center justify-content-start w-50">
+                    <img src={Logo} alt="Company logo" />
+                    {Cookie.get('userToken') && <TabContext value={value}>
+                        <Box>
+                            <TabList sx={{ background: "#fff !important" }} onChange={handleChange} >
+                                <Tab
+                                    sx={tabStyles}
+                                    onClick={() => {
+                                        navigate('/homepage');
+                                    }}
+                                    label="My Jobs" value="1" />
+                                <Tab
+                                    sx={tabStyles}
+                                    onClick={() => {
+                                        localStorage.getItem('type') == 0 && navigate('/developerprofile');
+                                        localStorage.getItem('type') == 1 && navigate('/clientprofile');
+                                        localStorage.getItem('type') == 2 && navigate('/clientprofile');
+                                    }}
+                                    label="My Profile" value="2" />
+                            </TabList>
+                        </Box>
+                    </TabContext>}
+                </Box>
+                <Box className="d-flex column align-items-center justify-content-end w-50">
+                    {Cookie.get('userToken') &&
+                        <>
+                            <NotificationsNoneRoundedIcon className='mx-2' sx={{ color: "#7AC144" }} onClick={() => {
+                                navigate('/notification')
+                            }} />
+                            <Divider />
+                            <Box>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
+                                >
+                                    <MenuItem >{accountList && accountList.map((data) => {
+                                        if (data.main) {
+                                            return <>
+                                                <Box className="user_profession_detail">
+                                                    <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
+                                                    <Typography variant="span">{data.fullName} </Typography>
+                                                    <Typography variant="span">{data.type === 0 ? "Freelancer" : "Client"} </Typography>
+                                                </Box>
+                                            </>
+                                        }
+                                    })}</MenuItem>
+                                    <MenuItem >{accountList && accountList.map((data) => {
+                                        if (!data.main) {
+                                            return <>
+                                                <Box onClick={handleSwitchAccount}>
+                                                    <AccountCircleRoundedIcon />
+                                                    <Box className="d-flex row">
+                                                        <Typography variant="span">{data.fullName} </Typography>
+                                                        <Typography variant="span">{data.type == 0 ? "Freelancer" : "Client"} </Typography>
+                                                    </Box>
+                                                </Box>
+                                            </>
+                                        }
+                                    })}</MenuItem>
+                                    <MenuItem onClick={() => {
+                                        navigate("/developersetting")
+                                        handleClose();
+                                    }} >{accountList && accountList.map((data) => {
+                                        if (data.main && data.type == 0) {
+                                            return <>
+                                                <SettingsRoundedIcon />
+                                                <Typography variant="span">Settings</Typography>
+                                            </>
+                                        }
+                                    })}</MenuItem>
+                                    <MenuItem onClick={clearLoginToken}><LogoutRoundedIcon />Logout</MenuItem>
+                                </Menu>
                             </Box>
+                            {accountList && accountList.map((data) => {
+                                if (data.main) {
+                                    return <>
+                                        <Box className="user_profession_detail">
+                                            <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
+                                        </Box>
+                                    </>
+                                }
+                            })}
                         </>
                     }
-                })}
-                {Cookie.get('userToken') &&
-                    <>
-                        <TabContext value={value}>
-                            <Box>
-                                <TabList onChange={handleChange} >
-                                    <Tab
-                                        onClick={() => {
-                                            navigate('/homepage');
-                                        }}
-                                        label="My Jobs" value="1" />
-                                    <Tab
-                                        onClick={() => {
-                                            localStorage.getItem('type') == 0 && navigate('/developerprofile');
-                                            localStorage.getItem('type') == 1 && navigate('/clientprofile');
-                                            localStorage.getItem('type') == 2 && navigate('/clientprofile');
-                                        }}
-                                        label="My Profile" value="2" />
-                                </TabList>
-                            </Box>
-                        </TabContext>
-                        <NotificationsNoneRoundedIcon onClick={() => {
-                            navigate('/notification')
-                        }} />
-                        <Divider />
-                        <Box>
-                            <Menu
-                                id="demo-positioned-menu"
-                                aria-labelledby="demo-positioned-button"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleClose}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                            >
-                                <MenuItem >{accountList && accountList.map((data) => {
-                                    if (data.main) {
-                                        return <>
-                                            <Box className="user_profession_detail">
-                                                <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
-                                                <Typography variant="span">{data.fullName} </Typography>
-                                                <Typography variant="span">{data.type === 0 ? "Freelancer" : "Client"} </Typography>
-                                            </Box>
-                                        </>
-                                    }
-                                })}</MenuItem>
-                                <MenuItem >{accountList && accountList.map((data) => {
-                                    if (!data.main) {
-                                        return <>
-                                            <Box onClick={handleSwitchAccount}>
-                                                <AccountCircleRoundedIcon />
-                                                <Box className="d-flex row">
-                                                    <Typography variant="span">{data.fullName} </Typography>
-                                                    <Typography variant="span">{data.type == 0 ? "Freelancer" : "Client"} </Typography>
-                                                </Box>
-                                            </Box>
-                                        </>
-                                    }
-                                })}</MenuItem>
-                                <MenuItem onClick={() => {
-                                    navigate("/developersetting")
-                                    handleClose();
-                                }} >{accountList && accountList.map((data) => {
-                                    if (data.main && data.type == 0) {
-                                        return <>
-                                            <SettingsRoundedIcon />
-                                            <Typography variant="span">Settings</Typography>
-                                        </>
-                                    }
-                                })}</MenuItem>
-                                <MenuItem onClick={clearLoginToken}><LogoutRoundedIcon />Logout</MenuItem>
-                            </Menu>
-                        </Box>
-                    </>
-                }
+                </Box>
             </Box>
-
         </>
     )
 }

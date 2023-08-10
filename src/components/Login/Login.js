@@ -61,12 +61,11 @@ const Login = () => {
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
             const dataToStore = JSON.stringify(res?.data?.data);
             localStorage.setItem('loginDetail', dataToStore);
-            if (res?.data?.data?.usedDetails?.type == 0) {
+            if (res?.data?.data?.usedDetails?.type == 0 || res?.data?.data?.usedDetails?.type == 1) {
                 handleGetAccountList();
             }
             if (res?.data?.data?.usedDetails?.signupCompleted == 0) {
                 handleGetFreelancerSteps()
-                debugger;
             }
             else {
                 handleLoginRoute();

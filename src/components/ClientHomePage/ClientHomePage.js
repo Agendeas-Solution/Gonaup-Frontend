@@ -14,6 +14,16 @@ const ClientHomePage = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const tabStyles = {
+        textTransform: 'capitalize',
+        textDecoration: 'none',
+        fontWeight: '500',
+        fontFamily: "Poppins",
+        '&.Mui-selected': {
+            color: '#7AC144',
+        },
+    };
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
@@ -53,15 +63,15 @@ const ClientHomePage = () => {
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} >
-                                <Tab label="Active" value="active" />
-                                {localStorage.getItem('type') == 0 && <Tab label="Invited" value="invited" />}
-                                {localStorage.getItem('type') == 1 && <Tab label="Draft" value="draft" />}
-                                <Tab label="Recently filled" value="recently-filled" />
+                                <Tab sx={tabStyles} label="Active" value="active" />
+                                {localStorage.getItem('type') == 0 && <Tab sx={tabStyles} label="Invited" value="invited" />}
+                                {localStorage.getItem('type') == 1 && <Tab sx={tabStyles} label="Draft" value="draft" />}
+                                <Tab sx={tabStyles} label="Recently filled" value="recently-filled" />
                             </TabList>
                         </Box>
                         <TabPanel sx={{ padding: 0 }} value="active"><ActiveJobs projectList={projectList} /></TabPanel>
-                        <TabPanel value="draft"><ActiveJobs projectList={projectList} /></TabPanel>
-                        <TabPanel value="recently-filled"><ActiveJobs projectList={projectList} /></TabPanel>
+                        <TabPanel sx={{ padding: 0 }} value="draft"><ActiveJobs projectList={projectList} /></TabPanel>
+                        <TabPanel sx={{ padding: 0 }} value="recently-filled"><ActiveJobs projectList={projectList} /></TabPanel>
                     </TabContext>
                 </Box>
             </Box>

@@ -8,8 +8,6 @@ import FreelanceExperienceList from '../FreelanceExperienceList/FreelanceExperie
 import AddFramework from '../AddFramework/AddFramework'
 import FrameWorkList from '../FrameworkList/FrameWorkList'
 import SkillList from '../SkillList/SkillList'
-import JoiningPage from '../JoiningPage/JoiningPage'
-import CompanyDetail from '../CompanyDetail/CompanyDetail'
 import ProjectDurationDetail from '../ProjectDurationDetail/ProjectDurationDetail'
 import ClientDetails from '../ClientDetails/ClientDetails'
 import ClientHomePage from '../ClientHomePage/ClientHomePage'

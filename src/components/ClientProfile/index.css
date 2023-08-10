@@ -8,3 +8,7 @@
 .profile_section_heading {
   font-weight: 600 !important;
 }
+.edit_profile_text_field {
+  width: 45%;
+  margin-top: 15px !important;
+}

@@ -179,7 +179,6 @@ const ClientProfile = () => {
     const handleEditClientPersonalDetailStatus = () => {
         setEditClientPersonalDetail(!editClientPersonalDetail)
     }
-
     const handleEditCompanyDetailStatus = () => {
         seteditCompanyDetail(!editCompanyDetail)
     }
@@ -200,7 +199,6 @@ const ClientProfile = () => {
             }
         })
     }
-
     const { mutate: UpdateCompanyDetail } = useMutation(request, {
         onSuccess: (res) => {
         },
@@ -228,7 +226,7 @@ const ClientProfile = () => {
         <>
             {editClientPersonalDetail ?
                 <Box className="client_profile_main_section p-4">
-                    <Typography className='edit_profile_section_heading' variant='span'>Account</Typography>
+                    <Typography className='profile_section_heading' variant='span'>Account</Typography>
                     <Box className="d-flex justify-content-between column" >
                         <Box sx={{ width: "15%" }}>
                             <Avatar
@@ -389,7 +387,7 @@ const ClientProfile = () => {
                                     className="edit_profile_text_field"
                                 />
                             </Box>
-                            <FormControl>
+                            <FormControl sx={{ marginLeft: "12px" }}>
                                 <FormLabel >How many people are in your company?</FormLabel>
                                 <RadioGroup
                                     onChange={(e) => {

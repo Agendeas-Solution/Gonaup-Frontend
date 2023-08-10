@@ -73,7 +73,7 @@ const ClientProjectDetails = () => {
                         <Typography className="client_main_heading" variant="span">{projectDetail.title}</Typography>
                         <Typography>{projectDetail.description}</Typography>
                     </Box>
-                    <Divider className="mt-3" />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="client_project_title_desc">
                         <Box className="project_detail">
                             <Box className="project_detail_component">
@@ -129,7 +129,7 @@ const ClientProjectDetails = () => {
                             </Box>
                         </Box>
                     </Box>
-                    <Divider className="mt-3" />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="p-3 d-flex column">
                         <Typography variant='span' className='w-50'>
                             <Typography variant="span" className='project_detail_heading'> Project Type:</Typography>
@@ -148,16 +148,16 @@ const ClientProjectDetails = () => {
                             })}
                         </Typography>
                     </Box>
-                    <Divider />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} />
                     <Box className="client_project_title_desc">
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
-                        <Stack direction="row" spacing={1}>
+                        <Stack className="mt-2" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
                                 return <Chip label={data.name} />
                             })}
                         </Stack>
                     </Box>
-                    <Divider className="mt-3" />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     {(localStorage.getItem('type') == 1 || localStorage.getItem('type') == 2) && <Box className="client_project_title_desc">
                         <Typography className="project_detail_heading" variant="span"> Suggested  Talent</Typography>
                         <Stack direction="row" spacing={1}>

@@ -8,6 +8,7 @@ import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
+import moment from 'moment';
 const ActiveJobs = ({ projectList }) => {
     const [deleteProjectDialogControl, setDeleteProjectDialogControl] = useState({
         status: false,
@@ -49,15 +50,12 @@ const ActiveJobs = ({ projectList }) => {
         <>
             {
                 projectList.projectList && projectList.projectList.map((data) => {
-                    return <Box className="active_job_section"
+                    return <> <Box className="active_job_section"
                         onClick={() => {
                             const type = localStorage.getItem('type');
                             console.log("printing", parseInt(type) == 0)
                             if (parseInt(type) === 0) {
                                 navigate(`/freelancerprojectdetails/${data.id}`);
-                            }
-                            else if (parseInt(type) === 1) {
-                                navigate(`/clientprojectdetails/${data.id}`);
                             }
                             else if (parseInt(type) === 2) {
                                 navigate(`/recruiterprojectdetails/${data.id}`);
@@ -86,22 +84,22 @@ const ActiveJobs = ({ projectList }) => {
                                         onClose={handleClose}
                                         TransitionComponent={Fade}
                                     >
-                                        <MenuItem onClick={handleClose}>View Posting</MenuItem>
-                                        <MenuItem onClick={handleClose}>Edit Posting</MenuItem>
+                                        <MenuItem onClick={() => navigate(`/clientprojectdetails/${data.id}`)}>View Posting</MenuItem>
+                                        {/* <MenuItem onClick={handleClose}>Edit Posting</MenuItem> */}
                                         <MenuItem
                                             onClick={() => {
                                                 setDeleteProjectDialogControl({ ...deleteProjectDialogControl, status: true, projectId: data.id })
-                                            }}
-                                        >Delete Posting</MenuItem>
+                                            }}>Delete Posting</MenuItem>
                                     </Menu>
                                 </Box>}
                             </Box>
                         }
                         <Typography variant='span'>{data.title}</Typography>
-                        <Typography variant="span">{data.skills}</Typography>
-                        <Typography variant="span" sx={{ color: "#8E8E8E" }}>Created - {data.created_at}</Typography>
+                        <Typography variant="span" className="mt-1">{data.skills}</Typography>
+                        <Typography variant="span" sx={{ color: "#8E8E8E" }}>Created - {moment(data.created_at).format('ll')}</Typography>
                         <DeleteProjectDialog deleteProjectDialogControl={deleteProjectDialogControl} handleClose={handleClose} setDeleteProjectDialogControl={setDeleteProjectDialogControl} handleDeleteProject={handleDeleteProject} />
                     </Box >
+                    </>
                 })
             }
 
