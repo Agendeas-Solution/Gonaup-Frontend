@@ -85,21 +85,21 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
+                                    <Typography className='project_detail_sub_heading mb-4'>Hourly</Typography>
                                     </Typography>
-                                    <Typography className='project_detail_sub_heading'>Hourly</Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
                                 <CalendarMonthRoundedIcon />
                                 <Box className="d-flex row">
-                                    <Typography className='mx-1 project_detail_heading'>
+                                    <Typography className='mx-1 project_detail_heading '>
                                         {PROJECT.PROJECT_DURATION.map((data) => {
                                             if (data.id === projectDetail.project_duration) {
                                                 return data.type
                                             }
                                         })}
-                                    </Typography>
                                     <Typography className='project_detail_sub_heading'>Project Length</Typography>
+                                    </Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
@@ -110,8 +110,8 @@ const ClientProjectDetails = () => {
                                             projectDetail.budget_type === 0 ?
                                                 projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + "to" + projectDetail.max_hourly_budget + "/hr"
                                         }
-                                    </Typography>
                                     <Typography className='project_detail_sub_heading'>Budget</Typography>
+                                    </Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
@@ -123,8 +123,8 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
-                                    </Typography>
                                     <Typography className='project_detail_sub_heading'>Comprehensive and deep expertise in this field</Typography>
+                                    </Typography>
                                 </Box>
                             </Box>
                         </Box>
