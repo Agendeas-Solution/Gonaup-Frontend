@@ -22,6 +22,8 @@ import DeleteExperienceDialog from '../DeleteExperienceDialog/DeleteExperienceDi
 import AddProjectDialog from '../AddProjectDialog/AddProjectDialog';
 import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
 import ProjectDetailDialog from './ProjectDetailDialog';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import moment from 'moment';
 const DeveloperProfile = () => {
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
@@ -157,14 +159,16 @@ const DeveloperProfile = () => {
         }
     });
     const handleAddEducationDetail = async () => {
+        console.log("Printing",isNaN(educationDetail.dateFrom) ? educationDetail.dateFrom.year() : educationDetail.dateFrom)
         let educationData = {
             school: educationDetail.school,
             degree: educationDetail.degree,
             studyIn: educationDetail.studyIn,
             description: educationDetail.description,
-            dateFrom: isNaN(educationDetail.dateFrom) ? educationDetail.dateFrom.year() : educationDetail.dateFrom,
-            dateTo: isNaN(educationDetail.dateTo) ? educationDetail.dateTo.year() : educationDetail.dateTo
+            dateFrom: educationDetail.dateFrom.year() ,
+            dateTo:educationDetail.dateTo.year() 
         };
+        debugger;
         if (educationDetail.id) {
             educationData["educationId"] = educationDetail.id;
         }
@@ -408,7 +412,7 @@ const DeveloperProfile = () => {
                                 setEditUserNameDialogControl({ ...editUserNameDialogControl, status: true, firstName: developerDetail.first_name, lastName: developerDetail.last_name })
                             }}
                                 className='circular_icon' /></Typography>
-                            <Typography variant="span">{developerDetail.state_name}, {developerDetail.country_name}</Typography>
+                            <Typography className='p-0' variant="span"><LocationOnIcon/>{developerDetail.state_name}, {developerDetail.country_name}</Typography>
                         </Box>
                     </Box>
                     <Box>
@@ -429,7 +433,7 @@ const DeveloperProfile = () => {
                             setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, status: true, professionalRole: developerDetail.professional_role, description: developerDetail?.description })
                         }} className='circular_icon' />
                     </Box>
-                    <Typography>{developerDetail?.description}</Typography>
+                    <Typography className='px-1'>{developerDetail?.description}</Typography>
                 </Box>
             </Box >
             <Box className="developer_profile_main_section">
@@ -473,7 +477,7 @@ const DeveloperProfile = () => {
                         }} className='circular_icon' />
                     </Box>
                     <Box className="w-100 d-flex row justify-content-between">
-                        <Box className="w-50">
+                        <Box className="w-50 px-3 mb-3">
                             <Typography className="sub_heading">Freelancer</Typography>
                             <Typography>{developerDetail.freelance_profile}</Typography>
                         </Box>
@@ -481,7 +485,7 @@ const DeveloperProfile = () => {
                             <Typography className="sub_heading">Linkedin</Typography>
                             <Typography>{developerDetail.linkdin_profile}</Typography>
                         </Box>
-                        <Box className="w-50">
+                        <Box className="w-50 px-3">
                             <Typography className="sub_heading">Github</Typography>
                             <Typography>{developerDetail.github_profile}</Typography>
                         </Box>
@@ -515,7 +519,7 @@ const DeveloperProfile = () => {
                             })} className='circular_icon' />
                     </Box>
                     <Box className="w-100 d-flex row justify-content-between">
-                        <Box className="w-50">
+                        <Box className="w-50 px-3 mb-3">
                             <Typography className="sub_heading">Phone</Typography>
                             <Typography>{developerDetail.contact_number}</Typography>
                         </Box>
@@ -523,7 +527,7 @@ const DeveloperProfile = () => {
                             <Typography className="sub_heading">Skype</Typography>
                             <Typography>{developerDetail.skype_id}</Typography>
                         </Box>
-                        <Box className="w-50">
+                        <Box className="w-50 px-3 mb-3">
                             <Typography className="sub_heading">Country</Typography>
                             <Typography>{developerDetail.country_name}</Typography>
                         </Box>
@@ -531,7 +535,7 @@ const DeveloperProfile = () => {
                             <Typography className="sub_heading">City</Typography>
                             <Typography>{developerDetail.city_name}</Typography>
                         </Box>
-                        <Box className="w-50">
+                        <Box className="w-50 px-3 mb-3">
                             <Typography className="sub_heading">State</Typography>
                             <Typography>{developerDetail.state_name}</Typography>
                         </Box>
@@ -539,7 +543,7 @@ const DeveloperProfile = () => {
                             <Typography className="sub_heading">Zip/Postal Code</Typography>
                             <Typography>{developerDetail.zip_code}</Typography>
                         </Box>
-                        <Box className="w-50">
+                        <Box className="w-50 px-3">
                             <Typography className="sub_heading">Address</Typography>
                             <Typography>{developerDetail.address}</Typography>
                         </Box>
@@ -606,7 +610,7 @@ const DeveloperProfile = () => {
                             <Box className="experience_detail">
                                 <Box className="d-flex row">
                                     <Typography className="h5" variant='span'>{data.title}| {data.company}</Typography>
-                                    <Typography className='sub_heading' variant='span'>{data.working_from} - {data.working_to}</Typography>
+                                    <Typography className='sub_heading' variant='span'>{moment( data.working_from).format("MMM  YY")} - {moment( data.working_to).format("MMM YY")}</Typography>
                                 </Box>
                                 <Box className="d-flex column">
                                     <Button onClick={() => {
