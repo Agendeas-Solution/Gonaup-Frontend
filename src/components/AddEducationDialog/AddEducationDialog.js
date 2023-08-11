@@ -97,7 +97,6 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Button>
                 </DialogActions>
             </Dialog>
-
         </div>
     )
 }
