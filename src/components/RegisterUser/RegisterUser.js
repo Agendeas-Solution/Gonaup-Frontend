@@ -170,15 +170,14 @@ const RegisterUser = () => {
                                 Create Account
                             </Button>
                             <Typography>Already have an account?
-                                <Link
-                                    component="button"
-                                    variant="body2"
+                                <Button
+                                    sx={{ textTransform: "capitalize", color: "#7AC144" }}
                                     onClick={() => {
                                         navigate('/login')
                                     }}
                                 >
                                     Log In
-                                </Link>
+                                </Button>
                             </Typography>
                         </Box>
                     </Box>

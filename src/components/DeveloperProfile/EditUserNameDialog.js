@@ -18,7 +18,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                         onChange={(e) => {
                             setEditUserNameDialogControl({ ...editUserNameDialogControl, firstName: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="First Name"
                         type="text"
@@ -28,7 +28,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                         onChange={(e) => {
                             setEditUserNameDialogControl({ ...editUserNameDialogControl, lastName: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Last Name"
                         type="text"

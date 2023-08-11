@@ -221,7 +221,9 @@ const Login = () => {
                             <Divider className="mt-3">
                                 Don’t have an GonaUp Account?
                             </Divider>
-                            <Button sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
+                            <Button
+                                onClick={() => navigate("/join")}
+                                sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
                         </Box>
                     </Box>
                     <Box className="login_footer">

@@ -1,0 +1,10 @@
+.company_header_logo {
+  display: flex;
+  justify-content: start;
+  padding: 15px 15px 0 15px;
+  width: 100%;
+  flex-direction: row;
+}
+.company_header_logo img {
+  width: 7rem;
+}

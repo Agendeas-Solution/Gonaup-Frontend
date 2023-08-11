@@ -17,7 +17,7 @@ const EditRoleAndOverviewDialog = ({ editRoleAndOverviewDialogControl, setEditRo
                         onChange={(e) => {
                             setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, professionalRole: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Your professional role"
                         type="text"
@@ -27,7 +27,7 @@ const EditRoleAndOverviewDialog = ({ editRoleAndOverviewDialogControl, setEditRo
                         onChange={(e) => {
                             setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, description: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Your Overview"
                         type="text"
