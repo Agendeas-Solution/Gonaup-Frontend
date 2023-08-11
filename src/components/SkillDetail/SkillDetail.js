@@ -132,7 +132,7 @@ const SkillDetail = () => {
                 <Box className="d-flex flex-column">
                     <Typography>What are the main services you offer?</Typography>
                     <TextField
-                        placeholder="Search for a Services"
+                        label="Search for a Services"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{
@@ -166,7 +166,7 @@ const SkillDetail = () => {
                 <Box className="mt-4 d-flex flex-column">
                     <Typography>Your skills</Typography>
                     <TextField
-                        placeholder="Enter Skill here"
+                        label="Enter Skill here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{

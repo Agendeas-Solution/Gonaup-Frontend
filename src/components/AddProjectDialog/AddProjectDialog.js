@@ -211,7 +211,6 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="From"
-                                            placeholder="From"
                                             value={addProjectDialogStatus.dateFrom}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateFrom: e })
@@ -222,7 +221,6 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="To"
-                                            placeholder="To"
                                             value={addProjectDialogStatus.dateTo}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateTo: e })

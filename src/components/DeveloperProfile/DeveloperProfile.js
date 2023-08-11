@@ -159,14 +159,14 @@ const DeveloperProfile = () => {
         }
     });
     const handleAddEducationDetail = async () => {
-        console.log("Printing",isNaN(educationDetail.dateFrom) ? educationDetail.dateFrom.year() : educationDetail.dateFrom)
+        console.log("Printing", isNaN(educationDetail.dateFrom) ? educationDetail.dateFrom.year() : educationDetail.dateFrom)
         let educationData = {
             school: educationDetail.school,
             degree: educationDetail.degree,
             studyIn: educationDetail.studyIn,
             description: educationDetail.description,
-            dateFrom: educationDetail.dateFrom.year() ,
-            dateTo:educationDetail.dateTo.year() 
+            dateFrom: educationDetail.dateFrom.year(),
+            dateTo: educationDetail.dateTo.year()
         };
         debugger;
         if (educationDetail.id) {
@@ -412,7 +412,7 @@ const DeveloperProfile = () => {
                                 setEditUserNameDialogControl({ ...editUserNameDialogControl, status: true, firstName: developerDetail.first_name, lastName: developerDetail.last_name })
                             }}
                                 className='circular_icon' /></Typography>
-                            <Typography className='p-0' variant="span"><LocationOnIcon/>{developerDetail.state_name}, {developerDetail.country_name}</Typography>
+                            <Typography className='p-0' variant="span"><LocationOnIcon />{developerDetail.state_name}, {developerDetail.country_name}</Typography>
                         </Box>
                     </Box>
                     <Box>
@@ -610,7 +610,7 @@ const DeveloperProfile = () => {
                             <Box className="experience_detail">
                                 <Box className="d-flex row">
                                     <Typography className="h5" variant='span'>{data.title}| {data.company}</Typography>
-                                    <Typography className='sub_heading' variant='span'>{moment( data.working_from).format("MMM  YY")} - {moment( data.working_to).format("MMM YY")}</Typography>
+                                    <Typography className='sub_heading' variant='span'>{moment(data.working_from).format("MMM  YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
                                 </Box>
                                 <Box className="d-flex column">
                                     <Button onClick={() => {

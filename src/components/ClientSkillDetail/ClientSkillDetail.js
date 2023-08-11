@@ -135,9 +135,8 @@ const ClientSkillDetail = () => {
                 <Typography className="main_section_heading" variant='span'>Unveiling the Essential Skills Required to Create Your Project Masterpiece</Typography>
                 <Typography className="main_section_description" variant='span'>Discover the essential skills that act as the building blocks of brilliance. Specify the unique talents and expertise you're seeking, and watch as your project comes alive with the perfect blend of skill and ingenuity.</Typography>
                 <Box className="mt-4 d-flex flex-column">
-                    <Typography>Your skills</Typography>
                     <TextField
-                        placeholder="Enter Skill here"
+                        label="Enter Skill here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{
@@ -169,7 +168,7 @@ const ClientSkillDetail = () => {
                     </Box>
                     <Typography>Your Services</Typography>
                     <TextField
-                        placeholder="Enter Services here"
+                        label="Enter Services here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{

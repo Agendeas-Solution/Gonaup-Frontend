@@ -83,7 +83,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             }}
                             getOptionLabel={option => option?.name}
                             renderInput={params => (
-                                <TextField {...params} placeholder="Select Country" />
+                                <TextField {...params} label="Select Country" />
                             )}
                         />
                     </Box>
@@ -98,7 +98,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     label="Start Date"
-                                    placeholder="Start Date"
+                                    label="Start Date"
                                     value={experienceDetail.workingFrom}
                                     onChange={(e) => {
                                         setExperienceDetail({ ...experienceDetail, workingFrom: e });

@@ -461,7 +461,7 @@ const ClientProfile = () => {
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
                     <Typography>Phone</Typography>
                     <PhoneInput
-                        placeholder="Enter Mobile No"
+                        label="Enter Mobile No"
                         value={profileDetail.phoneno}
                         defaultCountry="US"
                         sx={{ width: "100px" }}
@@ -472,7 +472,7 @@ const ClientProfile = () => {
                 <Box>
                     <InputLabel>Skype id</InputLabel>
                     <TextField
-                        placeholder="Skype Id"
+                        label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
                         onChange={(e) => {
@@ -527,9 +527,8 @@ const ClientProfile = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Street Address</InputLabel>
                     <TextField
-                        placeholder="Street Address"
+                        label="Street Address"
                         type="text"
                         value={profileDetail.address}
                         onChange={(e) => {
@@ -538,9 +537,8 @@ const ClientProfile = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Pincode</InputLabel>
                     <TextField
-                        placeholder="Pincode/Zip Code"
+                        label="Pincode/Zip Code"
                         type="text"
                         value={profileDetail.pincode}
                         onChange={(e) => {
