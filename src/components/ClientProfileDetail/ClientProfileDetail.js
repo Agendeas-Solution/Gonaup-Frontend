@@ -160,9 +160,8 @@ const ClientProfileDetail = () => {
                 <Typography className='main_section_description'>Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.</Typography>
                 <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-                    <Typography>Phone</Typography>
                     <PhoneInput
-                        placeholder="Enter Mobile No"
+                        label="Enter Mobile No"
                         value={profileDetail.phoneno}
                         defaultCountry="US"
                         sx={{ width: "100px" }}
@@ -171,9 +170,8 @@ const ClientProfileDetail = () => {
                         }} />
                 </Box>
                 <Box>
-                    <InputLabel>Skype id</InputLabel>
                     <TextField
-                        placeholder="Skype Id"
+                        label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
                         onChange={(e) => {
@@ -229,9 +227,8 @@ const ClientProfileDetail = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Street Address</InputLabel>
                     <TextField
-                        placeholder="Street Address"
+                        label="Street Address"
                         type="text"
                         value={profileDetail.address}
                         onChange={(e) => {
@@ -240,9 +237,8 @@ const ClientProfileDetail = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Pincode</InputLabel>
                     <TextField
-                        placeholder="Pincode/Zip Code"
+                        label="Pincode/Zip Code"
                         type="text"
                         value={profileDetail.pincode}
                         onChange={(e) => {

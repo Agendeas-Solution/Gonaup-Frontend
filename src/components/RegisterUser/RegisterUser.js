@@ -74,7 +74,7 @@ const RegisterUser = () => {
                                     <InputLabel>First Name</InputLabel>
                                     <TextField
                                         className="register_input_fields"
-                                        placeholder="First Name"
+                                        label="First Name"
                                         value={registerData?.firstName
                                         }
                                         onChange={e => {
@@ -87,7 +87,7 @@ const RegisterUser = () => {
                                     <InputLabel>Last Name</InputLabel>
                                     <TextField
                                         className="register_input_fields"
-                                        placeholder="Last Name"
+                                        label="Last Name"
                                         value={registerData?.lastName}
                                         onChange={e => {
                                             setRegisterData({ ...registerData, lastName: e.target.value })
@@ -101,7 +101,7 @@ const RegisterUser = () => {
                                 <TextField
                                     sx={{ width: "100%" }}
                                     type={'email'}
-                                    placeholder="Email"
+                                    label="Email"
                                     value={registerData?.email}
                                     onChange={e => {
                                         setRegisterData({ ...registerData, email: e.target.value })
@@ -170,15 +170,14 @@ const RegisterUser = () => {
                                 Create Account
                             </Button>
                             <Typography>Already have an account?
-                                <Link
-                                    component="button"
-                                    variant="body2"
+                                <Button
+                                    sx={{ textTransform: "capitalize", color: "#7AC144" }}
                                     onClick={() => {
                                         navigate('/login')
                                     }}
                                 >
                                     Log In
-                                </Link>
+                                </Button>
                             </Typography>
                         </Box>
                     </Box>

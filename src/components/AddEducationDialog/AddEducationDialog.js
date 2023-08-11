@@ -20,7 +20,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>School</InputLabel>
                         <TextField
-                            placeholder="Ex: Northwestern University"
+                            label="Ex: Northwestern University"
                             type="text"
                             value={educationDetail.school}
                             onChange={(e) => {
@@ -31,7 +31,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Degree</InputLabel>
                         <TextField
-                            placeholder="Ex: Bachelors"
+                            label="Ex: Bachelors"
                             type="text"
                             value={educationDetail.degree}
                             onChange={(e) => {
@@ -42,7 +42,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Field of Study</InputLabel>
                         <TextField
-                            placeholder="Ex: Computer Science"
+                            label="Ex: Computer Science"
                             type="text"
                             value={educationDetail.studyIn}
                             onChange={(e) => {
@@ -78,7 +78,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Description</InputLabel>
                         <TextField
-                            placeholder="Describe your studies, awards, etc."
+                            label="Describe your studies, awards, etc."
                             type="text"
                             multiline
                             value={educationDetail.description}

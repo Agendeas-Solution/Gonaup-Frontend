@@ -108,7 +108,7 @@ const ClientDetails = () => {
                             <Box className="client_text_field_left_section">
                                 <Typography>Phone</Typography>
                                 <PhoneInput
-                                    placeholder="Enter Mobile No"
+                                    label="Enter Mobile No"
                                     value={profileDetail.phoneno}
                                     defaultCountry="US"
                                     sx={{ width: "100px" }}
@@ -118,7 +118,7 @@ const ClientDetails = () => {
                             </Box>
                             <Box className="client_text_field_right_section">
                                 <TextField
-                                    placeholder="Skype Id"
+                                    label="Skype Id"
                                     type="text"
                                     className='w-100'
                                     value={profileDetail.skypeId}
@@ -142,14 +142,14 @@ const ClientDetails = () => {
                                         }}
                                         getOptionLabel={option => option?.name}
                                         renderInput={params => (
-                                            <TextField {...params} placeholder="Select Country" />
+                                            <TextField {...params} label="Select Country" />
                                         )}
                                     />
                                 </Box>
                                 <Box className="client_text_field_right_section">
                                     <TextField
                                         className='w-100'
-                                        placeholder="Street Address"
+                                        label="Street Address"
                                         type="text"
                                         value={profileDetail.address}
                                         onChange={(e) => {
@@ -191,7 +191,7 @@ const ClientDetails = () => {
                                 )}
                             />
                             <TextField
-                                placeholder="Pincode/Zip Code"
+                                label="Pincode/Zip Code"
                                 type="text"
                                 className='w-25'
                                 value={profileDetail.pincode}

@@ -27,7 +27,6 @@ const AddFramework = () => {
             <TextField
                 className="register_input_fields"
                 label="FrameWork"
-                placeholder="FrameWork"
                 value={frameWork.name}
                 onChange={e => {
                     setFrameWork({ ...frameWork, name: e.target.value })

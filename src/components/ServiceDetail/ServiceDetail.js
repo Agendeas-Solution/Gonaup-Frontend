@@ -84,7 +84,7 @@ const ServiceDetail = () => {
                     <InputLabel>Your overview</InputLabel>
                     <TextField
                         className="service_detail_textfield"
-                        placeholder="Enter your top skills, experiences, and interests. This is one 
+                        label="Enter your top skills, experiences, and interests. This is one 
                     of the first things will see on your profile."
                         value={serviceDetail?.description}
                         onChange={e => {

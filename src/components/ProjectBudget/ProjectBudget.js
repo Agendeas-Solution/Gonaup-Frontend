@@ -112,7 +112,7 @@ const ProjectBudget = () => {
                                             onChange={(e) => {
                                                 setProjectBudgetDetail({ ...projectBudgetDetail, minHourlyRate: e.target.value })
                                             }}
-                                            placeholder="USD per hour"
+                                            label="USD per hour"
                                             variant="outlined"
                                         />
                                     </Box>
@@ -124,7 +124,7 @@ const ProjectBudget = () => {
                                             onChange={(e) => {
                                                 setProjectBudgetDetail({ ...projectBudgetDetail, maxHourlyRate: e.target.value })
                                             }}
-                                            placeholder="USD per hour"
+                                            label="USD per hour"
                                             variant="outlined"
                                         />
                                     </Box>
@@ -137,7 +137,7 @@ const ProjectBudget = () => {
                         projectBudgetDetail.type === "1" && <>
                             <Box>
                                 <TextField
-                                    placeholder="Maximum project budget(USD)"
+                                    label="Maximum project budget(USD)"
                                     type="number"
                                     value={projectBudgetDetail.fixedBudget}
                                     onChange={(e) => {

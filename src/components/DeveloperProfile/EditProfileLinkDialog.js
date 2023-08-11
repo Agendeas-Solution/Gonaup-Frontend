@@ -19,28 +19,28 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                 <DialogTitle className="dialog_heading">
                     Edit Profile Link
                 </DialogTitle>
-                <DialogContent className="d-flex row">
-                    <Typography variant="span">LinkedIn Profile</Typography>
+                <DialogContent className="d-flex row overflow-hidden">
                     <TextField
-                        placeholder="LinkedIn Profile"
+                        label="LinkedIn Profile"
                         variant="outlined"
+                        className='w-100 my-2'
                         type="text"
                         value={editProfileLinkDialogControl.linkdinProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, linkdinProfile: e.target.value })}
                     />
-                    <Typography variant="span">Freelancer Profile</Typography>
                     <TextField
-                        placeholder="Freelancer Profile"
+                        label="Freelancer Profile"
                         variant="outlined"
                         type="text"
+                        className='w-100 my-2'
                         value={editProfileLinkDialogControl.freelanceProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, freelanceProfile: e.target.value })}
                     />
-                    <Typography variant="span">Github Profile Links</Typography>
                     <TextField
-                        placeholder="Github Profile Links"
+                        label="Github Profile Links"
                         variant="outlined"
                         type="text"
+                        className='w-100 my-2'
                         value={editProfileLinkDialogControl.githubProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, githubProfile: e.target.value })}
                     />

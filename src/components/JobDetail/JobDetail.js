@@ -70,8 +70,7 @@ const JobDetail = () => {
                 <Typography className="main_section_description" variant='span'>Share the captivating title and provide a detailed description that brings your vision to life. We can't wait to hear about your exciting project and help you bring it to fruition!"</Typography>
                 <Box className="mt-3">
                     <TextField
-                        label="Write a title for your job post"
-                        placeholder="Job title"
+                        label="Job title"
                         className="job_detail_textfield"
                         value={projectTitle?.title}
                         onChange={e => {
@@ -83,7 +82,6 @@ const JobDetail = () => {
                 <Box className="mt-3">
                     <TextField
                         label="Describe what you need"
-                        placeholder="Detailed Job description here"
                         className="job_detail_textfield"
                         multiline
                         rows={4}

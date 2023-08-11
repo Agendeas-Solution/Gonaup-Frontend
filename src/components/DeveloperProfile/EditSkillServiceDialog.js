@@ -78,11 +78,12 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                 className="dialog_section"
             >
                 <DialogTitle className="dialog_heading">
-                    Edit Role & Overview
+                    Edit Skill
                 </DialogTitle>
                 <DialogContent>
                     <Box className="add_project_textfield">
                         <TextField
+                            className="my-2 w-100"
                             label="Enter Skill here"
                             variant="outlined"
                             onChange={() => {
@@ -117,9 +118,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                             ))}
                         </Box>
                         <TextField
-                            placeholder="Enter Services here"
+                            label="Enter Services here"
                             variant="outlined"
-                            className='skill_detail_textfield'
+                            className='skill_detail_textfield my-2 w-100'
                             InputProps={{
                                 startAdornment: (
                                     <div>

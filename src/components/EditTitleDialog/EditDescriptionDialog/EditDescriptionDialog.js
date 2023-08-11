@@ -23,7 +23,7 @@ const EditDescriptionDialog = ({ editDescriptionDialogControl, setEditDescriptio
                         onChange={() => {
                             setEditDescriptionDialogControl({ ...editDescriptionDialogControl, description: editDescriptionDialogControl.description })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Detailed Job description here"
                         type="text"

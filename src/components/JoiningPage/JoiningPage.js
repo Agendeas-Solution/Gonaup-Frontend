@@ -35,7 +35,14 @@ const JoiningPage = () => {
                             </Box>
                         </RadioGroup>
                     </FormControl>
-                    <Typography className='mt-2 already_account_login'>Already have an account? Log In</Typography>
+                    <Typography className='mt-2 already_account_login'>Already have an account?  <Button
+                        sx={{ textTransform: "capitalize", color: "#7AC144" }}
+                        onClick={() => {
+                            navigate('/login')
+                        }}
+                    >
+                        Log In
+                    </Button></Typography>
                 </Box>
                 <Box className="joining_page_left_section">
                     <Button

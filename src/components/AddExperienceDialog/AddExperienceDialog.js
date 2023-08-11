@@ -41,8 +41,9 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                 <DialogContent>
                     <Box>
                         <TextField
-                            placeholder="Ex: Software Engineer"
+                            label="Ex: Software Engineer"
                             type="text"
+                            className='my-2'
                             value={experienceDetail.title}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, title: e.target.value });
@@ -51,8 +52,9 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     </Box>
                     <Box>
                         <TextField
-                            placeholder="Ex: Microsoft"
+                            label="Ex: Microsoft"
                             type="text"
+                            className='my-2'
                             value={experienceDetail.company}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, company: e.target.value });
@@ -61,8 +63,9 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     </Box>
                     <Box>
                         <TextField
-                            placeholder="Ex: London"
+                            label="Ex: London"
                             type="text"
+                            className='my-2'
                             value={experienceDetail.cityName}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, cityName: e.target.value });
@@ -80,7 +83,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             }}
                             getOptionLabel={option => option?.name}
                             renderInput={params => (
-                                <TextField {...params} placeholder="Select Country" />
+                                <TextField {...params} label="Select Country" />
                             )}
                         />
                     </Box>
@@ -95,7 +98,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     label="Start Date"
-                                    placeholder="Start Date"
+                                    label="Start Date"
                                     value={experienceDetail.workingFrom}
                                     onChange={(e) => {
                                         setExperienceDetail({ ...experienceDetail, workingFrom: e });
@@ -119,8 +122,9 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     <Box>
                         <InputLabel>Description</InputLabel>
                         <TextField
-                            placeholder="Describe your studies, awards, etc."
+                            label="Describe your studies, awards, etc."
                             type="text"
+                            className='my-2'
                             multiline
                             value={experienceDetail.description}
                             onChange={(e) => {

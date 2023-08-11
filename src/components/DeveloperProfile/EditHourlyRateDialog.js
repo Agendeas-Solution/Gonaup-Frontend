@@ -18,7 +18,7 @@ const EditHourlyRateDialog = ({ editHourlyRateDialogControl,
                         onChange={(e) => {
                             setEditHourlyRateDialogControl({ ...editHourlyRateDialogControl, hourlyRate: e.target.value })
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Hourly Rate"
                         type="text"

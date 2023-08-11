@@ -101,7 +101,6 @@ const FreelanceExperience = () => {
                                 <TextField
                                     className="register_input_fields"
                                     label="Experienced Years"
-                                    placeholder="Experienced Years"
                                     type='number'
                                     value={freelancerExperienceDetail?.experiencedYears}
                                     onChange={e => {

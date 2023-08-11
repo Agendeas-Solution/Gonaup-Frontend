@@ -139,7 +139,7 @@ const Login = () => {
                                 <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
                                     <InputLabel>Email</InputLabel>
                                     <TextField
-                                        placeholder="Email"
+                                        label="Email"
                                         id="my-text-field"
                                         sx={{ width: '100%' }}
                                         type="email"
@@ -155,7 +155,7 @@ const Login = () => {
                                     <InputLabel>Password</InputLabel>
                                     <TextField
                                         sx={{ width: '100%' }}
-                                        placeholder="Password"
+                                        label="Password"
                                         type={showPassword ? 'password' : 'text'}
                                         value={userDetail.password}
                                         onChange={e => {
@@ -221,7 +221,9 @@ const Login = () => {
                             <Divider className="mt-3">
                                 Don’t have an GonaUp Account?
                             </Divider>
-                            <Button sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
+                            <Button
+                                onClick={() => navigate("/join")}
+                                sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
                         </Box>
                     </Box>
                     <Box className="login_footer">
