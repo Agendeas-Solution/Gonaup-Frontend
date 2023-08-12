@@ -588,8 +588,8 @@ const DeveloperProfile = () => {
                                                 </Button>
                                             </Box>
                                         </Box>
-                                        <Typography variant="span">{data.degree}/</Typography>
-                                        <Typography className='sub_heading' variant="span">{data.date_from} - {data.date_to}</Typography>
+                                        <Typography className='px-3' variant="span">{data.degree}/</Typography>
+                                        <Typography className='sub_heading px-3' variant="span">{data.date_from} - {data.date_to}</Typography>
                                     </Box>
                                 </Box>
                             })
@@ -600,7 +600,7 @@ const DeveloperProfile = () => {
             <Box className="developer_profile_main_section ">
                 <Box className="developer_title_desc">
                     <Box className="d-flex column">
-                        <Typography className="developer_main_heading" variant="span">Experience </Typography>
+                        <Typography className="developer_main_heading " variant="span">Experience </Typography>
                         <AddRoundedIcon onClick={() => {
                             setAddExperienceDialogStatus(true);
                         }} className='circular_icon' />
@@ -609,8 +609,8 @@ const DeveloperProfile = () => {
                         return <Box>
                             <Box className="experience_detail">
                                 <Box className="d-flex row">
-                                    <Typography className="h5" variant='span'>{data.title}| {data.company}</Typography>
-                                    <Typography className='sub_heading' variant='span'>{moment(data.working_from).format("MMM  YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
+                                    <Typography className="h5 px-3" variant='span'>{data.title}| {data.company}</Typography>
+                                    <Typography className='sub_heading px-3' variant='span'>{moment(data.working_from).format("MMM  YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
                                 </Box>
                                 <Box className="d-flex column">
                                     <Button onClick={() => {
@@ -651,7 +651,7 @@ const DeveloperProfile = () => {
                     </Box>
                     <Box className="d-flex row justify-content-between">
                         {developerDetail.projects && developerDetail.projects.map((data) => {
-                            return <Card className="d-flex row" sx={{ maxWidth: "33%" }}>
+                            return <Card className="d-flex row mx-3" sx={{ maxWidth: "33%" }}>
                                 <img
                                     onClick={() => {
                                         setProjectDetailDialogControl({ ...projectDetailDialogControl, status: true, id: data.id })
