@@ -137,7 +137,7 @@ const Login = () => {
                                 }}
                             >
                                 <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
-                                    <InputLabel>Email</InputLabel>
+                                    {/* <InputLabel>Email</InputLabel> */}
                                     <TextField
                                         label="Email"
                                         id="my-text-field"
@@ -152,7 +152,7 @@ const Login = () => {
                                     />
                                 </Box>
                                 <Box sx={{ width: '100%', padding: '20px 20px 0px 20px' }}>
-                                    <InputLabel>Password</InputLabel>
+                                    {/* <InputLabel>Password</InputLabel> */}
                                     <TextField
                                         sx={{ width: '100%' }}
                                         label="Password"

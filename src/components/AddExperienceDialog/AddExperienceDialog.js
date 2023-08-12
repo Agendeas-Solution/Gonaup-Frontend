@@ -98,7 +98,6 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     label="Start Date"
-                                    label="Start Date"
                                     value={experienceDetail.workingFrom}
                                     onChange={(e) => {
                                         setExperienceDetail({ ...experienceDetail, workingFrom: e });
@@ -109,7 +108,6 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     label="End Date"
-                                    placeholder="End Date"
                                     value={experienceDetail.workgingTo}
                                     onChange={(e) => {
                                         setExperienceDetail({ ...experienceDetail, workgingTo: e });
