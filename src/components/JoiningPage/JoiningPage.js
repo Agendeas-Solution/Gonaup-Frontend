@@ -12,7 +12,12 @@ const JoiningPage = () => {
             <HeaderLogo />
             <Box className="d-flex column">
                 <Box className="joining_section">
-                    <Typography sx={{ textAlign: "start !important" }} className='main_heading' variant='span'>Please tell us who you are?</Typography>
+                    <Typography
+                        sx={{ textAlign: "start !important" }}
+                        className='main_heading'
+                        variant='span'>
+                        Please tell us who you are?
+                    </Typography>
                     <FormControl sx={{ width: "100%" }}>
                         <RadioGroup row
                             className='radio_group'
@@ -22,27 +27,52 @@ const JoiningPage = () => {
                             }}
                         >
                             <Box className="client_developer_selection_box">
-                                <FormControlLabel className='client_developer_radio_label' value="freelancerregister" control={<Radio className="client_developer_radio_button" />} />
-                                <Typography>I'm a developer,looking for a project</Typography>
+                                <FormControlLabel
+                                    className='client_developer_radio_label'
+                                    value="freelancerregister"
+                                    control={<Radio className="client_developer_radio_button" />} />
+                                <Typography
+                                    className="developer_main_heading"
+                                    variant="span">
+                                    I'm a developer,looking for a project
+                                </Typography>
                             </Box>
                             <Box className="client_developer_selection_box">
-                                <FormControlLabel className='client_developer_radio_label' value="clientregister" control={<Radio className="client_developer_radio_button" />} />
-                                <Typography>I’m a client,like to offer a project</Typography>
+                                <FormControlLabel
+                                    className='client_developer_radio_label'
+                                    value="clientregister"
+                                    control={<Radio className="client_developer_radio_button" />} />
+                                <Typography
+                                    className="developer_main_heading"
+                                    variant="span">
+                                    I’m a client,like to offer a project
+                                </Typography>
                             </Box>
                             <Box className="client_developer_selection_box">
-                                <FormControlLabel className='client_developer_radio_label' value="recruiterregister" control={<Radio className="client_developer_radio_button" />} />
-                                <Typography>  I’m a recruiter,want to hire a developer</Typography>
+                                <FormControlLabel
+                                    className='client_developer_radio_label'
+                                    value="recruiterregister"
+                                    control={<Radio className="client_developer_radio_button" />} />
+                                <Typography
+                                    className="developer_main_heading"
+                                    variant="span">
+                                    I’m a recruiter,want to hire a developer
+                                </Typography>
                             </Box>
                         </RadioGroup>
                     </FormControl>
-                    <Typography className='mt-2 already_account_login'>Already have an account?  <Button
-                        sx={{ textTransform: "capitalize", color: "#7AC144" }}
-                        onClick={() => {
-                            navigate('/login')
-                        }}
-                    >
-                        Log In
-                    </Button></Typography>
+                    <Typography
+                        className='mt-2 already_account_login'>
+                        Already have an account?
+                        <Button
+                            sx={{ textTransform: "capitalize", color: "#7AC144" }}
+                            onClick={() => {
+                                navigate('/login')
+                            }}
+                        >
+                            Log In
+                        </Button>
+                    </Typography>
                 </Box>
                 <Box className="joining_page_left_section">
                     <Button

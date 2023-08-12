@@ -168,7 +168,7 @@ const ClientSkillDetail = () => {
                     </Box>
                     <Typography>Your Services</Typography>
                     <TextField
-                        label="Enter Services here"
+                        placeholder="Enter Services here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{

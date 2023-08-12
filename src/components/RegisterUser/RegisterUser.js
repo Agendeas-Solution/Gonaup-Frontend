@@ -71,7 +71,7 @@ const RegisterUser = () => {
                             </Box>
                             <Box className="register_name_fields">
                                 <Box>
-                                    <InputLabel>First Name</InputLabel>
+                                    {/* <InputLabel>First Name</InputLabel> */}
                                     <TextField
                                         className="register_input_fields"
                                         label="First Name"
@@ -84,7 +84,7 @@ const RegisterUser = () => {
                                     />
                                 </Box>
                                 <Box>
-                                    <InputLabel>Last Name</InputLabel>
+                                    {/* <InputLabel>Last Name</InputLabel> */}
                                     <TextField
                                         className="register_input_fields"
                                         label="Last Name"
@@ -97,7 +97,7 @@ const RegisterUser = () => {
                                 </Box>
                             </Box>
                             <Box className="register_page_fields">
-                                <InputLabel>Email</InputLabel>
+                                {/* <InputLabel>Email</InputLabel> */}
                                 <TextField
                                     sx={{ width: "100%" }}
                                     type={'email'}
@@ -110,7 +110,7 @@ const RegisterUser = () => {
                             </Box>
                             <Box className="register_page_fields">
                                 <Box>
-                                    <InputLabel>Password</InputLabel>
+                                    {/* <InputLabel>Password</InputLabel> */}
                                     <TextField
                                         // className="register_input_fields"
                                         sx={{ width: "100%" }}
