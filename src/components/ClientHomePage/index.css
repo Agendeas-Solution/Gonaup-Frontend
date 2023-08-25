@@ -7,6 +7,7 @@
   text-transform: capitalize !important;
   color: #fff !important;
   white-space: nowrap;
+  border: none !important;
 }
 .home_page_title {
   display: flex;

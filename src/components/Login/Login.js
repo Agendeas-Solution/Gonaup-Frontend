@@ -218,7 +218,7 @@ const Login = () => {
                                     </Button>
                                 </Box>
                             </form>
-                            <Divider className="mt-3">
+                            <Divider orientation="vertical" className="mt-3">
                                 Don’t have an GonaUp Account?
                             </Divider>
                             <Button

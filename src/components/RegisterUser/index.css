@@ -56,6 +56,16 @@
   box-shadow: none !important;
 }
 
+.disable_register_button {
+  width: 100%;
+  margin: 10px 0px 15px 0px !important;
+  background-color: #ddd !important;
+  text-transform: capitalize !important;
+  font-size: 19px !important;
+  padding: 7px !important;
+  box-shadow: none !important;
+}
+
 .heading_section {
   display: flex;
   flex-direction: column;

@@ -77,11 +77,9 @@
   font-weight: 600;
   text-transform: capitalize;
 }
-
 .login_footer {
   display: flex;
   justify-content: center;
-  border-radius: 5px;
   background: #706f96;
   padding: 20px;
   color: #ffffff;

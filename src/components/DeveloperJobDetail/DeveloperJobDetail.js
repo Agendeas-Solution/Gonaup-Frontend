@@ -85,8 +85,8 @@
 //                     <Box className="developer_job_title_desc">
 //                         <Typography className="developer_job_heading" variant="span"> Skills and Expertise </Typography>
 //                         <Stack direction="row" spacing={1}>
-//                             <Chip label="React Js" />
-//                             <Chip label="Node Js" />
+//                             <RectangularChip label="React Js" />
+//                             <RectangularChip label="Node Js" />
 //                         </Stack>
 //                     </Box>
 //                     <Divider className="mt-3" />
