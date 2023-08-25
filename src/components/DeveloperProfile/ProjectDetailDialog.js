@@ -1,11 +1,11 @@
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { request } from '../../utils/axios-utils';
 import { useMutation } from 'react-query';
 import Cookie from 'js-cookie';
 import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment/moment';
-
+import RectangularChip from '../RectangularChip/RectangularChip';
 const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
     const [projectDetail, setProjectDetail] = useState({});
     const { mutate: GetDeveloperProfile } = useMutation(request, {
@@ -43,11 +43,9 @@ const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
                     <Typography variant="span">{projectDetail.project_url}</Typography>
                     <Typography variant="span">Skills</Typography>
                     {projectDetail.skills && projectDetail.skills.map((chip) => (
-                        <Chip
-                            variant="outlined"
-                            color="success"
+                        <RectangularChip
                             key={chip.id}
-                            deleteIcon={<DoneIcon />}
+                            deleteIcon={< DoneIcon />}
                             label={chip.name}
                             style={{ margin: '4px' }}
                         />

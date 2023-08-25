@@ -12,6 +12,7 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import { useEffect } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
+import RectangularChip from '../RectangularChip/RectangularChip';
 
 const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, handleClose, handleUpdateProjectSkillService }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
@@ -70,7 +71,7 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.skills && selectedSkillSets.skills.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteSkill(chip)}
@@ -82,11 +83,9 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                     />
                     <Box>
                         {serviceSkillList.skillList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddSkill(chip) }}
                                 style={{ margin: '4px' }}

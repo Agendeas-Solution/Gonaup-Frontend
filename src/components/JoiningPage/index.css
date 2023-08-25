@@ -54,6 +54,13 @@
   font-size: 15px !important;
   margin-top: 30px !important;
 }
+.disable_joining_submit_button {
+  background-color: #ddd !important;
+  text-transform: capitalize !important;
+  width: 10%;
+  font-size: 15px !important;
+  margin-top: 30px !important;
+}
 .already_account_login {
   position: absolute;
   bottom: 0;

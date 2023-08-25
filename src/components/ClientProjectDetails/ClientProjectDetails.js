@@ -12,6 +12,8 @@ import Cookie from 'js-cookie';
 import { PROJECT } from '../../constants/projectConstant';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import ProjectDetailRightSection from './ProjectDetailRightSection';
+import RectangularChip from '../RectangularChip/RectangularChip';
+
 const ClientProjectDetails = () => {
     const { id } = useParams();
     const [projectDetail, setProjectDetail] = useState({});
@@ -71,7 +73,7 @@ const ClientProjectDetails = () => {
                 <Box className="client_project_detail_left_section">
                     <Box className="client_project_title_desc">
                         <Typography className="client_main_heading" variant="span">{projectDetail.title}</Typography>
-                        <Typography>{projectDetail.description}</Typography>
+                        <Typography className='description' variant="span">{projectDetail.description}</Typography>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="client_project_title_desc">
@@ -85,7 +87,7 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
-                                    <Typography className='project_detail_sub_heading mb-4'>Hourly</Typography>
+                                        <Typography className='project_detail_sub_heading mb-4'>Hourly</Typography>
                                     </Typography>
                                 </Box>
                             </Box>
@@ -98,7 +100,7 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
-                                    <Typography className='project_detail_sub_heading'>Project Length</Typography>
+                                        <Typography className='project_detail_sub_heading'>Project Length</Typography>
                                     </Typography>
                                 </Box>
                             </Box>
@@ -108,9 +110,11 @@ const ClientProjectDetails = () => {
                                     <Typography className='mx-1 project_detail_heading'>
                                         {
                                             projectDetail.budget_type === 0 ?
-                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + "to" + projectDetail.max_hourly_budget + "/hr"
+                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + " to " + projectDetail.max_hourly_budget + "/hr"
                                         }
-                                    <Typography className='project_detail_sub_heading'>Budget</Typography>
+                                        <Typography className='project_detail_sub_heading'>
+                                            Budget
+                                        </Typography>
                                     </Typography>
                                 </Box>
                             </Box>
@@ -123,7 +127,7 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
-                                    <Typography className='project_detail_sub_heading'>Comprehensive and deep expertise in this field</Typography>
+                                        <Typography className='project_detail_sub_heading'>Comprehensive and deep expertise in this field</Typography>
                                     </Typography>
                                 </Box>
                             </Box>
@@ -132,7 +136,7 @@ const ClientProjectDetails = () => {
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="p-3 d-flex column">
                         <Typography variant='span' className='w-50'>
-                            <Typography variant="span" className='project_detail_heading'> Project Type:</Typography>
+                            <Typography variant="span" className='project_detail_heading'> Project Type: </Typography>
                             {PROJECT.PROJECT_STATUS.map((data) => {
                                 if (data.id === projectDetail.project_status) {
                                     return data.type
@@ -140,7 +144,7 @@ const ClientProjectDetails = () => {
                             })}
                         </Typography>
                         <Typography variant='span' className='w-50'>
-                            <Typography variant="span" className='project_detail_heading'> Job Opportunity:</Typography>
+                            <Typography variant="span" className='project_detail_heading'> Job Opportunity: </Typography>
                             {PROJECT.PROJECT_TYPE.map((data) => {
                                 if (data.id === projectDetail.project_type) {
                                     return data.type
@@ -153,7 +157,7 @@ const ClientProjectDetails = () => {
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
                         <Stack className="mt-2" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
-                                return <Chip label={data.name} />
+                                return <RectangularChip label={data.name} />
                             })}
                         </Stack>
                     </Box>
@@ -162,7 +166,8 @@ const ClientProjectDetails = () => {
                         <Typography className="project_detail_heading" variant="span"> Suggested  Talent</Typography>
                         <Stack direction="row" spacing={1}>
                             {projectDetail?.suggestedTalents && projectDetail?.suggestedTalents.map((data) => {
-                                return <Chip label={data?.name} />
+                                return <RectangularChip label={data?.name
+                                } />
                             })}
                         </Stack>
                     </Box>}

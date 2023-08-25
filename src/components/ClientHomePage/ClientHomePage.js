@@ -64,12 +64,13 @@ const ClientHomePage = () => {
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleChange} >
                                 <Tab sx={tabStyles} label="Active" value="active" />
-                                {localStorage.getItem('type') == 0 && <Tab sx={tabStyles} label="Invited" value="invited" />}
+                                {localStorage.getItem('type') == 0 && <Tab sx={tabStyles} label="Invitation" value="invited" />}
                                 {localStorage.getItem('type') == 1 && <Tab sx={tabStyles} label="Draft" value="draft" />}
                                 <Tab sx={tabStyles} label="Recently filled" value="recently-filled" />
                             </TabList>
                         </Box>
                         <TabPanel sx={{ padding: 0 }} value="active"><ActiveJobs projectList={projectList} /></TabPanel>
+                        <TabPanel sx={{ padding: 0 }} value="invited"><ActiveJobs projectList={projectList} /></TabPanel>
                         <TabPanel sx={{ padding: 0 }} value="draft"><ActiveJobs projectList={projectList} /></TabPanel>
                         <TabPanel sx={{ padding: 0 }} value="recently-filled"><ActiveJobs projectList={projectList} /></TabPanel>
                     </TabContext>

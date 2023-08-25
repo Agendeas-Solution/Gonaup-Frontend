@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Header/Header'
 import { Box, InputLabel, TextField, Typography, Chip, Button } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -11,6 +10,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
+import RectangularChip from '../RectangularChip/RectangularChip';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -143,7 +143,7 @@ const ClientSkillDetail = () => {
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteSkill(chip)}
@@ -155,11 +155,9 @@ const ClientSkillDetail = () => {
                     />
                     <Box>
                         {serviceSkillList.skillList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddSkill(chip) }}
                                 style={{ margin: '4px' }}
@@ -175,7 +173,7 @@ const ClientSkillDetail = () => {
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.services.length > 0 && selectedSkillSets.services.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteService(chip)}
@@ -187,11 +185,9 @@ const ClientSkillDetail = () => {
                     />
                     <Box>
                         {serviceSkillList.serviceList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddServices(chip) }}
                                 style={{ margin: '4px' }}

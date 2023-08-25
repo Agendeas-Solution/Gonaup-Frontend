@@ -24,6 +24,8 @@ import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/Dele
 import ProjectDetailDialog from './ProjectDetailDialog';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import moment from 'moment';
+import RectangularChip from '../RectangularChip/RectangularChip';
+
 const DeveloperProfile = () => {
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
@@ -446,21 +448,17 @@ const DeveloperProfile = () => {
                     </Box>
                     <Box>
                         {developerDetail.skills && developerDetail.skills.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 style={{ margin: '4px' }}
                             />
                         ))}
                         {developerDetail.services_offer && developerDetail.services_offer.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 style={{ margin: '4px' }}
                             />

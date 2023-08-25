@@ -32,9 +32,10 @@ const JoiningPage = () => {
                                     value="freelancerregister"
                                     control={<Radio className="client_developer_radio_button" />} />
                                 <Typography
-                                    className="developer_main_heading"
+                                    className="main_section_description"
                                     variant="span">
-                                    I'm a developer,looking for a project
+                                    I'm a developer,
+                                    looking for a project
                                 </Typography>
                             </Box>
                             <Box className="client_developer_selection_box">
@@ -43,9 +44,10 @@ const JoiningPage = () => {
                                     value="clientregister"
                                     control={<Radio className="client_developer_radio_button" />} />
                                 <Typography
-                                    className="developer_main_heading"
+                                    className="main_section_description"
                                     variant="span">
-                                    I’m a client,like to offer a project
+                                    I’m a client,
+                                    like to offer a project
                                 </Typography>
                             </Box>
                             <Box className="client_developer_selection_box">
@@ -54,9 +56,10 @@ const JoiningPage = () => {
                                     value="recruiterregister"
                                     control={<Radio className="client_developer_radio_button" />} />
                                 <Typography
-                                    className="developer_main_heading"
+                                    className="main_section_description"
                                     variant="span">
-                                    I’m a recruiter,want to hire a developer
+                                    I’m a recruiter,
+                                    want to hire a developer
                                 </Typography>
                             </Box>
                         </RadioGroup>
@@ -65,6 +68,9 @@ const JoiningPage = () => {
                         className='mt-2 already_account_login'>
                         Already have an account?
                         <Button
+                            disableElevation
+                            disableFocusRipple
+                            disableRipple
                             sx={{ textTransform: "capitalize", color: "#7AC144" }}
                             onClick={() => {
                                 navigate('/login')
@@ -76,7 +82,11 @@ const JoiningPage = () => {
                 </Box>
                 <Box className="joining_page_left_section">
                     <Button
-                        className="joining_submit_button"
+                        disableElevation
+                        disableFocusRipple
+                        disableRipple
+                        disabled={join === "" ? true : false}
+                        className={join === "" ? "disable_joining_submit_button" : "joining_submit_button"}
                         onClick={() => {
                             navigate(`/${join}`)
                         }}

@@ -32,7 +32,6 @@ const AppContent = () => {
         <>
             <Suspense fallback={loading}>
                 <Routes>
-
                     {/* Developer Routes */}
                     {Cookie.get('userType') == 0 &&
                         <>
@@ -53,7 +52,6 @@ const AppContent = () => {
                             <Route path='/notification' element={<Notification />}></Route>
                             <Route path="/developersetting" element={<DeveloperSetting />}></Route>
                         </>}
-
                     {/* Client Routes */}
                     {localStorage.getItem('type') == 1 &&
                         <>

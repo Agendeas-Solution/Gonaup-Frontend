@@ -16,6 +16,8 @@ import EditTitleDescriptionDialog from '../EditTitleDialog/EditTitleDescriptionD
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import RectangularChip from '../RectangularChip/RectangularChip';
+
 const EditClientProjectDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -210,7 +212,7 @@ const EditClientProjectDetails = () => {
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
                         <Stack direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
-                                return <Chip label={data.name} />
+                                return <RectangularChip label={data.name} />
                             })}
                         </Stack>
                     </Box>
