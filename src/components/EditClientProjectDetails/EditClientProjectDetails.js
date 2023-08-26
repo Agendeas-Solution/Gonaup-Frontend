@@ -141,7 +141,7 @@ const EditClientProjectDetails = () => {
                     <EditIcon onClick={() => { setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, status: true, title: projectDetail.title, description: projectDetail?.description }) }} className="circular_icon" />
                 </Box>
                 <Box className="edit_client_project_title_desc">
-                    <Typography>{projectDetail?.description} </Typography>
+                    <Typography sx={{ padding: "4px" }} variant="span">{projectDetail?.description} </Typography>
                 </Box>
                 <Divider />
                 <Box className="edit_client_project_title_desc">
@@ -195,13 +195,15 @@ const EditClientProjectDetails = () => {
                 <Divider className="mt-3" />
                 <Box className=" edit_client_project_title_desc p-3">
                     <Box className="edit_project_detail_component">
-                        <SellOutlinedIcon />
+                        {/* <SellOutlinedIcon /> */}
                         <Box className="d-flex row">
-                            <Typography className='mx-1 project_detail_heading'> {
-                                projectDetail.budget_type === 0 ?
-                                    projectDetail.fixed_budget : " $ " + projectDetail.min_hourly_budget + " to " + projectDetail.max_hourly_budget
-                            }</Typography>
-                            <Typography className='project_detail_sub_heading'>Budget</Typography>
+                            <Typography className='project_detail_heading'>Budget</Typography>
+                            <Typography className='mx-1 project_detail_heading'>
+                                {
+                                    projectDetail.budget_type === 0 ?
+                                        projectDetail.fixed_budget : " $ " + projectDetail.min_hourly_budget + " to " + projectDetail.max_hourly_budget
+                                }
+                            </Typography>
                         </Box>
                     </Box>
                     <EditIcon onClick={() => { setEditBudgetDialogControl({ ...editBudgetDialogControl, status: true, budget: projectDetail.fixed_budget }) }} className="circular_icon" />
