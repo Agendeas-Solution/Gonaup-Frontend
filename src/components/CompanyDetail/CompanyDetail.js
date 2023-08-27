@@ -53,7 +53,7 @@ const CompanyDetail = () => {
     }
     return (
         <>
-            <Box className='main_section'>
+            <Box >
                 <HeaderLogo />
                 <Box className="company_detail_section">
                     <Typography variant="span" className='main_section_heading'>Welcome to GonaUp!</Typography>
@@ -122,9 +122,9 @@ const CompanyDetail = () => {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Box className="d-flex justify-content-end mx-2 mt-3">
-                        <Button sx={{ width: "10%" }} className="common_button" variant="contained" onClick={handleAddCompany}>Next</Button>
-                    </Box>
+                </Box>
+                <Box className="d-flex justify-content-end mx-3 ">
+                    <Button sx={{ width: "10%" }} className="common_button" variant="contained" onClick={handleAddCompany}>Next</Button>
                 </Box>
             </Box >
         </>
