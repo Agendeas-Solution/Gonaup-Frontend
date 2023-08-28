@@ -29,6 +29,11 @@ const SkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
@@ -194,10 +199,21 @@ const SkillDetail = () => {
                             />
                         ))}
                     </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <LinearProgressWithLabel value={10} />
-                        <Button onClick={handleAddServiceDetail} className="save_button">Next</Button>
-                    </Box>
+                </Box>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        onClick={handleBackPage}
+                        className="back_button">
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleAddServiceDetail}
+                        className="save_button">
+                        Next
+                    </Button>
                 </Box>
             </Box>
         </>

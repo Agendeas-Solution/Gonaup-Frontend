@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
 // import './index.css';
-import { Box, Button, Typography } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import { Box, Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, LinearProgress } from '@mui/material';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
-import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PROJECT } from '../../constants/projectConstant';
-import { useNavigate } from 'react-router-dom';
 // import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -37,7 +31,6 @@ const ProjectDurationDetail = () => {
         //     - 1].path)
         // localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
     }
-
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
         },

@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { handleNextDeveloper } from '../../hooks/storage';
+import { PERMISSION } from '../../constants/permissionConstant';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -60,6 +61,11 @@ const ExperienceDetail = () => {
             },
         })
     }, [])
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     const { mutate: AddFreelancerExperience } = useMutation(request, {
         onSuccess: (res) => {
             setAddExperienceDialogStatus(false)
@@ -178,11 +184,14 @@ const ExperienceDetail = () => {
                     deleteExperienceDialogStatus={deleteExperienceDialogStatus}
                     handleClose={handleClose} handleDeleteExperience={handleDeleteExperience}
                 />
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
+            </Box >
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={() => handleNextDeveloper(navigate)} className="save_button">Next</Button>
                 </Box>
-            </Box >
+            </Box>
         </ >
     )
 }

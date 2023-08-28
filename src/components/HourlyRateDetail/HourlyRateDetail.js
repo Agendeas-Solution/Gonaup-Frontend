@@ -21,6 +21,11 @@ const HourlyRateDetail = () => {
         hourlyRate: 20
     })
     const navigate = useNavigate();
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     const { mutate: AddHourlyRate } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
@@ -75,9 +80,16 @@ const HourlyRateDetail = () => {
                         }}
                     />
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
-                    <Button onClick={handleAddHourlyRate} className="save_button">Next</Button>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        onClick={handleBackPage}
+                        className="back_button">Back</Button>
+                    <Button
+                        onClick={handleAddHourlyRate}
+                        className="save_button">Next</Button>
                 </Box>
             </Box>
         </>

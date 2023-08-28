@@ -11,6 +11,17 @@ import PhoneInput from 'react-phone-number-input';
 import { useMutation } from 'react-query';
 import { handleApiCountryStateCityGetCall } from '../../utils/axios-utils';
 import Uploader from '../Uploader/Uploader';
+import 'react-phone-number-input/style.css'
+import { styled } from '@mui/system';
+
+const StyledPhoneInput = styled(PhoneInput)({
+    '& input': {
+        border: 'none', // Remove the border
+        outline: 'none', // Remove the outline
+        boxShadow: 'none', // Remove any box shadow
+        height: "45px"
+    },
+});
 const EditContactDialog = ({ editContactDialogControl, setEditContactDialogControl, handleClose, handleEditContactDetail }) => {
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
@@ -102,24 +113,25 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                 </DialogTitle>
                 <DialogContent className="d-flex row">
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-                    <Typography variant="span"> Mobile No</Typography>
-                    <PhoneInput
+                    <StyledPhoneInput
                         placeholder="Enter Mobile No"
                         value={editContactDialogControl.contactNumber}
                         defaultCountry="US"
-                        sx={{ width: "100px" }}
+                        className='my-2'
                         onChange={(event) => {
                             setEditContactDialogControl({ ...editContactDialogControl, contactNumber: event })
-                        }} />
+                        }}
+                    />
                     <TextField
                         label="Skype Id"
                         variant="outlined"
                         type="text"
+                        className='my-2'
                         value={editContactDialogControl.skypeId}
                         onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, skypeId: e.target.value })}
                     />
                     <Autocomplete
-                        className="input_fields"
+                        className=" my-2"
                         disablePortal
                         // disableClearable
                         options={countryList}

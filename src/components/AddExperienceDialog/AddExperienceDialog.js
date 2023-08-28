@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Autocomplete, Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, InputLabel, TextField } from '@mui/material'
+import { Autocomplete, Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, FormGroup, InputLabel, TextField, Typography } from '@mui/material'
 import { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -30,20 +30,20 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
         handleGetCountryCall();
     }, [])
     return (
-        <div>
+        <Box>
             <Dialog
                 open={addExperienceDialogStatus}
                 onClose={handleClose}
             >
-                <DialogTitle>
+                <DialogTitle className='dialog_heading'>
                     Add Work Experience
                 </DialogTitle>
                 <DialogContent>
                     <Box>
                         <TextField
-                            label="Ex: Software Engineer"
+                            label="Title"
                             type="text"
-                            className='my-2'
+                            className='my-2 w-100'
                             value={experienceDetail.title}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, title: e.target.value });
@@ -52,9 +52,9 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     </Box>
                     <Box>
                         <TextField
-                            label="Ex: Microsoft"
+                            label="Company"
                             type="text"
-                            className='my-2'
+                            className='my-2 w-100'
                             value={experienceDetail.company}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, company: e.target.value });
@@ -63,23 +63,22 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     </Box>
                     <Box>
                         <TextField
-                            label="Ex: London"
+                            label="City"
                             type="text"
-                            className='my-2'
+                            className='my-2 w-100'
                             value={experienceDetail.cityName}
                             onChange={(e) => {
                                 setExperienceDetail({ ...experienceDetail, cityName: e.target.value });
                             }}
                         />
                         <Autocomplete
-                            className="input_fields"
+                            className="input_fields w-100 my-2"
                             disablePortal
                             disableClearable
                             options={countryList}
                             value={experienceDetail?.country}
                             onChange={(e, value) => {
                                 setExperienceDetail({ ...experienceDetail, country: value })
-                                    ;
                             }}
                             getOptionLabel={option => option?.name}
                             renderInput={params => (
@@ -94,9 +93,10 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             }} />} label="I am currently working in this role" />
                     </FormGroup>
                     <Box>
-                        <Box>
+                        <Box className="d-flex justify-content-between my-2">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     label="Start Date"
                                     value={experienceDetail.workingFrom}
                                     onChange={(e) => {
@@ -107,6 +107,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                             </LocalizationProvider>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     label="End Date"
                                     value={experienceDetail.workgingTo}
                                     onChange={(e) => {
@@ -118,11 +119,10 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                         </Box>
                     </Box>
                     <Box>
-                        <InputLabel>Description</InputLabel>
                         <TextField
                             label="Describe your studies, awards, etc."
                             type="text"
-                            className='my-2'
+                            className='my-2 w-100'
                             multiline
                             value={experienceDetail.description}
                             onChange={(e) => {
@@ -138,8 +138,7 @@ const AddExperienceDialog = ({ addExperienceDialogStatus, handleClose, experienc
                     </Button>
                 </DialogActions>
             </Dialog>
-
-        </div>
+        </Box>
     )
 }
 

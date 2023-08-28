@@ -23,12 +23,12 @@ const theme = createTheme({
     },
 });
 const EducationDetail = () => {
+    const navigate = useNavigate();
     const [addEducationDialogStatus, setAddEducationDialogStatus] = useState(false)
     const [deleteEducationDialogStatus, setDeleteEducationDialogStatus] = useState({
         status: false,
         id: null
     })
-    const navigate = useNavigate();
     const [educationDetail, setEducationDetail] = useState({
         school: "",
         degree: "",
@@ -46,6 +46,11 @@ const EducationDetail = () => {
             console.log(err);
         }
     });
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     useEffect(() => {
         GetEducationList({
             url: '/user/freelancer/education/list',
@@ -55,7 +60,6 @@ const EducationDetail = () => {
             },
         })
     }, [])
-
     const handleClose = () => {
         setAddEducationDialogStatus(false)
     }
@@ -70,6 +74,7 @@ const EducationDetail = () => {
             handleClose();
         },
         onError: (err) => {
+
         }
     });
     const handleAddEducationDetail = async () => {
@@ -171,8 +176,12 @@ const EducationDetail = () => {
                 <AddEducationDialog addEducationDialogStatus={addEducationDialogStatus}
                     handleClose={handleClose} educationDetail={educationDetail} setEducationDetail={setEducationDetail} handleAddEducationDetail={handleAddEducationDetail} />
                 <DeleteEducationDialog deleteEducationDialogStatus={deleteEducationDialogStatus} handleClose={handleClose} handleDeleteEducation={handleDeleteEducation} />
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
+
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleNext} className="save_button">Next</Button>
                 </Box>
             </Box>

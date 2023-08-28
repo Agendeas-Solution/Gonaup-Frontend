@@ -130,13 +130,18 @@ const ProjectDetail = () => {
                 </Box>
                 <AddProjectDialog addProjectDialogStatus={addProjectDialogStatus} setAddProjectDialogStatus={setAddProjectDialogStatus} handleDialogClose={handleDialogClose} />
                 <DeleteFreelancerProjectDialog deleteFreelancerProjectDialogControl={deleteFreelancerProjectDialogControl} handleDeleteFreelancerProject={handleDeleteFreelancerProject} handleClose={handleClose} />
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
-                    {/* <Button onClick={handleNextPage} className="save_button">Next</Button> */}
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        // onClick={handleBackPage}
+                        className="back_button">Back</Button>
+                    <Button
+                        // onClick={handleNext} 
+                        className="save_button">Next</Button>
                 </Box>
             </Box>
-
-
         </ >
     )
 }

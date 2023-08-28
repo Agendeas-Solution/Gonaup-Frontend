@@ -13,13 +13,14 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                 open={addEducationDialogStatus}
                 onClose={handleClose}
             >
-                <DialogTitle>
+                <DialogTitle className="dialog_heading">
                     Add Education History
                 </DialogTitle>
                 <DialogContent>
                     <Box>
                         <InputLabel>School</InputLabel>
                         <TextField
+                            className='w-100'
                             label="Ex: Northwestern University"
                             type="text"
                             value={educationDetail.school}
@@ -31,6 +32,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Degree</InputLabel>
                         <TextField
+                            className='w-100'
                             label="Ex: Bachelors"
                             type="text"
                             value={educationDetail.degree}
@@ -42,6 +44,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Field of Study</InputLabel>
                         <TextField
+                            className='w-100'
                             label="Ex: Computer Science"
                             type="text"
                             value={educationDetail.studyIn}
@@ -52,9 +55,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Box>
                     <Box>
                         <InputLabel>Dates Attended</InputLabel>
-                        <Box>
+                        <Box className="d-flex justify-content-between">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     views={['year']}
                                     value={new Date(`${educationDetail.dateFrom}-01-01`)}
                                     onChange={(e) => {
@@ -65,6 +69,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                             </LocalizationProvider>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     views={['year']}
                                     value={new Date(`${educationDetail.dateTo}-01-01`)}
                                     onChange={(e) => {
@@ -80,6 +85,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                         <TextField
                             label="Describe your studies, awards, etc."
                             type="text"
+                            className='w-100'
                             multiline
                             value={educationDetail.description}
                             onChange={(e) => {

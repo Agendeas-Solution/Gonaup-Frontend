@@ -92,6 +92,7 @@ const ClientSkillDetail = () => {
         localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
     }
 
+
     //Add Skill and Services
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (res) => {
