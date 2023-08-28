@@ -62,6 +62,11 @@ const JobDetail = () => {
             data: projectTitle
         })
     }
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     return (
         <>
             <Box className="main_section">
@@ -92,8 +97,11 @@ const JobDetail = () => {
                         variant="outlined"
                     />
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleAddProjectTitle} className="save_button">Next</Button>
                 </Box>
             </Box>

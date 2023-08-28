@@ -12,3 +12,7 @@
   width: 45%;
   margin-top: 15px !important;
 }
+.PhoneInput {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

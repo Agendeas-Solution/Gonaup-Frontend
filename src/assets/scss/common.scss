@@ -90,6 +90,12 @@
   text-transform: capitalize !important;
   white-space: nowrap;
 }
+.back_button {
+  color: #7ac144 !important;
+  border: 1px solid #e5e5e5 !important;
+  text-transform: capitalize !important;
+  white-space: nowrap;
+}
 .disable_button {
   background-color: #ddd !important;
   color: #fff !important;
@@ -128,5 +134,8 @@
   color: #f11f12 !important;
 }
 .main_section {
-  height: 90vh;
+  height: 70vh;
+}
+.w-45 {
+  width: 45%;
 }

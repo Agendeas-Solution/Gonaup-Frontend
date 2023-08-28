@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PROJECT } from '../../constants/projectConstant';
 import { useNavigate } from 'react-router-dom';
+// import { PERMISSION } from '../../constants/permissionConstant';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -23,6 +24,7 @@ const theme = createTheme({
     },
 });
 const ProjectDurationDetail = () => {
+    const navigate = useNavigate();
     const [projectDurationDetail, setProjectDurationDetail] = useState({
         experienceNeeded: null,
         projectDuration: null,
@@ -30,6 +32,12 @@ const ProjectDurationDetail = () => {
         projectId: parseInt(localStorage.getItem('projectId')),
         isPublished: false
     })
+    const handleBackPage = () => {
+        // navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+        //     - 1].path)
+        // localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
+
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
         },
@@ -114,8 +122,11 @@ const ProjectDurationDetail = () => {
                         </RadioGroup>
                     </FormControl>
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={20} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleUpdateProjectRequirement} className="save_button">Next</Button>
                 </Box>
             </Box>

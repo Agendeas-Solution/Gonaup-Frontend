@@ -86,6 +86,12 @@ const ClientSkillDetail = () => {
         }));
     };
 
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
+
     //Add Skill and Services
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (res) => {
@@ -195,8 +201,11 @@ const ClientSkillDetail = () => {
                         ))}
                     </Box>
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={20} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleAddSkillService} className="save_button">Next</Button>
                 </Box>
             </Box>

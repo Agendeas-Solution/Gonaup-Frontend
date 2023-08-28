@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Menu, Fade, MenuItem, Typography } from '@mui/material'
+import { Box, Menu, Fade, MenuItem, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -67,8 +67,6 @@ const ActiveJobs = ({ projectList }) => {
                                     <Typography variant="span" className='active_job_heading'>{data.title}</Typography>
                                     {localStorage.getItem('type') == 1 && <Box>
                                         <IconButton
-                                            id="fade-button"
-                                            aria-controls={open ? 'fade-menu' : undefined}
                                             aria-haspopup="true"
                                             aria-expanded={open ? 'true' : undefined}
                                             onClick={handleClick}
@@ -76,13 +74,14 @@ const ActiveJobs = ({ projectList }) => {
                                             <MoreVertIcon />
                                         </IconButton>
                                         <Menu
-                                            MenuListProps={{
-                                                'aria-labelledby': 'fade-button',
+                                            PaperProps={{
+                                                style: {
+                                                    boxShadow: " 0px 3px 3px -3px rgba(0,0,0,0.1), 0px 6px 8px 1px rgba(0,0,0,0.1), 0px 3px 10px 2px rgba(0,0,0,0.1)"
+                                                },
                                             }}
                                             anchorEl={anchorEl}
                                             open={open}
                                             onClose={handleClose}
-                                            TransitionComponent={Fade}
                                         >
                                             <MenuItem onClick={() => navigate(`/clientprojectdetails/${data.id}`)}>
                                                 View Posting
