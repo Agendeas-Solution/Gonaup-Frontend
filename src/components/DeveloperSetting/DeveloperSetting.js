@@ -135,7 +135,7 @@ const DeveloperSetting = () => {
                     <Typography className="developer_main_heading" variant="span">Account</Typography>
                     <EditRounded onClick={() => setEditAccountDetailDialogControl({ ...editAccountDetailDialogControl, status: true })} className="circular_icon" />
                 </Box>
-                <Box className="developer_personal_detail">
+                <Box className="developer_personal_detail mx-1">
                     <Box className="d-flex row mb-2">
                         <Typography className="sub_heading" variant="span">User ID</Typography>
                         <Typography variant="span">{userDetail.first_name}</Typography>
@@ -157,7 +157,7 @@ const DeveloperSetting = () => {
                 <Box className="d-flex justify-content-between">
                     <Typography className="developer_main_heading" variant="span">Additional accounts</Typography>
                 </Box>
-                <Box className="developer_personal_detail">
+                <Box className="developer_personal_detail mx-1">
                     Take the reins of your success and post your projects here to hire other skilled professionals and build your dream team.Click the button now and make the leap to becoming a client on Gonaup!"
                 </Box>
                 <Box className="d-flex justify-content-end">
@@ -171,7 +171,7 @@ const DeveloperSetting = () => {
                     <Typography className="developer_main_heading" variant="span">Password</Typography>
                     <EditRounded onClick={() => setChangePasswordDialogControl({ ...changePasswordDialogControl, status: true })} className="circular_icon" />
                 </Box>
-                <Box className="developer_personal_detail">
+                <Box className="developer_personal_detail mx-1">
                     Take the reins of your success and post your projects here to hire other skilled professionals and build your dream team.Click the button now and make the leap to becoming a client on Gonaup!"
                 </Box>
             </Box>

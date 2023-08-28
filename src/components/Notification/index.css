@@ -1,5 +1,5 @@
 .notification_section {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 25px 40px;
 }
