@@ -131,20 +131,20 @@ const DeveloperSetting = () => {
     return (
         <>
             <Box className="developer_border_main_section">
-                <Box className="d-flex justify-content-between">
+                <Box className="d-flex justify-content-between mb-2">
                     <Typography className="developer_main_heading" variant="span">Account</Typography>
                     <EditRounded onClick={() => setEditAccountDetailDialogControl({ ...editAccountDetailDialogControl, status: true })} className="circular_icon" />
                 </Box>
                 <Box className="developer_personal_detail mx-1">
-                    <Box className="d-flex row mb-2">
+                    <Box className="d-flex row mb-3">
                         <Typography className="sub_heading" variant="span">User ID</Typography>
                         <Typography variant="span">{userDetail.first_name}</Typography>
                     </Box>
-                    <Box className="d-flex row mb-2">
+                    <Box className="d-flex row mb-3">
                         <Typography className="sub_heading" variant="span">Name</Typography>
                         <Typography variant="span">{userDetail.first_name} {userDetail.last_name}</Typography>
                     </Box>
-                    <Box className="d-flex row mb-2">
+                    <Box className="d-flex row mb-3">
                         <Typography className="sub_heading" variant="span">Email</Typography>
                         <Typography variant="span">{userDetail.email}</Typography>
                     </Box>
@@ -154,10 +154,10 @@ const DeveloperSetting = () => {
                 </Box>
             </Box>
             <Box className="developer_border_main_section">
-                <Box className="d-flex justify-content-between">
+                <Box className="d-flex justify-content-between mb-2">
                     <Typography className="developer_main_heading" variant="span">Additional accounts</Typography>
                 </Box>
-                <Box className="developer_personal_detail mx-1">
+                <Box className="developer_personal_detail mx-1 mb-3">
                     Take the reins of your success and post your projects here to hire other skilled professionals and build your dream team.Click the button now and make the leap to becoming a client on Gonaup!"
                 </Box>
                 <Box className="d-flex justify-content-end">
@@ -167,7 +167,7 @@ const DeveloperSetting = () => {
                 </Box>
             </Box>
             <Box className="developer_border_main_section">
-                <Box className="d-flex justify-content-between">
+                <Box className="d-flex justify-content-between mb-2">
                     <Typography className="developer_main_heading" variant="span">Password</Typography>
                     <EditRounded onClick={() => setChangePasswordDialogControl({ ...changePasswordDialogControl, status: true })} className="circular_icon" />
                 </Box>
