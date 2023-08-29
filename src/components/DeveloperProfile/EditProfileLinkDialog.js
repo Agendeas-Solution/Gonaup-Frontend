@@ -23,7 +23,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                     <TextField
                         label="LinkedIn Profile"
                         variant="outlined"
-                        className='w-100 my-2'
+                        className='col-md-12 my-4'
                         type="text"
                         value={editProfileLinkDialogControl.linkdinProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, linkdinProfile: e.target.value })}
@@ -32,7 +32,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                         label="Freelancer Profile"
                         variant="outlined"
                         type="text"
-                        className='w-100 my-2'
+                        className='col-md-12 my-4'
                         value={editProfileLinkDialogControl.freelanceProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, freelanceProfile: e.target.value })}
                     />
@@ -40,7 +40,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                         label="Github Profile Links"
                         variant="outlined"
                         type="text"
-                        className='w-100 my-2'
+                        className='col-md-12 mt-4'
                         value={editProfileLinkDialogControl.githubProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, githubProfile: e.target.value })}
                     />

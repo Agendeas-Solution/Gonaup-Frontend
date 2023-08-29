@@ -33,7 +33,8 @@ const Notification = () => {
                 <Typography variant="span" className="developer_main_heading">Notifications</Typography>
                 {
                     notificationDetail.notificationList && notificationDetail.notificationList.map((data) => {
-                        return <Box className="d-flex column align-items-center">
+                        return <>
+                        <Box className="d-flex column align-items-center">
                             <Avatar sx={{ width: 24, height: 24 }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                             <Box className="d-flex row" sx={{ marginLeft: "10px" }}>
                                 <Typography variant="span">{data.title}</Typography>
@@ -41,6 +42,8 @@ const Notification = () => {
                                 <Typography className="sub_heading" variant="span">May 11, 2023</Typography>
                             </Box>
                         </Box>
+                            <Divider className='mt-3 mb-3' variant='vertical'/>
+                            </>
                     })
                 }
             </Box>
