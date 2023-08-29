@@ -43,7 +43,6 @@ const Notification = () => {
                         </Box>
                     })
                 }
-                <Divider className="mt-2" />
             </Box>
         </>
     )

@@ -112,82 +112,92 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                     Edit Contact
                 </DialogTitle>
                 <DialogContent className="d-flex row">
-                    <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-                    <StyledPhoneInput
-                        placeholder="Enter Mobile No"
-                        value={editContactDialogControl.contactNumber}
-                        defaultCountry="US"
-                        className='my-2'
-                        onChange={(event) => {
-                            setEditContactDialogControl({ ...editContactDialogControl, contactNumber: event })
-                        }}
-                    />
-                    <TextField
-                        label="Skype Id"
-                        variant="outlined"
-                        type="text"
-                        className='my-2'
-                        value={editContactDialogControl.skypeId}
-                        onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, skypeId: e.target.value })}
-                    />
-                    <Autocomplete
-                        className=" my-2"
-                        disablePortal
-                        // disableClearable
-                        options={countryList}
-                        value={editContactDialogControl?.country}
-                        onChange={(e, value) => {
-                            setEditContactDialogControl({ ...editContactDialogControl, country: value })
-                        }}
-                        getOptionLabel={option => option?.name}
-                        renderInput={params => (
-                            <TextField {...params} label="Select Country" />
-                        )}
-                    />
-                    <Autocomplete
-                        className="w-25"
-                        options={stateList}
-                        // disableClearable
-                        // disabled={!editContactDialogControl?.country}
-                        filterOptions={filterOptions}
-                        value={editContactDialogControl?.state}
-                        getOptionLabel={option => option.name}
-                        onChange={(e, value) => {
-                            setEditContactDialogControl({ ...editContactDialogControl, state: value })
-                        }}
-                        renderInput={params => (
-                            <TextField {...params} label=" Select State" />
-                        )}
-                    />
-                    <Autocomplete
-                        className="w-25"
-                        options={cityList}
-                        // disableClearable
-                        // disabled={!editContactDialogControl?.state}
-                        filterOptions={filterOptions}
-                        value={editContactDialogControl?.city}
-                        getOptionLabel={option => option.name}
-                        onChange={(e, value) => {
-                            setEditContactDialogControl({ ...editContactDialogControl, city: value })
-                        }}
-                        renderInput={params => (
-                            <TextField {...params} label="Select City" />
-                        )}
-                    />
-                    <TextField
-                        label="Zip/Postal Code"
-                        variant="outlined"
-                        type="text"
-                        value={editContactDialogControl.zipCode}
-                        onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, zipCode: e.target.value })}
-                    />
-                    <TextField
-                        label="Address"
-                        variant="outlined"
-                        type="text"
-                        value={editContactDialogControl.address}
-                        onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, address: e.target.value })}
-                    />
+                    {/* <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}
+                    <Box className="d-flex row justify-content-between">
+                        <StyledPhoneInput
+                            placeholder="Enter Mobile No"
+                            value={editContactDialogControl.contactNumber}
+                            defaultCountry="US"
+                            className='my-2 w-45'
+                            onChange={(event) => {
+                                setEditContactDialogControl({ ...editContactDialogControl, contactNumber: event })
+                            }}
+                        />
+                        <TextField
+                            label="Skype Id"
+                            variant="outlined"
+                            type="text"
+                            className='my-2 w-45'
+                            value={editContactDialogControl.skypeId}
+                            onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, skypeId: e.target.value })}
+                        />
+                    </Box>
+                    <Box className="d-flex row justify-content-between">
+                        <Autocomplete
+                            className="my-2 p-0 w-45"
+                            disablePortal
+                            // disableClearable
+                            options={countryList}
+                            value={editContactDialogControl?.country}
+                            onChange={(e, value) => {
+                                setEditContactDialogControl({ ...editContactDialogControl, country: value })
+                            }}
+                            getOptionLabel={option => option?.name}
+                            renderInput={params => (
+                                <TextField {...params} label="Select Country" />
+                            )}
+                        />
+                        <Autocomplete
+                            className="my-2 p-0 w-45"
+                            options={cityList}
+                            // disableClearable
+                            // disabled={!editContactDialogControl?.state}
+                            filterOptions={filterOptions}
+                            value={editContactDialogControl?.city}
+                            getOptionLabel={option => option.name}
+                            onChange={(e, value) => {
+                                setEditContactDialogControl({ ...editContactDialogControl, city: value })
+                            }}
+                            renderInput={params => (
+                                <TextField {...params} label="Select City" />
+                            )}
+                        />
+                    </Box>
+                    <Box className="d-flex row justify-content-between">
+                        <Autocomplete
+                            className="my-2 p-0 w-45"
+                            options={stateList}
+                            // disableClearable
+                            // disabled={!editContactDialogControl?.country}
+                            filterOptions={filterOptions}
+                            value={editContactDialogControl?.state}
+                            getOptionLabel={option => option.name}
+                            onChange={(e, value) => {
+                                setEditContactDialogControl({ ...editContactDialogControl, state: value })
+                            }}
+                            renderInput={params => (
+                                <TextField {...params} label=" Select State" />
+                            )}
+                        />
+                        <TextField
+                            label="Zip/Postal Code"
+                            className="my-2 p-0 w-45"
+                            variant="outlined"
+                            type="text"
+                            value={editContactDialogControl.zipCode}
+                            onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, zipCode: e.target.value })}
+                        />
+                    </Box>
+                    <Box className="d-flex row">
+                        <TextField
+                            label="Address"
+                            className="my-2 p-0 w-100"
+                            variant="outlined"
+                            type="text"
+                            value={editContactDialogControl.address}
+                            onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, address: e.target.value })}
+                        />
+                    </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button'
@@ -198,7 +208,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                         Cancel
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog >
         </>
     )
 }

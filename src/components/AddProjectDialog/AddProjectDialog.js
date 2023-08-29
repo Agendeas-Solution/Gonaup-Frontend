@@ -135,7 +135,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                     ))}
                     <Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     value={addProjectDialogStatus.title}
                                     onChange={(e) => {
@@ -145,7 +145,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     variant="outlined"
                                 />
                             </Box>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     value={addProjectDialogStatus.projectUrl}
                                     onChange={(e) => {
@@ -156,8 +156,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
-                                <TextField label="Project Description"
+                            <Box className="add_project_textfield w-45">
+                                <TextField
+                                    label="Project Description"
                                     multiline
                                     value={addProjectDialogStatus.description}
                                     onChange={(e) => {
@@ -167,7 +168,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     variant="outlined"
                                 />
                             </Box>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     label="Enter Skill here"
                                     variant="outlined"
@@ -203,7 +204,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45  ">
                                 <Typography variant='span'>Duration</Typography>
                                 <Box className="_add_project_textfield_row">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
