@@ -125,7 +125,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                 onClose={handleDialogClose}
                 sx={{ width: "75%", maxWidth: "auto", margin: "0 auto" }}
             >
-                <DialogTitle>
+                <DialogTitle className="dialog_heading">
                     Add Project
                 </DialogTitle>
                 <DialogContent>
@@ -209,6 +209,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="From"
+                                            className='w-45'
                                             value={addProjectDialogStatus.dateFrom}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateFrom: e })
@@ -219,6 +220,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="To"
+                                            className='w-45'
                                             value={addProjectDialogStatus.dateTo}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateTo: e })
