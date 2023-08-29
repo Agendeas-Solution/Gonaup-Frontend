@@ -556,7 +556,7 @@ const DeveloperProfile = () => {
                             setAddEducationDialogStatus(true)
                         }} className='circular_icon' />
                     </Box>
-                    <Box className="d-flex column justify-content-between mt-2">
+                    <Box className="d-flex column justify-content-between mt-2 px-1">
                         {developerDetail.education &&
                             developerDetail.education.map((data) => {
                                 return <Box className="developer_education_box">
