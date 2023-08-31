@@ -16,14 +16,14 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                 onClose={handleClose}
                 className="dialog_section"
             >
-                <DialogTitle className="dialog_heading">
+                <DialogTitle className="dialog_heading ">
                     Edit Profile Link
                 </DialogTitle>
-                <DialogContent className="d-flex row overflow-hidden">
+                <DialogContent className="d-flex row overflow-hidden mx-2">
                     <TextField
                         label="LinkedIn Profile"
                         variant="outlined"
-                        className='col-md-12 my-4'
+                        className='w-100 my-4'
                         type="text"
                         value={editProfileLinkDialogControl.linkdinProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, linkdinProfile: e.target.value })}
@@ -32,7 +32,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                         label="Freelancer Profile"
                         variant="outlined"
                         type="text"
-                        className='col-md-12 my-4'
+                        className='w-100 my-4'
                         value={editProfileLinkDialogControl.freelanceProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, freelanceProfile: e.target.value })}
                     />
@@ -40,7 +40,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                         label="Github Profile Links"
                         variant="outlined"
                         type="text"
-                        className='col-md-12 mt-4'
+                        className='w-100 mt-4'
                         value={editProfileLinkDialogControl.githubProfile}
                         onChange={(e) => setEditProfileLinkDialogControl({ ...editProfileLinkDialogControl, githubProfile: e.target.value })}
                     />
@@ -50,7 +50,7 @@ const EditProfileLinkDialog = ({ editProfileLinkDialogControl, setEditProfileLin
                         onClick={handleEditProfileLink}
                     >
                         Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-4" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

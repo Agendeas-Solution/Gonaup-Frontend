@@ -134,7 +134,7 @@ const ClientProjectDetails = () => {
                         </Box>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
-                    <Box className="p-3 d-flex column">
+                    <Box className="p-3 d-flex column mx-1">
                         <Typography variant='span' className='w-50'>
                             <Typography variant="span" className='project_detail_heading'> Project Type: </Typography>
                             {PROJECT.PROJECT_STATUS.map((data) => {
@@ -153,7 +153,7 @@ const ClientProjectDetails = () => {
                         </Typography>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} />
-                    <Box className="client_project_title_desc">
+                    <Box className="client_project_title_desc mx-1">
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
                         <Stack className="mt-2" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
