@@ -1,14 +1,14 @@
 import React, { Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import ProjectList from '../ProjectList/ProjectList'
-import ProjectDetail from '../ProjectDetail/ProjectDetail'
+// import ProjectDetail from '../ProjectDetail/ProjectDetail'
 import AssignedProject from '../AssignedProject/AssignedProject'
 import FreelanceExperience from '../FreelanceExperience/FreelanceExperience'
 import FreelanceExperienceList from '../FreelanceExperienceList/FreelanceExperienceList'
 import AddFramework from '../AddFramework/AddFramework'
 import FrameWorkList from '../FrameworkList/FrameWorkList'
 import SkillList from '../SkillList/SkillList'
-import ProjectDurationDetail from '../ProjectDurationDetail/ProjectDurationDetail'
+// import ProjectDurationDetail from '../ProjectDurationDetail/ProjectDurationDetail'
 import ClientDetails from '../ClientDetails/ClientDetails'
 import ClientHomePage from '../ClientHomePage/ClientHomePage'
 import ClientProjectDetails from '../ClientProjectDetails/ClientProjectDetails'
@@ -62,7 +62,7 @@ const AppContent = () => {
                                     }
                                 })
                             }
-                            <Route path='/projectdetail' element={<ProjectDetail />}></Route>
+                            {/* <Route path='/projectdetail' element={<ProjectDetail />}></Route> */}
                             <Route path="/addframework" element={<AddFramework />}></Route>
                             <Route path="/frameworklist" element={<FrameWorkList />}></Route>
                             <Route path="/skillList" element={<SkillList />}></Route>
@@ -77,8 +77,13 @@ const AppContent = () => {
                     {/* Recruiter Routes */}
                     {localStorage.getItem('type') == 2 &&
                         <>
+                            {
+                                PERMISSION.RECRUITER_PERMISSION_ROUTE.map((data) => {
+                                    return <Route path={data.path} element={data.component}></Route>
+                                })
+                            }
                             <Route path="/recruiteDeveloperDetail" element={<RecruiteDeveloperDetail />}></Route>
-                            <Route path="/projectdurationdetail" element={<ProjectDurationDetail />}></Route>
+                            {/* <Route path="/projectdurationdetail" element={<ProjectDurationDetail />}></Route> */}
                             <Route path="/homepage" element={<ClientHomePage />}></Route>
                             <Route path="/jobdetail" element={<JobDetail />}></Route>
                             <Route path="/recruiterprojectdetails/:id" element={<ClientProjectDetails />}></Route>

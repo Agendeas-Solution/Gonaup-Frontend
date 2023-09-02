@@ -43,6 +43,9 @@ export const PERMISSION = {
         { path: '/projectbudget', component: <ProjectBudget />, id: 3 },
         { path: '/projectdurationdetail', component: <ProjectDurationDetail />, id: 4 },
     ],
+    RECRUITER_PERMISSION_ROUTE: [
+        { path: '/projectdurationdetail', component: <ProjectDurationDetail />, id: 1 },
+    ],
     HEADER_DISPLAY_SETTING: [
         { path: '/profilelinks', component: <ProfileLinks /> },
         { path: '/educationDetail', component: <EducationDetail /> },

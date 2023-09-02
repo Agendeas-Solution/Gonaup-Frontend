@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 // import './index.css';
-import { Box, Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, LinearProgress } from '@mui/material';
+import { Box, Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
 import { PROJECT } from '../../constants/projectConstant';
-// import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
@@ -26,11 +27,7 @@ const ProjectDurationDetail = () => {
         projectId: parseInt(localStorage.getItem('projectId')),
         isPublished: false
     })
-    const handleBackPage = () => {
-        // navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
-        //     - 1].path)
-        // localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
-    }
+
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
         },
@@ -62,13 +59,22 @@ const ProjectDurationDetail = () => {
     LinearProgressWithLabel.propTypes = {
         value: PropTypes.number.isRequired,
     };
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     return (
         <>
             <Box className="main_section">
                 <Typography className="main_section_heading" variant='span'>4/4</Typography>
-                <Typography className="main_section_heading" variant='span'>Specifying Developer Expertise, Work Hours, Project Duration, and Optimal Hiring Preferences</Typography>
-                <Typography className="main_section_description" variant='span'>Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.</Typography>
-                <Box className="d-flex column justify-content-between ">
+                <Typography className="main_section_heading" variant='span'>
+                    Specifying Developer Expertise, Work Hours, Project Duration, and Optimal Hiring Preferences
+                </Typography>
+                <Typography className="main_section_description" variant='span'>
+                    Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.
+                </Typography>
+                <Box className="d-flex column justify-content-between">
                     <FormControl className="w-25">
                         <FormLabel>Level of experience will it need ?</FormLabel>
                         <RadioGroup
@@ -109,9 +115,10 @@ const ProjectDurationDetail = () => {
                                     hourePerWeek: parseInt(e.target.value),
                                 })
                             }}>
-                            {PROJECT.HOUR_PER_WEEK.map((data) => {
-                                return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
-                            })}
+                            {
+                                PROJECT.HOUR_PER_WEEK.map((data) => {
+                                    return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                                })}
                         </RadioGroup>
                     </FormControl>
                 </Box>

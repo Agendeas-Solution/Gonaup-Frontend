@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import Cookie from 'js-cookie';
 import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
 import { useNavigate } from 'react-router-dom';
-// import { PERMISSION } from '../../constants/permissionConstant';
+import { PERMISSION } from '../../constants/permissionConstant';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -77,12 +77,12 @@ const ProjectDetail = () => {
             data: { projectId: id },
         })
     }
-    // const handleNextPage = () => {
-    //     navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
-    //         + 1].path)
-    //     localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
-    //         + 1)
-    // }
+    const handleNextPage = () => {
+        navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            + 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+            + 1)
+    }
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -138,12 +138,11 @@ const ProjectDetail = () => {
                         // onClick={handleBackPage}
                         className="back_button">Back</Button>
                     <Button
-                        // onClick={handleNext} 
+                        onClick={handleNextPage}
                         className="save_button">Next</Button>
                 </Box>
             </Box>
         </ >
     )
 }
-
 export default ProjectDetail;

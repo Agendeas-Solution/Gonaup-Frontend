@@ -29,7 +29,6 @@ const Login = () => {
     const handleLoginRoute = (loginStep) => {
         const storedData = localStorage.getItem('loginDetail');
         const loginDetail = JSON.parse(storedData);
-        debugger
         if (loginDetail?.usedDetails?.signupCompleted == 1) {
             if (loginDetail?.usedDetails?.type == 0 || loginDetail?.usedDetails?.hasCompany) {
                 navigate("/homepage")
