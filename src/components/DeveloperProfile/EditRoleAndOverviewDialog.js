@@ -11,13 +11,13 @@ const EditRoleAndOverviewDialog = ({ editRoleAndOverviewDialogControl, setEditRo
                 <DialogTitle className="dialog_heading">
                     Edit Role & Overview
                 </DialogTitle>
-                <DialogContent className='mx-2'>
+                <DialogContent>
                     <TextField
                         value={editRoleAndOverviewDialogControl.professionalRole}
                         onChange={(e) => {
                             setEditRoleAndOverviewDialogControl({ ...editRoleAndOverviewDialogControl, professionalRole: e.target.value })
                         }}
-                        className='w-100 my-4'
+                        className='w-100 my-3'
                         variant="outlined"
                         label="Your professional role"
                         type="text"
@@ -37,7 +37,7 @@ const EditRoleAndOverviewDialog = ({ editRoleAndOverviewDialogControl, setEditRo
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleEditRoleAndOverviewDialog} >Save</Button>
-                    <Button className="cancel_button px-4 mx-4" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

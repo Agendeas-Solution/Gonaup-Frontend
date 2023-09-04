@@ -20,7 +20,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>School</InputLabel>
                         <TextField
-                            className='w-100'
+                            className='w-100 mt-1 mb-3'
                             label="Ex: Northwestern University"
                             type="text"
                             value={educationDetail.school}
@@ -32,7 +32,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Degree</InputLabel>
                         <TextField
-                            className='w-100'
+                            className='w-100 mt-1 mb-3'
                             label="Ex: Bachelors"
                             type="text"
                             value={educationDetail.degree}
@@ -44,7 +44,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Field of Study</InputLabel>
                         <TextField
-                            className='w-100'
+                            className='w-100 mt-1 mb-3'
                             label="Ex: Computer Science"
                             type="text"
                             value={educationDetail.studyIn}
@@ -55,7 +55,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Box>
                     <Box>
                         <InputLabel>Dates Attended</InputLabel>
-                        <Box className="d-flex justify-content-between">
+                        <Box className="d-flex justify-content-between mt-1 mb-3">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
                                     className='w-45'
@@ -83,9 +83,9 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Description</InputLabel>
                         <TextField
+                            className='w-100 mt-1'
                             label="Describe your studies, awards, etc."
                             type="text"
-                            className='w-100'
                             multiline
                             value={educationDetail.description}
                             onChange={(e) => {
@@ -96,7 +96,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button className="save_button"
+                    <Button className="save_button mx-3"
                         onClick={handleAddEducationDetail}
                     >
                         Save

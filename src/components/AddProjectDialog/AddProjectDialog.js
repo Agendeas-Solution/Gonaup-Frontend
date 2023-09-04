@@ -143,6 +143,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                     label="Project Title"
                                     variant="outlined"
+                                    className='my-2'
                                 />
                             </Box>
                             <Box className="add_project_textfield w-45">
@@ -152,7 +153,8 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                         setAddProjectDialogStatus({ ...addProjectDialogStatus, projectUrl: e.target.value })
                                     }}
                                     label="Project link"
-                                    variant="outlined" />
+                                    variant="outlined"
+                                    className='my-2' />
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
@@ -166,12 +168,14 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                     rows={4}
                                     variant="outlined"
+                                    className='my-2'
                                 />
                             </Box>
                             <Box className="add_project_textfield w-45">
                                 <TextField
                                     label="Enter Skill here"
                                     variant="outlined"
+                                    className='my-2'
                                     onChange={() => {
                                         let data = selectedSkillSets.skills.map((chip) => (chip.id))
                                         setAddProjectDialogStatus({ ...addProjectDialogStatus, skills: data })
@@ -204,7 +208,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield w-45  ">
+                            <Box className="add_project_textfield w-75  ">
                                 <Typography variant='span'>Duration</Typography>
                                 <Box className="_add_project_textfield_row">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -236,7 +240,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                 </DialogContent>
                 <DialogActions>
                     <Button className="save_button" onClick={handleSaveProject}>Save</Button>
-                    <Button className="cancel_button" onClick={handleDialogClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleDialogClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

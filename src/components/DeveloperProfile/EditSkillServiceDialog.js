@@ -84,7 +84,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                 <DialogContent>
                     <Box className="add_project_textfield">
                         <TextField
-                            className="my-2 w-100"
+                            className="my-3 w-100"
                             label="Enter Skill here"
                             variant="outlined"
                             onChange={() => {
@@ -99,6 +99,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteSkill(chip)}
+                                                className='my-3'
                                             />
                                         ))}
                                     </div>
@@ -119,7 +120,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                         <TextField
                             label="Enter Services here"
                             variant="outlined"
-                            className='skill_detail_textfield my-2 w-100'
+                            className='skill_detail_textfield my-3 w-100'
                             InputProps={{
                                 startAdornment: (
                                     <div>
@@ -128,6 +129,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteService(chip)}
+                                                className='my-3'
                                             />
                                         ))}
                                     </div>
@@ -150,7 +152,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                 <DialogActions>
                     <Button className='save_button' onClick={
                         () => handleEditSkillDialog(selectedSkillSets)} >Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>
