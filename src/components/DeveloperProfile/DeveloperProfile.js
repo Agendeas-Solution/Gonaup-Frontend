@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Chip, Typography } from '@mui/material'
+import { Avatar, Box, Button, Chip, Divider, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import './index.css'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -604,38 +604,41 @@ const DeveloperProfile = () => {
                         }} className='circular_icon' />
                     </Box>
                     {developerDetail.experience && developerDetail.experience.map((data) => {
-                        return <Box>
-                            <Box className="experience_detail">
-                                <Box className="d-flex row">
-                                    <Typography className="h5 px-3" variant='span'>{data.title}| {data.company}</Typography>
-                                    <Typography className='sub_heading px-3' variant='span'>{moment(data.working_from).format("MMM  YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
-                                </Box>
-                                <Box className="d-flex column">
-                                    <Button onClick={() => {
-                                        setAddExperienceDialogStatus(true);
-                                        setExperienceDetail({
-                                            ...experienceDetail,
-                                            id: data.id,
-                                            title: data.title,
-                                            company: data.company,
-                                            country: { name: data.country_name, id: data.country_id },
-                                            isWorking: data.isWorking,
-                                            cityName: data.city_name,
-                                            workingFrom: data.working_from,
-                                            workgingTo: data.working_to,
-                                            description: data.description
-                                        })
-                                    }}> <EditRoundedIcon className='circular_icon' />
-                                    </Button>
-                                    <Button
-                                        onClick={() => {
-                                            setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: true, id: data.id })
-                                        }}
-                                    ><DeleteRoundedIcon className='circular_icon' />
-                                    </Button>
+                        return <>
+                            <Box>
+                                <Box className="experience_detail">
+                                    <Box className="d-flex row">
+                                        <Typography className="h5 px-3" variant='span'>{data.title}| {data.company}</Typography>
+                                        <Typography className='sub_heading px-3' variant='span'>{moment(data.working_from).format("MMM  YY")} - {moment(data.working_to).format("MMM YY")}</Typography>
+                                    </Box>
+                                    <Box className="d-flex column">
+                                        <Button onClick={() => {
+                                            setAddExperienceDialogStatus(true);
+                                            setExperienceDetail({
+                                                ...experienceDetail,
+                                                id: data.id,
+                                                title: data.title,
+                                                company: data.company,
+                                                country: { name: data.country_name, id: data.country_id },
+                                                isWorking: data.isWorking,
+                                                cityName: data.city_name,
+                                                workingFrom: data.working_from,
+                                                workgingTo: data.working_to,
+                                                description: data.description
+                                            })
+                                        }}> <EditRoundedIcon className='circular_icon' />
+                                        </Button>
+                                        <Button
+                                            onClick={() => {
+                                                setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: true, id: data.id })
+                                            }}
+                                        ><DeleteRoundedIcon className='circular_icon' />
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
+                            <Divider className="mt-1" />
+                        </>
                     })}
                 </Box>
             </Box >
