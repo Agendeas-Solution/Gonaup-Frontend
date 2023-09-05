@@ -1,27 +1,19 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import RegisterUser from '../RegisterUser/RegisterUser'
-import ClientRegister from '../ClientRegister/ClientRegister'
 import ProjectList from '../ProjectList/ProjectList'
-import ProjectDetail from '../ProjectDetail/ProjectDetail'
+// import ProjectDetail from '../ProjectDetail/ProjectDetail'
 import AssignedProject from '../AssignedProject/AssignedProject'
-import AddProject from '../AddProject/AddProject'
 import FreelanceExperience from '../FreelanceExperience/FreelanceExperience'
 import FreelanceExperienceList from '../FreelanceExperienceList/FreelanceExperienceList'
-import AdminProfile from '../AdminProfile/AdminProfile'
 import AddFramework from '../AddFramework/AddFramework'
 import FrameWorkList from '../FrameworkList/FrameWorkList'
 import SkillList from '../SkillList/SkillList'
-import JoiningPage from '../JoiningPage/JoiningPage'
-import CompanyDetail from '../CompanyDetail/CompanyDetail'
-import ProjectDurationDetail from '../ProjectDurationDetail/ProjectDurationDetail'
+// import ProjectDurationDetail from '../ProjectDurationDetail/ProjectDurationDetail'
 import ClientDetails from '../ClientDetails/ClientDetails'
 import ClientHomePage from '../ClientHomePage/ClientHomePage'
 import ClientProjectDetails from '../ClientProjectDetails/ClientProjectDetails'
 import EditClientProjectDetails from '../EditClientProjectDetails/EditClientProjectDetails'
 import ClientProfile from '../ClientProfile/ClientProfile'
-import DeveloperHomePage from '../DeveloperHomePage/DeveloperHomePage'
-import DeveloperJobDetail from '../DeveloperJobDetail/DeveloperJobDetail'
 import DeveloperProfile from '../DeveloperProfile/DeveloperProfile'
 import Notification from '../Notification/Notification'
 import DeveloperSetting from '../DeveloperSetting/DeveloperSetting'
@@ -29,6 +21,7 @@ import { PERMISSION } from '../../constants/permissionConstant'
 import ClientProfileDetail from '../ClientProfileDetail/ClientProfileDetail'
 import RecruiteDeveloperDetail from '../RecruiteDeveloperDetail/RecruiteDeveloperDetail'
 import JobDetail from '../JobDetail/JobDetail'
+import Cookie from 'js-cookie'
 const AppContent = () => {
     const loading = (
         <div className="pt-3 text-center">
@@ -39,14 +32,12 @@ const AppContent = () => {
         <>
             <Suspense fallback={loading}>
                 <Routes>
-                    <Route path="/join" element={<JoiningPage />}>   </Route>
-                    <Route path='/companydetail' element={<CompanyDetail />}></Route>
                     {/* Developer Routes */}
-                    {localStorage.getItem('type') == 0 &&
+                    {Cookie.get('userType') == 0 &&
                         <>
                             {
                                 PERMISSION.DEVELOPER_PERMISSION_ROUTE.map((data) => {
-                                    if (data.id > Number(localStorage.getItem('signupCompleted'))) {
+                                    if (data.id > Number(localStorage.getItem('stepStatus'))) {
                                         return <Route path={data.path} element={data.component}></Route>
                                     }
                                 })
@@ -55,7 +46,7 @@ const AppContent = () => {
                             <Route path='/assignedProject' element={<AssignedProject />}></Route>
                             <Route path='/freelanceExperience' element={<FreelanceExperience />}></Route>
                             <Route path='/freelanceExperienceList' element={<FreelanceExperienceList />}></Route>
-                            <Route path="/developerhomepage" element={<ClientHomePage />}></Route>
+                            <Route path="/homepage" element={<ClientHomePage />}></Route>
                             <Route path='/freelancerprojectdetails/:id' element={<ClientProjectDetails />}></Route>
                             <Route path="/developerprofile" element={<DeveloperProfile />}></Route>
                             <Route path='/notification' element={<Notification />}></Route>
@@ -66,17 +57,17 @@ const AppContent = () => {
                         <>
                             {
                                 PERMISSION.CLIENT_PERMISSION_ROUTE.map((data) => {
-                                    if (data.id > Number(localStorage.getItem('signupCompleted'))) {
+                                    if (data.id > Number(localStorage.getItem('stepStatus'))) {
                                         return <Route path={data.path} element={data.component}></Route>
                                     }
                                 })
                             }
-                            <Route path='/projectdetail' element={<ProjectDetail />}></Route>
+                            {/* <Route path='/projectdetail' element={<ProjectDetail />}></Route> */}
                             <Route path="/addframework" element={<AddFramework />}></Route>
                             <Route path="/frameworklist" element={<FrameWorkList />}></Route>
                             <Route path="/skillList" element={<SkillList />}></Route>
                             <Route path='/clientdetails' element={<ClientDetails />}></Route>
-                            <Route path="/clienthomepage" element={<ClientHomePage />}></Route>
+                            <Route path="/homepage" element={<ClientHomePage />}></Route>
                             <Route path='/clientprojectdetails/:id' element={<ClientProjectDetails />}></Route>
                             <Route path='/editclientprojectdetails/:id' element={<EditClientProjectDetails />}></Route>
                             <Route path='/clientprofile' element={<ClientProfile />}></Route>
@@ -86,9 +77,14 @@ const AppContent = () => {
                     {/* Recruiter Routes */}
                     {localStorage.getItem('type') == 2 &&
                         <>
+                            {
+                                PERMISSION.RECRUITER_PERMISSION_ROUTE.map((data) => {
+                                    return <Route path={data.path} element={data.component}></Route>
+                                })
+                            }
                             <Route path="/recruiteDeveloperDetail" element={<RecruiteDeveloperDetail />}></Route>
-                            <Route path="/projectdurationdetail" element={<ProjectDurationDetail />}></Route>
-                            <Route path="/recruiterhomepage" element={<ClientHomePage />}></Route>
+                            {/* <Route path="/projectdurationdetail" element={<ProjectDurationDetail />}></Route> */}
+                            <Route path="/homepage" element={<ClientHomePage />}></Route>
                             <Route path="/jobdetail" element={<JobDetail />}></Route>
                             <Route path="/recruiterprojectdetails/:id" element={<ClientProjectDetails />}></Route>
                             <Route path='/clientprofile' element={<ClientProfile />}></Route>

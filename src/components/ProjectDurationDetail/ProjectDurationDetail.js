@@ -1,19 +1,15 @@
 import React, { useState } from 'react'
-import Header from '../Header/Header'
 // import './index.css';
-import { Box, Button, Typography } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import { Box, Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
 import { PROJECT } from '../../constants/projectConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -23,6 +19,7 @@ const theme = createTheme({
     },
 });
 const ProjectDurationDetail = () => {
+    const navigate = useNavigate();
     const [projectDurationDetail, setProjectDurationDetail] = useState({
         experienceNeeded: null,
         projectDuration: null,
@@ -30,6 +27,7 @@ const ProjectDurationDetail = () => {
         projectId: parseInt(localStorage.getItem('projectId')),
         isPublished: false
     })
+
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
         },
@@ -47,7 +45,6 @@ const ProjectDurationDetail = () => {
             data: projectDurationDetail
         })
     }
-
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -62,13 +59,22 @@ const ProjectDurationDetail = () => {
     LinearProgressWithLabel.propTypes = {
         value: PropTypes.number.isRequired,
     };
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     return (
         <>
             <Box className="main_section">
                 <Typography className="main_section_heading" variant='span'>4/4</Typography>
-                <Typography className="main_section_heading" variant='span'>Specifying Developer Expertise, Work Hours, Project Duration, and Optimal Hiring Preferences</Typography>
-                <Typography className="main_section_description" variant='span'>Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.</Typography>
-                <Box className="d-flex column justify-content-between ">
+                <Typography className="main_section_heading" variant='span'>
+                    Specifying Developer Expertise, Work Hours, Project Duration, and Optimal Hiring Preferences
+                </Typography>
+                <Typography className="main_section_description" variant='span'>
+                    Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.
+                </Typography>
+                <Box className="d-flex column justify-content-between">
                     <FormControl className="w-25">
                         <FormLabel>Level of experience will it need ?</FormLabel>
                         <RadioGroup
@@ -109,14 +115,18 @@ const ProjectDurationDetail = () => {
                                     hourePerWeek: parseInt(e.target.value),
                                 })
                             }}>
-                            {PROJECT.HOUR_PER_WEEK.map((data) => {
-                                return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
-                            })}
+                            {
+                                PROJECT.HOUR_PER_WEEK.map((data) => {
+                                    return <FormControlLabel value={data.id} control={<Radio />} label={data.type} />
+                                })}
                         </RadioGroup>
                     </FormControl>
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={20} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleUpdateProjectRequirement} className="save_button">Next</Button>
                 </Box>
             </Box>

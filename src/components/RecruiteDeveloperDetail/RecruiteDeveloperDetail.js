@@ -6,6 +6,7 @@ import { useMutation } from 'react-query'
 import Cookie from 'js-cookie'
 import { PROJECT } from '../../constants/projectConstant'
 import DoneIcon from '@mui/icons-material/Done';
+import RectangularChip from '../RectangularChip/RectangularChip';
 
 const RecruiteDeveloperDetail = () => {
     const [recruiteDeveloperDetail, setRecruiteDeveloperDetail] = useState({
@@ -131,7 +132,7 @@ const RecruiteDeveloperDetail = () => {
                                     startAdornment: (
                                         <div>
                                             {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
-                                                <Chip
+                                                <RectangularChip
                                                     key={chip.id}
                                                     label={chip.name}
                                                     onDelete={handleDeleteSkill(chip)}
@@ -143,11 +144,9 @@ const RecruiteDeveloperDetail = () => {
                             />
                             <Box>
                                 {serviceSkillList.skillList.map((chip) => (
-                                    <Chip
-                                        variant="outlined"
-                                        color="success"
+                                    <RectangularChip
                                         key={chip.id}
-                                        deleteIcon={<DoneIcon />}
+                                        deleteIcon={< DoneIcon />}
                                         label={chip.name}
                                         onClick={() => { handleAddSkill(chip) }}
                                         style={{ margin: '4px' }}

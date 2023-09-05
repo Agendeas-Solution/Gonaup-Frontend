@@ -8,6 +8,10 @@ import './index.css';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
+import RectangularChip from '../RectangularChip/RectangularChip';
+
 const theme = createTheme({
     palette: {
         secondary: {
@@ -25,6 +29,12 @@ const SkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -80,8 +90,10 @@ const SkillDetail = () => {
 
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
-
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (response) => {
             console.log(response);
@@ -127,14 +139,14 @@ const SkillDetail = () => {
                 <Box className="d-flex flex-column">
                     <Typography>What are the main services you offer?</Typography>
                     <TextField
-                        placeholder="Search for a Services"
+                        label="Search for a Services"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.services.length > 0 && selectedSkillSets.services.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteService(chip)}
@@ -146,11 +158,9 @@ const SkillDetail = () => {
                     />
                     <Box >
                         {serviceSkillList.serviceList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddServices(chip) }}
                                 style={{ margin: '4px' }}
@@ -161,14 +171,14 @@ const SkillDetail = () => {
                 <Box className="mt-4 d-flex flex-column">
                     <Typography>Your skills</Typography>
                     <TextField
-                        placeholder="Enter Skill here"
+                        label="Enter Skill here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteSkill(chip)}
@@ -180,21 +190,30 @@ const SkillDetail = () => {
                     />
                     <Box>
                         {serviceSkillList.skillList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddSkill(chip) }}
                                 style={{ margin: '4px' }}
                             />
                         ))}
                     </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <LinearProgressWithLabel value={10} />
-                        <Button onClick={handleAddServiceDetail} className="save_button">Next</Button>
-                    </Box>
+                </Box>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        onClick={handleBackPage}
+                        className="back_button">
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleAddServiceDetail}
+                        className="save_button">
+                        Next
+                    </Button>
                 </Box>
             </Box>
         </>

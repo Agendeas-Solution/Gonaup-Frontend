@@ -10,6 +10,16 @@ import { PROJECT } from '../../constants/projectConstant';
 import Uploader from '../Uploader/Uploader';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'
+import { styled } from '@mui/system';
+
+const StyledPhoneInput = styled(PhoneInput)({
+    '& input': {
+        border: 'none', // Remove the border
+        outline: 'none', // Remove the outline
+        boxShadow: 'none', // Remove any box shadow
+        height: "45px"
+    },
+});
 const ClientProfile = () => {
     const [clientDetail, setClientDetail] = useState({})
     const navigate = useNavigate();
@@ -98,7 +108,6 @@ const ClientProfile = () => {
     const handleUpdateProfileDetail = async (e) => {
         const formData = new FormData()
         console.log(profileDetail);
-        ;
         formData.append('contactNumber', profileDetail.phoneno)
         formData.append('skypeId', profileDetail.skypeId)
         formData.append('address', profileDetail.address)
@@ -179,7 +188,6 @@ const ClientProfile = () => {
     const handleEditClientPersonalDetailStatus = () => {
         setEditClientPersonalDetail(!editClientPersonalDetail)
     }
-
     const handleEditCompanyDetailStatus = () => {
         seteditCompanyDetail(!editCompanyDetail)
     }
@@ -200,7 +208,6 @@ const ClientProfile = () => {
             }
         })
     }
-
     const { mutate: UpdateCompanyDetail } = useMutation(request, {
         onSuccess: (res) => {
         },
@@ -228,7 +235,7 @@ const ClientProfile = () => {
         <>
             {editClientPersonalDetail ?
                 <Box className="client_profile_main_section p-4">
-                    <Typography className='edit_profile_section_heading' variant='span'>Account</Typography>
+                    <Typography className='profile_section_heading' variant='span'>Account</Typography>
                     <Box className="d-flex justify-content-between column" >
                         <Box sx={{ width: "15%" }}>
                             <Avatar
@@ -312,7 +319,6 @@ const ClientProfile = () => {
                     </Box>
                 </Box>
             }
-
             {editCompanyDetail ?
                 <Box className="client_profile_main_section p-4">
                     <Typography className='edit_profile_section_heading' variant='span'>Company details</Typography>
@@ -389,7 +395,7 @@ const ClientProfile = () => {
                                     className="edit_profile_text_field"
                                 />
                             </Box>
-                            <FormControl>
+                            <FormControl sx={{ marginLeft: "12px" }}>
                                 <FormLabel >How many people are in your company?</FormLabel>
                                 <RadioGroup
                                     onChange={(e) => {
@@ -461,20 +467,22 @@ const ClientProfile = () => {
             {editCompanyContactDetail ? <Box className="client_profile_main_section">
                 <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-                    <Typography>Phone</Typography>
-                    <PhoneInput
-                        placeholder="Enter Mobile No"
+
+                </Box>
+                <Box className="d-flex column justify-content-between m-2">
+                    <StyledPhoneInput
+                        label="Enter Mobile No"
+                        className="w-45"
                         value={profileDetail.phoneno}
                         defaultCountry="US"
-                        sx={{ width: "100px" }}
+                        placeholder="Enter phone number"
                         onChange={(event) => {
                             setProfileDetail({ ...profileDetail, phoneno: event })
-                        }} />
-                </Box>
-                <Box>
-                    <InputLabel>Skype id</InputLabel>
+                        }}
+                    />
                     <TextField
-                        placeholder="Skype Id"
+                        className="w-45"
+                        label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
                         onChange={(e) => {
@@ -482,9 +490,29 @@ const ClientProfile = () => {
                         }}
                     />
                 </Box>
-                <Box>
+                <Box className="d-flex column justify-content-between m-2">
+                    <TextField
+                        label="Street Address"
+                        type="text"
+                        className='w-45'
+                        value={profileDetail.address}
+                        onChange={(e) => {
+                            setProfileDetail({ ...profileDetail, address: e.target.value })
+                        }}
+                    />
+                    <TextField
+                        label="Pincode/Zip Code"
+                        type="text"
+                        className='w-45'
+                        value={profileDetail.pincode}
+                        onChange={(e) => {
+                            setProfileDetail({ ...profileDetail, pincode: e.target.value })
+                        }}
+                    />
+                </Box>
+                <Box className="d-flex column justify-content-between m-2">
                     <Autocomplete
-                        className="input_fields"
+                        className="input_fields w-25"
                         disablePortal
                         disableClearable
                         options={countryList}
@@ -498,7 +526,7 @@ const ClientProfile = () => {
                         )}
                     />
                     <Autocomplete
-                        className="input_fields"
+                        className="input_fields w-25"
                         options={stateList}
                         disableClearable
                         disabled={!profileDetail?.country}
@@ -513,7 +541,7 @@ const ClientProfile = () => {
                         )}
                     />
                     <Autocomplete
-                        className="input_fields"
+                        className="input_fields w-25"
                         options={cityList}
                         disableClearable
                         disabled={!profileDetail?.state}
@@ -528,82 +556,62 @@ const ClientProfile = () => {
                         )}
                     />
                 </Box>
-                <Box>
-                    <InputLabel>Street Address</InputLabel>
-                    <TextField
-                        placeholder="Street Address"
-                        type="text"
-                        value={profileDetail.address}
-                        onChange={(e) => {
-                            setProfileDetail({ ...profileDetail, address: e.target.value })
-                        }}
-                    />
-                </Box>
-                <Box>
-                    <InputLabel>Pincode</InputLabel>
-                    <TextField
-                        placeholder="Pincode/Zip Code"
-                        type="text"
-                        value={profileDetail.pincode}
-                        onChange={(e) => {
-                            setProfileDetail({ ...profileDetail, pincode: e.target.value })
-                        }}
-                    />
-                </Box>
+
                 <Box sx={{ width: '100%' }}>
                     <Button onClick={handleUpdateProfileDetail} className="save_button">Save</Button>
                     <Button onClick={handleEditCompanyContactDetail} className="cancel_button">Cancel</Button>
                 </Box>
-            </Box> : <Box className="client_profile_main_section">
-                <Box className="d-flex justify-content-between p-4">
-                    <Typography className="profile_section_heading" variant="span">Company contacts</Typography>
-                    <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon" />
-                </Box>
-                <Box className="d-flex row">
-                    <Box className="d-flex column w-50 align-items-end p-3" >
-                        <Box className="d-flex row px-2">
+            </Box> :
+                <Box className="client_profile_main_section">
+                    <Box className="d-flex justify-content-between p-4">
+                        <Typography className="profile_section_heading" variant="span">Company contacts</Typography>
+                        <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon" />
+                    </Box>
+                    <Box className="d-flex row p-4">
+                        <Box className="d-flex column w-50 align-items-end" >
                             <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Phone</Typography>
-                                <Typography variant='span' className='profile_section_heading'>
-                                    {clientDetail?.contact_number}</Typography>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Phone</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>
+                                        {clientDetail?.contact_number}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Country </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>
+                                        {clientDetail?.country_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>State </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.state_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Address </Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{
+                                        clientDetail?.address
+                                    }</Typography>
+                                </Box>
                             </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Country </Typography>
-                                <Typography variant='span' className='profile_section_heading'>
-                                    {clientDetail?.country_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>State </Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.state_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Address </Typography>
-                                <Typography variant='span' className='profile_section_heading'>{
-                                    clientDetail?.address
-                                }</Typography>
+                        </Box>
+                        <Box className="d-flex column w-50 align-items-end">
+                            <Box className="d-flex row px-2">
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{
+                                        clientDetail?.skype_id
+                                    }</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>City</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.city_name}</Typography>
+                                </Box>
+                                <Box className="d-flex row">
+                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Zip/Postal Code</Typography>
+                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.zip_code}</Typography>
+                                </Box>
                             </Box>
                         </Box>
                     </Box>
-                    <Box className="d-flex column w-50 align-items-end p-3 ">
-                        <Box className="d-flex row px-2">
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{
-                                    clientDetail?.skype_id
-                                }</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>City</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.city_name}</Typography>
-                            </Box>
-                            <Box className="d-flex row">
-                                <Typography variant='span' sx={{ color: "#8E8E8E" }}>Zip/Postal Code</Typography>
-                                <Typography variant='span' className='profile_section_heading'>{clientDetail?.zip_code}</Typography>
-                            </Box>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>}
+                </Box>}
         </>
     )
 }

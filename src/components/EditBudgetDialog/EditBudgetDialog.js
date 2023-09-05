@@ -33,7 +33,7 @@ const EditBudgetDialog = ({ editBudgetDialogControl, setEditBudgetDialogControl,
                         onChange={(e) => {
                             setEditBudgetDialogControl({ ...editBudgetDialogControl, budget: e.target.value });
                         }}
-                        className='w-100'
+                        className='w-100 my-2'
                         variant="outlined"
                         label="Maximum project budget(USD)"
                         placeholder="0"

@@ -46,8 +46,8 @@ const DeveloperHomePage = () => {
                             </TabList>
                         </Box>
                         <TabPanel sx={{ padding: 0 }} value="1"><ActiveJobs projectList={projectList} /></TabPanel>
-                        <TabPanel value="2">Item Two</TabPanel>
-                        <TabPanel value="3">Item Three</TabPanel>
+                        <TabPanel value="2"><ActiveJobs projectList={projectList} /></TabPanel>
+                        <TabPanel value="3"><ActiveJobs projectList={projectList} /></TabPanel>
                     </TabContext>
                 </Box>
             </Box></>

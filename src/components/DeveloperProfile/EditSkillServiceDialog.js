@@ -4,6 +4,7 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import DoneIcon from '@mui/icons-material/Done';
 import Cookie from 'js-cookie';
+import RectangularChip from '../RectangularChip/RectangularChip';
 const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSkillDialogControl, handleEditSkillDialog }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: editSkillDialogControl?.services,
@@ -78,11 +79,12 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                 className="dialog_section"
             >
                 <DialogTitle className="dialog_heading">
-                    Edit Role & Overview
+                    Edit Skill
                 </DialogTitle>
                 <DialogContent>
                     <Box className="add_project_textfield">
                         <TextField
+                            className="my-2 w-100"
                             label="Enter Skill here"
                             variant="outlined"
                             onChange={() => {
@@ -93,7 +95,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                 startAdornment: (
                                     <div>
                                         {selectedSkillSets.skills && selectedSkillSets.skills.map((chip) => (
-                                            <Chip
+                                            <RectangularChip
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteSkill(chip)}
@@ -105,11 +107,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                         />
                         <Box>
                             {serviceSkillList.skillList.map((chip) => (
-                                <Chip
-                                    variant="outlined"
-                                    color="success"
+                                <RectangularChip
                                     key={chip.id}
-                                    deleteIcon={<DoneIcon />}
+                                    deleteIcon={< DoneIcon />}
                                     label={chip.name}
                                     onClick={() => { handleAddSkill(chip) }}
                                     style={{ margin: '4px' }}
@@ -117,14 +117,14 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                             ))}
                         </Box>
                         <TextField
-                            placeholder="Enter Services here"
+                            label="Enter Services here"
                             variant="outlined"
-                            className='skill_detail_textfield'
+                            className='skill_detail_textfield my-2 w-100'
                             InputProps={{
                                 startAdornment: (
                                     <div>
                                         {selectedSkillSets.services.length > 0 && selectedSkillSets.services.map((chip) => (
-                                            <Chip
+                                            <RectangularChip
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteService(chip)}
@@ -136,11 +136,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                         />
                         <Box>
                             {serviceSkillList.serviceList.map((chip) => (
-                                <Chip
-                                    variant="outlined"
-                                    color="success"
+                                <RectangularChip
                                     key={chip.id}
-                                    deleteIcon={<DoneIcon />}
+                                    deleteIcon={< DoneIcon />}
                                     label={chip.name}
                                     onClick={() => { handleAddServices(chip) }}
                                     style={{ margin: '4px' }}

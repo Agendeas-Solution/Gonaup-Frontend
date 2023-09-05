@@ -9,6 +9,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -19,9 +21,10 @@ const theme = createTheme({
 });
 const ServiceDetail = () => {
     const [serviceDetail, setServiceDetail] = useState({
-        professionalRole: "Sr. Software Eng.",
-        description: "My Description"
+        professionalRole: "",
+        description: ""
     })
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -33,13 +36,21 @@ const ServiceDetail = () => {
             </Box>
         );
     }
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     LinearProgressWithLabel.propTypes = {
         value: PropTypes.number.isRequired,
     };
     const { mutate: AddProfileLinks } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (response) => {
             console.log(response);
@@ -88,9 +99,20 @@ const ServiceDetail = () => {
                         variant="outlined"
                     />
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
-                    <Button onClick={handleAddServiceDetail} className="save_button">Next</Button>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        onClick={handleBackPage}
+                        className="back_button">
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleAddServiceDetail}
+                        className="save_button">
+                        Next
+                    </Button>
                 </Box>
             </Box>
         </>

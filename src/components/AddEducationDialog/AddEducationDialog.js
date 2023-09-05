@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 const AddEducationDialog = ({ addEducationDialogStatus,
     handleClose, educationDetail, setEducationDetail, handleAddEducationDetail }) => {
     return (
@@ -12,14 +13,15 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                 open={addEducationDialogStatus}
                 onClose={handleClose}
             >
-                <DialogTitle>
+                <DialogTitle className="dialog_heading">
                     Add Education History
                 </DialogTitle>
                 <DialogContent>
                     <Box>
                         <InputLabel>School</InputLabel>
                         <TextField
-                            placeholder="Ex: Northwestern University"
+                            className='w-100'
+                            label="Ex: Northwestern University"
                             type="text"
                             value={educationDetail.school}
                             onChange={(e) => {
@@ -30,7 +32,8 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Degree</InputLabel>
                         <TextField
-                            placeholder="Ex: Bachelors"
+                            className='w-100'
+                            label="Ex: Bachelors"
                             type="text"
                             value={educationDetail.degree}
                             onChange={(e) => {
@@ -41,7 +44,8 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Field of Study</InputLabel>
                         <TextField
-                            placeholder="Ex: Computer Science"
+                            className='w-100'
+                            label="Ex: Computer Science"
                             type="text"
                             value={educationDetail.studyIn}
                             onChange={(e) => {
@@ -51,9 +55,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Box>
                     <Box>
                         <InputLabel>Dates Attended</InputLabel>
-                        <Box>
+                        <Box className="d-flex justify-content-between">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     views={['year']}
                                     value={new Date(`${educationDetail.dateFrom}-01-01`)}
                                     onChange={(e) => {
@@ -64,6 +69,7 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                             </LocalizationProvider>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                    className='w-45'
                                     views={['year']}
                                     value={new Date(`${educationDetail.dateTo}-01-01`)}
                                     onChange={(e) => {
@@ -77,8 +83,9 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     <Box>
                         <InputLabel>Description</InputLabel>
                         <TextField
-                            placeholder="Describe your studies, awards, etc."
+                            label="Describe your studies, awards, etc."
                             type="text"
+                            className='w-100'
                             multiline
                             value={educationDetail.description}
                             onChange={(e) => {
@@ -96,7 +103,6 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                     </Button>
                 </DialogActions>
             </Dialog>
-
         </div>
     )
 }

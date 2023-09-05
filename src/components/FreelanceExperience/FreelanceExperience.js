@@ -8,7 +8,7 @@ const FreelanceExperience = () => {
     const [freelancerExperienceDetail, setFreelancerExperienceDetail] = useState({
         frameworkId: null,
         experiencedYears: null,
-        projectLinks: [''],
+        projectLinks: [],
         description: ''
     })
     const [frameWorkList, setFrameWorkList] = useState([])
@@ -30,7 +30,6 @@ const FreelanceExperience = () => {
     const { mutate: GetFrameWorkList } = useMutation(request, {
         onSuccess: (res) => {
             setFrameWorkList(res.data.data)
-                ;
         },
         onError: (err) => {
             console.log(err);
@@ -38,7 +37,7 @@ const FreelanceExperience = () => {
     });
     const { mutate: AddFreeLanceExperience } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+
         },
         onError: (err) => {
             console.log(err);
@@ -102,7 +101,6 @@ const FreelanceExperience = () => {
                                 <TextField
                                     className="register_input_fields"
                                     label="Experienced Years"
-                                    placeholder="Experienced Years"
                                     type='number'
                                     value={freelancerExperienceDetail?.experiencedYears}
                                     onChange={e => {
@@ -163,4 +161,4 @@ const FreelanceExperience = () => {
     )
 }
 
-export default FreelanceExperience
+export default FreelanceExperience;

@@ -1,8 +1,18 @@
 .company_logo {
   display: flex;
   justify-content: start;
-  padding: 15px;
+  padding: 15px 15px 0 15px;
+  width: 100%;
+  flex-direction: row;
+  border-bottom: 1px solid #e5e5e5;
 }
 .company_logo img {
   width: 7rem;
+}
+.user_profession_detail {
+  display: flex;
+  flex-direction: column;
+}
+.company_logo .MuiTabs-indicator {
+  display: none;
 }

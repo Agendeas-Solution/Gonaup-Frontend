@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Header/Header'
 import { Box, InputLabel, TextField, Typography, Chip, Button } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -9,6 +8,9 @@ import DoneIcon from '@mui/icons-material/Done';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
+import RectangularChip from '../RectangularChip/RectangularChip';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -26,6 +28,7 @@ const ClientSkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const navigate = useNavigate();
     const { mutate: GetServiceList } = useMutation(request, {
         onSuccess: (res) => {
             setServiceSkillList((prevState) => ({
@@ -83,10 +86,20 @@ const ClientSkillDetail = () => {
         }));
     };
 
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
+
+
     //Add Skill and Services
     const { mutate: AddSkillService } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (err) => {
             console.log(err);
@@ -129,16 +142,15 @@ const ClientSkillDetail = () => {
                 <Typography className="main_section_heading" variant='span'>Unveiling the Essential Skills Required to Create Your Project Masterpiece</Typography>
                 <Typography className="main_section_description" variant='span'>Discover the essential skills that act as the building blocks of brilliance. Specify the unique talents and expertise you're seeking, and watch as your project comes alive with the perfect blend of skill and ingenuity.</Typography>
                 <Box className="mt-4 d-flex flex-column">
-                    <Typography>Your skills</Typography>
                     <TextField
-                        placeholder="Enter Skill here"
+                        label="Enter Skill here"
                         variant="outlined"
                         className='skill_detail_textfield'
                         InputProps={{
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteSkill(chip)}
@@ -150,11 +162,9 @@ const ClientSkillDetail = () => {
                     />
                     <Box>
                         {serviceSkillList.skillList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddSkill(chip) }}
                                 style={{ margin: '4px' }}
@@ -170,7 +180,7 @@ const ClientSkillDetail = () => {
                             startAdornment: (
                                 <div>
                                     {selectedSkillSets.services.length > 0 && selectedSkillSets.services.map((chip) => (
-                                        <Chip
+                                        <RectangularChip
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteService(chip)}
@@ -182,11 +192,9 @@ const ClientSkillDetail = () => {
                     />
                     <Box>
                         {serviceSkillList.serviceList.map((chip) => (
-                            <Chip
-                                variant="outlined"
-                                color="success"
+                            <RectangularChip
                                 key={chip.id}
-                                deleteIcon={<DoneIcon />}
+                                deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 onClick={() => { handleAddServices(chip) }}
                                 style={{ margin: '4px' }}
@@ -194,8 +202,11 @@ const ClientSkillDetail = () => {
                         ))}
                     </Box>
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={20} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleAddSkillService} className="save_button">Next</Button>
                 </Box>
             </Box>

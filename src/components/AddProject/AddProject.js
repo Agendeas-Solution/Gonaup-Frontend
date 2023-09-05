@@ -45,7 +45,6 @@ const AddProject = () => {
                                 <TextField
                                     className="register_input_fields"
                                     label="Title"
-                                    placeholder="Title"
                                     value={addProject?.title}
                                     onChange={e => {
                                         setAddProject({ ...addProject, title: e.target.value })
@@ -57,7 +56,6 @@ const AddProject = () => {
                                 <TextField
                                     className="register_input_fields"
                                     label="Description"
-                                    placeholder="Description"
                                     value={addProject?.description}
                                     onChange={e => {
                                         setAddProject({ ...addProject, description: e.target.value })
@@ -82,7 +80,6 @@ const AddProject = () => {
                                     className="register_input_fields"
                                     label="Fixed Budget "
                                     type="number"
-                                    placeholder="Fixed Budget"
                                     value={addProject?.fixedBudget}
                                     onChange={e => {
                                         setAddProject({ ...addProject, fixedBudget: e.target.value })
@@ -103,7 +100,6 @@ const AddProject = () => {
                                 <TextField
                                     className="register_input_fields"
                                     label="Hourly Rate"
-                                    placeholder="Hourly Rate"
                                     value={addProject?.hourlyRate}
                                     onChange={e => {
                                         setAddProject({ ...addProject, hourlyRate: e.target.value })

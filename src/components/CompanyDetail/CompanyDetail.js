@@ -1,11 +1,14 @@
+import React, { useEffect, useState } from 'react'
 import { Box, Button, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
 import './index.css'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
 import Cookie from 'js-cookie'
 import { PROJECT } from '../../constants/projectConstant'
+import { useNavigate } from 'react-router-dom'
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const CompanyDetail = () => {
+    const navigate = useNavigate();
     const [companyDetail, setCompanyDetail] = useState({
         companyName: "",
         position: "",
@@ -13,6 +16,23 @@ const CompanyDetail = () => {
         linkdinProfile: "",
         size: ""
     })
+    // const { mutate: GetFreelancerStep } = useMutation(request, {
+    //     onSuccess: (res) => {
+    //     },
+    //     onError: (err) => {
+    //         console.log(err);
+    //     }
+    // });
+    // const handleGetFreelancerStep = async (e) => {
+    //     await GetFreelancerStep({
+    //         url: '/user/freelancer/steps',
+    //         method: 'get',
+    //         headers: {
+    //             Authorization: `${Cookie.get('userToken')}`,
+    //         },
+    //     })
+    // }
+
     const { mutate: AddCompany } = useMutation(request, {
         onSuccess: (res) => {
 
@@ -33,10 +53,11 @@ const CompanyDetail = () => {
     }
     return (
         <>
-            <Box className='main_section'>
-                <Typography variant="span" className='main_section_heading'>Welcome to GonaUp!</Typography>
-                <Typography variant="span" className='main_section_description'>Tell us about your business and you'll be on your way to connect with talent.</Typography>
+            <Box >
+                <HeaderLogo />
                 <Box className="company_detail_section">
+                    <Typography variant="span" className='main_section_heading'>Welcome to GonaUp!</Typography>
+                    <Typography variant="span" className='main_section_description'>Tell us about your business and you'll be on your way to connect with talent.</Typography>
                     <Box className="company_detail_fields">
                         <Box sx={{ width: "45%" }}>
                             <TextField
@@ -101,7 +122,9 @@ const CompanyDetail = () => {
                             </FormControl>
                         </Box>
                     </Box>
-                    <Button variant="contained" onClick={handleAddCompany}>Next</Button>
+                </Box>
+                <Box className="d-flex justify-content-end mx-3 ">
+                    <Button sx={{ width: "10%" }} className="common_button" variant="contained" onClick={handleAddCompany}>Next</Button>
                 </Box>
             </Box >
         </>

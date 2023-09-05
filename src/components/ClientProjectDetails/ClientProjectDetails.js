@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material'
 import './index.css'
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
@@ -12,9 +10,10 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { PROJECT } from '../../constants/projectConstant';
-import ProjectDetail from '../ProjectDetail/ProjectDetail';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import ProjectDetailRightSection from './ProjectDetailRightSection';
+import RectangularChip from '../RectangularChip/RectangularChip';
+
 const ClientProjectDetails = () => {
     const { id } = useParams();
     const [projectDetail, setProjectDetail] = useState({});
@@ -74,9 +73,9 @@ const ClientProjectDetails = () => {
                 <Box className="client_project_detail_left_section">
                     <Box className="client_project_title_desc">
                         <Typography className="client_main_heading" variant="span">{projectDetail.title}</Typography>
-                        <Typography>{projectDetail.description}</Typography>
+                        <Typography className='description' variant="span">{projectDetail.description}</Typography>
                     </Box>
-                    <Divider className="mt-3" />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="client_project_title_desc">
                         <Box className="project_detail">
                             <Box className="project_detail_component">
@@ -88,21 +87,21 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
+                                        <Typography className='project_detail_sub_heading mb-4'>Hourly</Typography>
                                     </Typography>
-                                    <Typography className='project_detail_sub_heading'>Hourly</Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
                                 <CalendarMonthRoundedIcon />
                                 <Box className="d-flex row">
-                                    <Typography className='mx-1 project_detail_heading'>
+                                    <Typography className='mx-1 project_detail_heading '>
                                         {PROJECT.PROJECT_DURATION.map((data) => {
                                             if (data.id === projectDetail.project_duration) {
                                                 return data.type
                                             }
                                         })}
+                                        <Typography className='project_detail_sub_heading'>Project Length</Typography>
                                     </Typography>
-                                    <Typography className='project_detail_sub_heading'>Project Length</Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
@@ -111,10 +110,12 @@ const ClientProjectDetails = () => {
                                     <Typography className='mx-1 project_detail_heading'>
                                         {
                                             projectDetail.budget_type === 0 ?
-                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + "to" + projectDetail.max_hourly_budget
+                                                projectDetail.fixed_budget : "$" + projectDetail.min_hourly_budget + " to " + projectDetail.max_hourly_budget + "/hr"
                                         }
+                                        <Typography className='project_detail_sub_heading'>
+                                            Budget
+                                        </Typography>
                                     </Typography>
-                                    <Typography className='project_detail_sub_heading'>Budget</Typography>
                                 </Box>
                             </Box>
                             <Box className="project_detail_component">
@@ -126,16 +127,16 @@ const ClientProjectDetails = () => {
                                                 return data.type
                                             }
                                         })}
+                                        <Typography className='project_detail_sub_heading'>Comprehensive and deep expertise in this field</Typography>
                                     </Typography>
-                                    <Typography className='project_detail_sub_heading'>Comprehensive and deep expertise in this field</Typography>
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
-                    <Divider className="mt-3" />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
                     <Box className="p-3 d-flex column">
                         <Typography variant='span' className='w-50'>
-                            <Typography variant="span" className='project_detail_heading'> Project Type:</Typography>
+                            <Typography variant="span" className='project_detail_heading'> Project Type: </Typography>
                             {PROJECT.PROJECT_STATUS.map((data) => {
                                 if (data.id === projectDetail.project_status) {
                                     return data.type
@@ -143,7 +144,7 @@ const ClientProjectDetails = () => {
                             })}
                         </Typography>
                         <Typography variant='span' className='w-50'>
-                            <Typography variant="span" className='project_detail_heading'> Job Opportunity:</Typography>
+                            <Typography variant="span" className='project_detail_heading'> Job Opportunity: </Typography>
                             {PROJECT.PROJECT_TYPE.map((data) => {
                                 if (data.id === projectDetail.project_type) {
                                     return data.type
@@ -151,21 +152,22 @@ const ClientProjectDetails = () => {
                             })}
                         </Typography>
                     </Box>
-                    <Divider />
+                    <Divider sx={{ borderColor: "#E5E5E5" }} />
                     <Box className="client_project_title_desc">
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
-                        <Stack direction="row" spacing={1}>
+                        <Stack className="mt-2" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
-                                return <Chip label={data.name} />
+                                return <RectangularChip label={data.name} />
                             })}
                         </Stack>
                     </Box>
-                    <Divider className="mt-3" />
-                    {(localStorage.getItem('type') == 1 || localStorage.getItem('type') == 2) && <Box className="client_project_title_desc">
+                    <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
+                    {projectDetail?.suggestedTalents && (localStorage.getItem('type') == 1 || localStorage.getItem('type') == 2) && <Box className="client_project_title_desc">
                         <Typography className="project_detail_heading" variant="span"> Suggested  Talent</Typography>
                         <Stack direction="row" spacing={1}>
                             {projectDetail?.suggestedTalents && projectDetail?.suggestedTalents.map((data) => {
-                                return <Chip label={data?.name} />
+                                return <RectangularChip label={data?.name
+                                } />
                             })}
                         </Stack>
                     </Box>}

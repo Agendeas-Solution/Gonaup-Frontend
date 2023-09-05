@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../Header/Header'
 import { Box, TextField, Typography, Button } from '@mui/material'
 import './index.css';
 import Cookie from 'js-cookie';
@@ -8,6 +7,8 @@ import { request } from '../../utils/axios-utils';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -22,6 +23,7 @@ const JobDetail = () => {
         title: "",
         description: ""
     })
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -36,10 +38,15 @@ const JobDetail = () => {
     LinearProgressWithLabel.propTypes = {
         value: PropTypes.number.isRequired,
     };
+
     //Add Project Title
     const { mutate: AddProjectTitle } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+            localStorage.setItem('projectId', res?.data?.data?.projectId)
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (err) => {
             console.log(err);
@@ -55,6 +62,11 @@ const JobDetail = () => {
             data: projectTitle
         })
     }
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     return (
         <>
             <Box className="main_section">
@@ -63,8 +75,7 @@ const JobDetail = () => {
                 <Typography className="main_section_description" variant='span'>Share the captivating title and provide a detailed description that brings your vision to life. We can't wait to hear about your exciting project and help you bring it to fruition!"</Typography>
                 <Box className="mt-3">
                     <TextField
-                        label="Write a title for your job post"
-                        placeholder="Job title"
+                        label="Job title"
                         className="job_detail_textfield"
                         value={projectTitle?.title}
                         onChange={e => {
@@ -76,7 +87,6 @@ const JobDetail = () => {
                 <Box className="mt-3">
                     <TextField
                         label="Describe what you need"
-                        placeholder="Detailed Job description here"
                         className="job_detail_textfield"
                         multiline
                         rows={4}
@@ -87,8 +97,11 @@ const JobDetail = () => {
                         variant="outlined"
                     />
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleAddProjectTitle} className="save_button">Next</Button>
                 </Box>
             </Box>

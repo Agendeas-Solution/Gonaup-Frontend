@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Menu, Fade, MenuItem, Typography } from '@mui/material'
+import { Box, Menu, Fade, MenuItem, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -8,6 +8,7 @@ import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
+import moment from 'moment';
 const ActiveJobs = ({ projectList }) => {
     const [deleteProjectDialogControl, setDeleteProjectDialogControl] = useState({
         status: false,
@@ -49,59 +50,59 @@ const ActiveJobs = ({ projectList }) => {
         <>
             {
                 projectList.projectList && projectList.projectList.map((data) => {
-                    return <Box className="active_job_section"
-                        onClick={() => {
-                            const type = localStorage.getItem('type');
-                            console.log("printing", parseInt(type) == 0)
-                            if (parseInt(type) === 0) {
-                                navigate(`/freelancerprojectdetails/${data.id}`);
-                            }
-                            else if (parseInt(type) === 1) {
-                                navigate(`/clientprojectdetails/${data.id}`);
-                            }
-                            else if (parseInt(type) === 2) {
-                                navigate(`/recruiterprojectdetails/${data.id}`);
-                            }
-                        }}
-                    >
-                        {
-                            <Box className="d-flex column justify-content-between" >
-                                <Typography variant="span" className='active_job_heading'>{data.title}</Typography>
-                                {localStorage.getItem('type') == 1 && <Box>
-                                    <IconButton
-                                        id="fade-button"
-                                        aria-controls={open ? 'fade-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={open ? 'true' : undefined}
-                                        onClick={handleClick}
-                                    >
-                                        <MoreVertIcon />
-                                    </IconButton>
-                                    <Menu
-                                        MenuListProps={{
-                                            'aria-labelledby': 'fade-button',
-                                        }}
-                                        anchorEl={anchorEl}
-                                        open={open}
-                                        onClose={handleClose}
-                                        TransitionComponent={Fade}
-                                    >
-                                        <MenuItem onClick={handleClose}>View Posting</MenuItem>
-                                        <MenuItem onClick={handleClose}>Edit Posting</MenuItem>
-                                        <MenuItem
-                                            onClick={() => {
-                                                setDeleteProjectDialogControl({ ...deleteProjectDialogControl, status: true, projectId: data.id })
+                    return <>
+                        <Box className="active_job_section"
+                            onClick={() => {
+                                const type = localStorage.getItem('type');
+                                if (parseInt(type) === 0) {
+                                    navigate(`/freelancerprojectdetails/${data.id}`);
+                                }
+                                else if (parseInt(type) === 2) {
+                                    navigate(`/recruiterprojectdetails/${data.id}`);
+                                }
+                            }}
+                        >
+                            {
+                                <Box className="d-flex column justify-content-between" >
+                                    <Typography variant="span" className='active_job_heading'>{data.title}</Typography>
+                                    {localStorage.getItem('type') == 1 && <Box>
+                                        <IconButton
+                                            aria-haspopup="true"
+                                            aria-expanded={open ? 'true' : undefined}
+                                            onClick={handleClick}
+                                        >
+                                            <MoreVertIcon />
+                                        </IconButton>
+                                        <Menu
+                                            PaperProps={{
+                                                style: {
+                                                    boxShadow: " 0px 3px 3px -3px rgba(0,0,0,0.1), 0px 6px 8px 1px rgba(0,0,0,0.1), 0px 3px 10px 2px rgba(0,0,0,0.1)"
+                                                },
                                             }}
-                                        >Delete Posting</MenuItem>
-                                    </Menu>
-                                </Box>}
-                            </Box>
-                        }
-                        <Typography variant='span'>{data.title}</Typography>
-                        <Typography variant="span">{data.skills}</Typography>
-                        <Typography variant="span" sx={{ color: "#8E8E8E" }}>Created - {data.created_at}</Typography>
-                        <DeleteProjectDialog deleteProjectDialogControl={deleteProjectDialogControl} handleClose={handleClose} setDeleteProjectDialogControl={setDeleteProjectDialogControl} handleDeleteProject={handleDeleteProject} />
-                    </Box >
+                                            anchorEl={anchorEl}
+                                            open={open}
+                                            onClose={handleClose}
+                                        >
+                                            <MenuItem onClick={() => navigate(`/clientprojectdetails/${data.id}`)}>
+                                                View Posting
+                                            </MenuItem>
+                                            {/* <MenuItem onClick={handleClose}>Edit Posting</MenuItem> */}
+                                            <MenuItem
+                                                onClick={() => {
+                                                    setDeleteProjectDialogControl({ ...deleteProjectDialogControl, status: true, projectId: data.id })
+                                                }}>
+                                                Delete Posting
+                                            </MenuItem>
+                                        </Menu>
+                                    </Box>}
+                                </Box>
+                            }
+                            <Typography className="mt-1" variant='span'>{data.title}</Typography>
+                            <Typography variant="span" className="mt-1">{data.skills}</Typography>
+                            <Typography className="mt-1" variant="span" sx={{ color: "#8E8E8E" }}>Created - {moment(data.created_at).format('ll')}</Typography>
+                            <DeleteProjectDialog deleteProjectDialogControl={deleteProjectDialogControl} handleClose={handleClose} setDeleteProjectDialogControl={setDeleteProjectDialogControl} handleDeleteProject={handleDeleteProject} />
+                        </Box >
+                    </>
                 })
             }
 

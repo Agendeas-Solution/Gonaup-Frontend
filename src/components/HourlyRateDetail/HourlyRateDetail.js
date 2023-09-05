@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../Header/Header'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
@@ -7,6 +6,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -19,10 +20,19 @@ const HourlyRateDetail = () => {
     const [hourRate, setHourRate] = useState({
         hourlyRate: 20
     })
+    const navigate = useNavigate();
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     const { mutate: AddHourlyRate } = useMutation(request, {
         onSuccess: (response) => {
             console.log(response);
-
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (response) => {
             console.log(response);
@@ -70,9 +80,16 @@ const HourlyRateDetail = () => {
                         }}
                     />
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={10} />
-                    <Button onClick={handleAddHourlyRate} className="save_button">Next</Button>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button
+                        onClick={handleBackPage}
+                        className="back_button">Back</Button>
+                    <Button
+                        onClick={handleAddHourlyRate}
+                        className="save_button">Next</Button>
                 </Box>
             </Box>
         </>

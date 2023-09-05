@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Typography,
@@ -7,6 +7,7 @@ import {
     InputAdornment,
     IconButton,
     InputLabel,
+    Divider,
 } from '@mui/material'
 import './index.css'
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,44 +15,101 @@ import Logo from '../../assets/images/logo.svg'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
-import { setLoginToken } from '../../hooks/storage'
+import { setLoginToken, setUserType } from '../../hooks/storage'
 import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
-import Header from '../Header/Header'
 import { PERMISSION } from '../../constants/permissionConstant'
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const Login = () => {
     const [userDetail, setUserDetail] = useState({
         email: '',
         password: '',
     })
     const navigate = useNavigate()
-    const handleLoginRoute = (loginDetail) => {
-        if ((loginDetail?.usedDetails?.type === 0 || loginDetail?.usedDetails?.type === 1 || loginDetail?.usedDetails?.type === 2) && loginDetail?.usedDetails?.signupCompleted === 0) {
+    const handleLoginRoute = (loginStep) => {
+        const storedData = localStorage.getItem('loginDetail');
+        const loginDetail = JSON.parse(storedData);
+        if (loginDetail?.usedDetails?.signupCompleted == 1) {
+            if (loginDetail?.usedDetails?.type == 0 || loginDetail?.usedDetails?.hasCompany) {
+                navigate("/homepage")
+            }
+            else if (!loginDetail?.usedDetails?.hasCompany) {
+                navigate("/companydetail")
+            }
+        }
+        else if (loginDetail?.usedDetails?.type == 0) {
+            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+        }
+        else if (loginDetail?.usedDetails?.type == 1 && loginDetail?.usedDetails?.hasCompany) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+        }
+        else if (loginDetail?.usedDetails?.type == 1) {
             navigate("/companydetail")
         }
-        else if (loginDetail?.usedDetails?.type === 0) {
-            navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        else if (loginDetail?.usedDetails?.type == 2 && loginDetail?.usedDetails?.hasCompany) {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
         }
-        else if (loginDetail?.usedDetails?.type === 1) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
-        }
-        else if (loginDetail?.usedDetails?.type === 2) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginDetail?.usedDetails?.signupCompleted].path)
+        else if (loginDetail?.usedDetails?.type == 2) {
+            navigate("/companydetail")
         }
     }
-    const { mutate } = useMutation(request, {
+    const { mutate: Login } = useMutation(request, {
         onSuccess: (res) => {
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
+            setUserType(res?.data?.data?.usedDetails?.type)
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
+            const dataToStore = JSON.stringify(res?.data?.data);
+            localStorage.setItem('loginDetail', dataToStore);
+            if (res?.data?.data?.usedDetails?.type == 0 || res?.data?.data?.usedDetails?.type == 1) {
+                handleGetAccountList();
+            }
+            if (res?.data?.data?.usedDetails?.signupCompleted == 0) {
+                handleGetFreelancerSteps()
+            }
+            else {
+                handleLoginRoute();
+            }
+        },
+        onError: (err) => {
+        }
+    });
+    const { mutate: GetAccountList } = useMutation(request, {
+        onSuccess: (res) => {
+            const dataToStore = JSON.stringify(res?.data?.data);
+            localStorage.setItem('accountList', dataToStore);
+        },
+        onError: (err) => {
+        }
+    });
+    const handleGetAccountList = async (e) => {
+        await GetAccountList({
+            url: '/auth/accounts',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
+    const { mutate: GetFreelancerSteps } = useMutation(request, {
+        onSuccess: (res) => {
+            localStorage.setItem('stepStatus', res?.data?.data?.stepStatus - 1);
             handleLoginRoute(res.data.data);
         },
         onError: (err) => {
-
         }
     });
+    const handleGetFreelancerSteps = async () => {
+        await GetFreelancerSteps({
+            url: '/user/freelancer/steps',
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
     const handleLogin = async (e) => {
-        await mutate({
+        await Login({
             url: '/auth/login',
             method: 'post',
             data: userDetail,
@@ -65,7 +123,7 @@ const Login = () => {
     return (
         <>
             <Box className="login_page">
-                <Header />
+                <HeaderLogo />
                 <Box className="login_form_section">
                     <Box className="login_form_body">
                         <Box className="login_form_box">
@@ -79,9 +137,9 @@ const Login = () => {
                                 }}
                             >
                                 <Box sx={{ width: '100%', padding: '30px 20px 20px 20px' }}>
-                                    <InputLabel>Email</InputLabel>
+                                    {/* <InputLabel>Email</InputLabel> */}
                                     <TextField
-                                        placeholder="Email"
+                                        label="Email"
                                         id="my-text-field"
                                         sx={{ width: '100%' }}
                                         type="email"
@@ -94,10 +152,10 @@ const Login = () => {
                                     />
                                 </Box>
                                 <Box sx={{ width: '100%', padding: '20px 20px 0px 20px' }}>
-                                    <InputLabel>Password</InputLabel>
+                                    {/* <InputLabel>Password</InputLabel> */}
                                     <TextField
                                         sx={{ width: '100%' }}
-                                        placeholder="Password"
+                                        label="Password"
                                         type={showPassword ? 'password' : 'text'}
                                         value={userDetail.password}
                                         onChange={e => {
@@ -150,8 +208,9 @@ const Login = () => {
                                     }}
                                 >
                                     <Button
-                                        className="dialogue_bottom_button"
+                                        className="common_button"
                                         onClick={handleLogin}
+                                        sx={{ width: "80%" }}
                                         variant="contained"
                                         type="submit"
                                     >
@@ -159,6 +218,12 @@ const Login = () => {
                                     </Button>
                                 </Box>
                             </form>
+                            <Divider orientation="vertical" className="mt-3">
+                                Don’t have an GonaUp Account?
+                            </Divider>
+                            <Button
+                                onClick={() => navigate("/join")}
+                                sx={{ width: "60%" }} className="sign_up_button" variant="standard">Sign Up</Button>
                         </Box>
                     </Box>
                     <Box className="login_footer">
@@ -168,7 +233,6 @@ const Login = () => {
                     </Box>
                 </Box>
             </Box>
-            {/* <ErrorSnackbar /> */}
         </>
     )
 }

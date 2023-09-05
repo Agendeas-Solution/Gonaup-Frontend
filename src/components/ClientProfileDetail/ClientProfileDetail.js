@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../Header/Header'
 import { Autocomplete, Box, Button, Input, InputLabel, TextField, Typography, createFilterOptions } from '@mui/material'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
@@ -10,6 +9,7 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie'
 import Uploader from '../Uploader/Uploader'
+import { useNavigate } from 'react-router-dom'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -32,6 +32,7 @@ const ClientProfileDetail = () => {
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [cityList, setCityList] = useState([]);
+    const navigate = useNavigate();
     function LinearProgressWithLabel(props) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -105,7 +106,6 @@ const ClientProfileDetail = () => {
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
 
         },
         onError: (response) => {
@@ -114,8 +114,6 @@ const ClientProfileDetail = () => {
     });
     const handleUpdateProfileDetail = async (e) => {
         const formData = new FormData()
-        console.log(profileDetail);
-        ;
         formData.append('contactNumber', profileDetail.phoneno)
         formData.append('skypeId', profileDetail.skypeId)
         formData.append('address', profileDetail.address)
@@ -162,9 +160,8 @@ const ClientProfileDetail = () => {
                 <Typography className='main_section_description'>Taking the last steps towards showcasing your expertise and accessing exciting opportunities. Your safety and convenience are our top priorities, and our streamlined process ensures a hassle-free experience.</Typography>
                 <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-                    <Typography>Phone</Typography>
                     <PhoneInput
-                        placeholder="Enter Mobile No"
+                        label="Enter Mobile No"
                         value={profileDetail.phoneno}
                         defaultCountry="US"
                         sx={{ width: "100px" }}
@@ -173,9 +170,8 @@ const ClientProfileDetail = () => {
                         }} />
                 </Box>
                 <Box>
-                    <InputLabel>Skype id</InputLabel>
                     <TextField
-                        placeholder="Skype Id"
+                        label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
                         onChange={(e) => {
@@ -231,9 +227,8 @@ const ClientProfileDetail = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Street Address</InputLabel>
                     <TextField
-                        placeholder="Street Address"
+                        label="Street Address"
                         type="text"
                         value={profileDetail.address}
                         onChange={(e) => {
@@ -242,9 +237,8 @@ const ClientProfileDetail = () => {
                     />
                 </Box>
                 <Box>
-                    <InputLabel>Pincode</InputLabel>
                     <TextField
-                        placeholder="Pincode/Zip Code"
+                        label="Pincode/Zip Code"
                         type="text"
                         value={profileDetail.pincode}
                         onChange={(e) => {

@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import Header from '../Header/Header'
 import { Box, InputLabel, TextField, Typography, Chip, FormControl, RadioGroup, FormControlLabel, Radio, Divider, Button } from '@mui/material'
 import './index.css';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
+import { PERMISSION } from '../../constants/permissionConstant';
+import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
         secondary: {
@@ -19,6 +18,8 @@ const theme = createTheme({
         },
     },
 });
+
+
 const ProjectBudget = () => {
     const [projectBudgetDetail, setProjectBudgetDetail] = useState({
         type: "0",
@@ -26,10 +27,19 @@ const ProjectBudget = () => {
         maxHourlyRate: null,
         fixedBudget: null
     });
-
+    const navigate = useNavigate();
+    const handleBackPage = () => {
+        navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1].path)
+        localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
+    }
     //Update Password
     const { mutate: UpdateProjectBudget } = useMutation(request, {
         onSuccess: (res) => {
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+                + 1].path)
+            localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
+                + 1)
         },
         onError: (err) => {
             console.log(err);
@@ -108,7 +118,7 @@ const ProjectBudget = () => {
                                             onChange={(e) => {
                                                 setProjectBudgetDetail({ ...projectBudgetDetail, minHourlyRate: e.target.value })
                                             }}
-                                            placeholder="USD per hour"
+                                            label="USD per hour"
                                             variant="outlined"
                                         />
                                     </Box>
@@ -120,7 +130,7 @@ const ProjectBudget = () => {
                                             onChange={(e) => {
                                                 setProjectBudgetDetail({ ...projectBudgetDetail, maxHourlyRate: e.target.value })
                                             }}
-                                            placeholder="USD per hour"
+                                            label="USD per hour"
                                             variant="outlined"
                                         />
                                     </Box>
@@ -133,7 +143,7 @@ const ProjectBudget = () => {
                         projectBudgetDetail.type === "1" && <>
                             <Box>
                                 <TextField
-                                    placeholder="Maximum project budget(USD)"
+                                    label="Maximum project budget(USD)"
                                     type="number"
                                     value={projectBudgetDetail.fixedBudget}
                                     onChange={(e) => {
@@ -145,8 +155,11 @@ const ProjectBudget = () => {
                         </>
                     }
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgressWithLabel value={20} />
+            </Box>
+            <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel value={10} />
+                <Box className="d-flex justify-content-between mt-2 p-1">
+                    <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleUpdateProjectBudget} className="save_button">Next</Button>
                 </Box>
             </Box>

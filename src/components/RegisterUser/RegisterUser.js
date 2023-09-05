@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Box, Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormLabel, RadioGroup, Radio, Autocomplete, createFilterOptions } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Typography, TextField, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import Visibility from '@mui/icons-material/Visibility'
@@ -12,6 +12,7 @@ import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
+import HeaderLogo from '../HeaderLogo/HeaderLogo'
 const RegisterUser = () => {
     const [values, setValues] = useState({
         email: '',
@@ -59,6 +60,7 @@ const RegisterUser = () => {
     return (
         <>
             <Box className="register_page">
+                <HeaderLogo />
                 <Box className="register_section">
                     <Box className="register_form_body">
                         <Box className="register_form_box">
@@ -69,10 +71,10 @@ const RegisterUser = () => {
                             </Box>
                             <Box className="register_name_fields">
                                 <Box>
-                                    <InputLabel>First Name</InputLabel>
+                                    {/* <InputLabel>First Name</InputLabel> */}
                                     <TextField
                                         className="register_input_fields"
-                                        placeholder="First Name"
+                                        label="First Name"
                                         value={registerData?.firstName
                                         }
                                         onChange={e => {
@@ -82,10 +84,10 @@ const RegisterUser = () => {
                                     />
                                 </Box>
                                 <Box>
-                                    <InputLabel>Last Name</InputLabel>
+                                    {/* <InputLabel>Last Name</InputLabel> */}
                                     <TextField
                                         className="register_input_fields"
-                                        placeholder="Last Name"
+                                        label="Last Name"
                                         value={registerData?.lastName}
                                         onChange={e => {
                                             setRegisterData({ ...registerData, lastName: e.target.value })
@@ -95,11 +97,11 @@ const RegisterUser = () => {
                                 </Box>
                             </Box>
                             <Box className="register_page_fields">
-                                <InputLabel>Email</InputLabel>
+                                {/* <InputLabel>Email</InputLabel> */}
                                 <TextField
                                     sx={{ width: "100%" }}
                                     type={'email'}
-                                    placeholder="Email"
+                                    label="Email"
                                     value={registerData?.email}
                                     onChange={e => {
                                         setRegisterData({ ...registerData, email: e.target.value })
@@ -108,7 +110,7 @@ const RegisterUser = () => {
                             </Box>
                             <Box className="register_page_fields">
                                 <Box>
-                                    <InputLabel>Password</InputLabel>
+                                    {/* <InputLabel>Password</InputLabel> */}
                                     <TextField
                                         // className="register_input_fields"
                                         sx={{ width: "100%" }}
@@ -168,15 +170,14 @@ const RegisterUser = () => {
                                 Create Account
                             </Button>
                             <Typography>Already have an account?
-                                <Link
-                                    component="button"
-                                    variant="body2"
+                                <Button
+                                    sx={{ textTransform: "capitalize", color: "#7AC144" }}
                                     onClick={() => {
                                         navigate('/login')
                                     }}
                                 >
                                     Log In
-                                </Link>
+                                </Button>
                             </Typography>
                         </Box>
                     </Box>

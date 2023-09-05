@@ -18,3 +18,7 @@
   justify-content: space-between;
   margin-top: 5px;
 }
+.project_images img {
+  border-radius: 5px;
+  margin: 0 5px;
+}

@@ -71,7 +71,7 @@ const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogContro
                             }}
                             disabled={projectDetail.invited == 1 ? true : false}
                             className={projectDetail.invited == 1 ? "disable_button" : "save_button"}>
-                            <EditIcon />Apply Now
+                            Apply Now
                         </Button>
                     </>
                 }

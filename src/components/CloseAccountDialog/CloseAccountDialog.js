@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogActions, Typography } from '@mui/material'
 import React from 'react'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-const CloseAccountDialog = ({ accountCloseDialogControl, handleClose }) => {
+const CloseAccountDialog = ({ accountCloseDialogControl, handleClose, handleCloseAccount }) => {
     return (
         <>
             <Dialog
@@ -18,7 +18,7 @@ const CloseAccountDialog = ({ accountCloseDialogControl, handleClose }) => {
                     <Typography variant="span">If you're facing any issues or have concerns regarding your account, we encourage you to reach out to our support team.We're here to assist you and address any problems you may be experiencing.</Typography>
                 </Box>
                 <DialogActions>
-                    <Button onClick={handleClose} autoFocus>
+                    <Button onClick={handleCloseAccount} autoFocus>
                         Close
                     </Button>
                 </DialogActions>

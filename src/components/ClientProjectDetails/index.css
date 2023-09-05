@@ -35,9 +35,6 @@
   width: 100%;
   flex-wrap: wrap;
 }
-.project_detail_heading {
-  font-weight: 500;
-}
 .project_detail_sub_heading {
   color: #8e8e8e;
   word-wrap: break-word;
@@ -47,9 +44,9 @@
   max-width: 50%;
   display: flex;
 }
-.project_detail_heading {
-  font-weight: 600;
-}
+
 .client_project_detail_button {
   color: #7ac144 !important;
+  white-space: nowrap;
+  text-transform: capitalize !important;
 }

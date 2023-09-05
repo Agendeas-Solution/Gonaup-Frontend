@@ -1,5 +1,5 @@
-import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -7,9 +7,9 @@ import DoneIcon from '@mui/icons-material/Done';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-// import { RMIUploader } from "react-multiple-image-uploader";
 import Cookie from 'js-cookie';
-const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose }) => {
+import RectangularChip from '../RectangularChip/RectangularChip';
+const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
         skills: []
@@ -44,7 +44,6 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
-            ;
         },
         onError: (err) => {
             console.log(err);
@@ -126,7 +125,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                 onClose={handleDialogClose}
                 sx={{ width: "75%", maxWidth: "auto", margin: "0 auto" }}
             >
-                <DialogTitle>
+                <DialogTitle className="dialog_heading">
                     Add Project
                 </DialogTitle>
                 <DialogContent>
@@ -136,7 +135,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                     ))}
                     <Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     value={addProjectDialogStatus.title}
                                     onChange={(e) => {
@@ -146,7 +145,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     variant="outlined"
                                 />
                             </Box>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     value={addProjectDialogStatus.projectUrl}
                                     onChange={(e) => {
@@ -157,8 +156,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
-                                <TextField label="Project Description"
+                            <Box className="add_project_textfield w-45">
+                                <TextField
+                                    label="Project Description"
                                     multiline
                                     value={addProjectDialogStatus.description}
                                     onChange={(e) => {
@@ -168,7 +168,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     variant="outlined"
                                 />
                             </Box>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45">
                                 <TextField
                                     label="Enter Skill here"
                                     variant="outlined"
@@ -180,7 +180,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                         startAdornment: (
                                             <div>
                                                 {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
-                                                    <Chip
+                                                    <RectangularChip
                                                         key={chip.id}
                                                         label={chip.name}
                                                         onDelete={handleDeleteSkill(chip)}
@@ -192,11 +192,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                 />
                                 <Box>
                                     {serviceSkillList.skillList.map((chip) => (
-                                        <Chip
-                                            variant="outlined"
-                                            color="success"
+                                        <RectangularChip
                                             key={chip.id}
-                                            deleteIcon={<DoneIcon />}
+                                            deleteIcon={< DoneIcon />}
                                             label={chip.name}
                                             onClick={() => { handleAddSkill(chip) }}
                                             style={{ margin: '4px' }}
@@ -206,13 +204,13 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield">
+                            <Box className="add_project_textfield w-45  ">
                                 <Typography variant='span'>Duration</Typography>
                                 <Box className="_add_project_textfield_row">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="From"
-                                            placeholder="From"
+                                            className='w-45'
                                             value={addProjectDialogStatus.dateFrom}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateFrom: e })
@@ -223,7 +221,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="To"
-                                            placeholder="To"
+                                            className='w-45'
                                             value={addProjectDialogStatus.dateTo}
                                             onChange={(e) => {
                                                 setAddProjectDialogStatus({ ...addProjectDialogStatus, dateTo: e })
