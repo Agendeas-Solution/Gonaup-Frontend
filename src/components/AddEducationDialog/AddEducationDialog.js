@@ -18,10 +18,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                 </DialogTitle>
                 <DialogContent>
                     <Box>
-                        <InputLabel>School</InputLabel>
+                        {/* <InputLabel>School</InputLabel> */}
                         <TextField
                             className='w-100 mt-1 mb-3'
-                            label="Ex: Northwestern University"
+                            label="School"
                             type="text"
                             value={educationDetail.school}
                             onChange={(e) => {
@@ -30,10 +30,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                         />
                     </Box>
                     <Box>
-                        <InputLabel>Degree</InputLabel>
+                        {/* <InputLabel>Degree</InputLabel> */}
                         <TextField
                             className='w-100 mt-1 mb-3'
-                            label="Ex: Bachelors"
+                            label="Degree"
                             type="text"
                             value={educationDetail.degree}
                             onChange={(e) => {
@@ -42,10 +42,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                         />
                     </Box>
                     <Box>
-                        <InputLabel>Field of Study</InputLabel>
+                        {/* <InputLabel>Field of Study</InputLabel> */}
                         <TextField
                             className='w-100 mt-1 mb-3'
-                            label="Ex: Computer Science"
+                            label="Field of Study"
                             type="text"
                             value={educationDetail.studyIn}
                             onChange={(e) => {
@@ -81,10 +81,10 @@ const AddEducationDialog = ({ addEducationDialogStatus,
                         </Box>
                     </Box>
                     <Box>
-                        <InputLabel>Description</InputLabel>
+                        {/* <InputLabel>Description</InputLabel> */}
                         <TextField
                             className='w-100 mt-1'
-                            label="Describe your studies, awards, etc."
+                            label="Description"
                             type="text"
                             multiline
                             value={educationDetail.description}

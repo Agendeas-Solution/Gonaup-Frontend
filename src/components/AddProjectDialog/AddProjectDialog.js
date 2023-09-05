@@ -129,7 +129,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                     Add Project
                 </DialogTitle>
                 <DialogContent>
-                    <input type="file" multiple accept="image/*" onChange={onImageChange} />
+                    <input type="file" className='my-2' multiple accept="image/*" onChange={onImageChange} />
                     {imageURLs.map((imageSrc, index) => (
                         <img key={index} src={imageSrc} alt="not found" width={"250px"} />
                     ))}
@@ -188,6 +188,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                                         key={chip.id}
                                                         label={chip.name}
                                                         onDelete={handleDeleteSkill(chip)}
+                                                        className='my-2'
                                                     />
                                                 ))}
                                             </div>
@@ -208,7 +209,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
-                            <Box className="add_project_textfield w-75  ">
+                            <Box className="add_project_textfield w-45  ">
                                 <Typography variant='span'>Duration</Typography>
                                 <Box className="_add_project_textfield_row">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -577,8 +577,8 @@ const DeveloperProfile = () => {
                                                         id: data.id
                                                     });
                                                     ;
-                                                }} className='circular_icon' />
-                                                <Button className="circular_icon"><DeleteRoundedIcon className="circular_icon"
+                                                }} className='circular_icon subcircular_icon' />
+                                                <Button className="circular_icon subcircular_icon"><DeleteRoundedIcon className="circular_icon subcircular_icon"
                                                     onClick={() => {
                                                         setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: true, id: data.id })
                                                     }}
@@ -626,13 +626,13 @@ const DeveloperProfile = () => {
                                                 workgingTo: data.working_to,
                                                 description: data.description
                                             })
-                                        }}> <EditRoundedIcon className='circular_icon' />
+                                        }}> <EditRoundedIcon className='circular_icon subcircular_icon' />
                                         </Button>
                                         <Button
                                             onClick={() => {
                                                 setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: true, id: data.id })
                                             }}
-                                        ><DeleteRoundedIcon className='circular_icon' />
+                                        ><DeleteRoundedIcon className='circular_icon subcircular_icon' />
                                         </Button>
                                     </Box>
                                 </Box>
@@ -659,7 +659,7 @@ const DeveloperProfile = () => {
                                     }}
                                     src={data.project_image_url}
                                 />
-                                <Box className="d-flex">
+                                <Box className="d-flex align-items-center">
                                     <Typography className="developer_main_heading m-2" variant="span">
                                         {data.title}
                                     </Typography>
@@ -671,10 +671,10 @@ const DeveloperProfile = () => {
                                                 id: data.id
                                             });
                                         }}
-                                        className='circular_icon' />
+                                        className='circular_icon subcircular_icon  mx-1' />
                                     <DeleteRoundedIcon onClick={() => {
                                         setDeleteFreelancerProjectDialogControl({ ...deleteFreelancerProjectDialogControl, status: true, id: data.id });
-                                    }} className='circular_icon' />
+                                    }} className='circular_icon subcircular_icon mx-1' />
                                 </Box>
                             </Card>
                         })}
