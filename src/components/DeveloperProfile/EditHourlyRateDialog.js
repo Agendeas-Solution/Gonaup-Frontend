@@ -26,7 +26,7 @@ const EditHourlyRateDialog = ({ editHourlyRateDialogControl,
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleEditHourlyRate} >Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

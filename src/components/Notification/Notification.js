@@ -30,7 +30,7 @@ const Notification = () => {
     return (
         <>
             <Box className="notification_section">
-                <Typography variant="span" className="developer_main_heading">Notifications</Typography>
+                <Typography variant="span" className="developer_main_heading mb-3">Notifications</Typography>
                 {
                     notificationDetail.notificationList && notificationDetail.notificationList.map((data) => {
                         return <>

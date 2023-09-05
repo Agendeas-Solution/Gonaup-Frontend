@@ -10,7 +10,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                 className="dialog_section"
             >
                 <DialogTitle className="dialog_heading">
-                    Edit description
+                    Edit Name
                 </DialogTitle>
                 <DialogContent>
                     <TextField
@@ -18,7 +18,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                         onChange={(e) => {
                             setEditUserNameDialogControl({ ...editUserNameDialogControl, firstName: e.target.value })
                         }}
-                        className='w-100 my-2'
+                        className='w-100 my-3'
                         variant="outlined"
                         label="First Name"
                         type="text"
@@ -28,7 +28,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                         onChange={(e) => {
                             setEditUserNameDialogControl({ ...editUserNameDialogControl, lastName: e.target.value })
                         }}
-                        className='w-100 my-2'
+                        className='w-100 mt-3'
                         variant="outlined"
                         label="Last Name"
                         type="text"
@@ -36,7 +36,7 @@ const EditUserNameDialog = ({ editUserNameDialogControl, setEditUserNameDialogCo
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleEditUserName} >Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>
