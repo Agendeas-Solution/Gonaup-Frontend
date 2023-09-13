@@ -69,8 +69,8 @@ const ProfileLinks = () => {
             <Box className="main_section">
                 <Typography className="main_section_heading" variant='span'>1/7</Typography>
                 <Typography className="main_section_heading" variant='span'>Connect with the World's Finest Talent</Typography>
-                <Typography className="main_section_description" variant='span'>Share your GitHub, LinkedIn, or any other profile link. By providing this valuable insight of your professional background, we efficiently match you with ideal opportunities.</Typography>
-                <Box className="mb-3">
+                <Typography className="main_section_description mb-4" variant='span'>Share your GitHub, LinkedIn, or any other profile link. By providing this valuable insight of your professional background, we efficiently match you with ideal opportunities.</Typography>
+                <Box className="mb-4">
                     <TextField
                         label="Your GitHub Profile Link"
                         className="profile_link_textfield"
@@ -80,7 +80,7 @@ const ProfileLinks = () => {
                         }}
                         variant="outlined" />
                 </Box>
-                <Box className="mb-3">
+                <Box className="mb-4">
                     <TextField
                         label="Your LinkedIn Profile Link"
                         className="profile_link_textfield"
@@ -90,7 +90,7 @@ const ProfileLinks = () => {
                         }}
                         variant="outlined" />
                 </Box>
-                <Box className="mb-3">
+                <Box className="mb-4">
                     <TextField
                         label="Ex: Upwork, Freelancer or Fiverr profile link "
                         className="profile_link_textfield"

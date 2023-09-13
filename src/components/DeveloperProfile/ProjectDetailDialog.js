@@ -33,23 +33,23 @@ const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
                 className="dialog_section"
             >
                 <DialogContent className='d-flex row'>
-                    <Typography variant="h5">{projectDetail.title}</Typography>
+                    <Typography variant="h5" className='mx-1 my-2'>{projectDetail.title}</Typography>
                     {projectDetail.projectImageArray && projectDetail.projectImageArray.map((data) => {
-                        return <Box className="project_images ">
+                        return <Box className="project_images my-2">
                             <img src={data} alt="" />
                         </Box>
                     })}
-                    <Box className="d-flex column">
+                    <Box className="d-flex column mx-1 my-2">
                         <Box className="d-flex row">
-                            <Typography variant="span">Duration</Typography>
+                            <Typography variant="span sub_heading">Duration</Typography>
                             <Typography variant="span">{moment(projectDetail.date_from).format('ll')}- {moment(projectDetail.date_to).format('ll')}</Typography>
                         </Box>
                         <Box className="d-flex row">
-                            <Typography variant="span">Project URL</Typography>
+                            <Typography variant="span sub_heading">Project URL</Typography>
                             <Typography variant="span">{projectDetail.project_url}</Typography>
                         </Box>
                     </Box>
-                    <Typography variant="span">Skills</Typography>
+                    <Typography variant="span" className='mx-1 mt-2 sub_heading'>Skills</Typography>
                     <Stack direction="row" spacing={1}>
                         {projectDetail.skills && projectDetail.skills.map((chip) => (
                             <RectangularChip
@@ -57,11 +57,12 @@ const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
                                 deleteIcon={< DoneIcon />}
                                 label={chip.name}
                                 style={{ margin: '4px' }}
+                                className='mb-2'
                             />
                         ))}
                     </Stack>
-                    <Typography variant='span'>Overview</Typography>
-                    <Typography variant="span">{projectDetail.description}</Typography>
+                    <Typography variant='span' className='mx-1 mt-2 sub_heading'>Overview</Typography>
+                    <Typography variant="span" className='mx-1'>{projectDetail.description}</Typography>
                 </DialogContent>
             </Dialog>
         </>

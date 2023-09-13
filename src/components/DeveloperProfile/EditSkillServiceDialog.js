@@ -99,7 +99,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteSkill(chip)}
-                                                className='my-3'
+                                                className='my-3 mx-2'
                                             />
                                         ))}
                                     </div>
@@ -129,7 +129,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteService(chip)}
-                                                className='my-3'
+                                                className='my-3 mx-2'
                                             />
                                         ))}
                                     </div>

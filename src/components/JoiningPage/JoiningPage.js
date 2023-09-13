@@ -14,7 +14,7 @@ const JoiningPage = () => {
                 <Box className="joining_section">
                     <Typography
                         sx={{ textAlign: "start !important" }}
-                        className='main_heading'
+                        className='main_heading mt-4'
                         variant='span'>
                         Please tell us who you are?
                     </Typography>
@@ -26,7 +26,7 @@ const JoiningPage = () => {
                                 setJoin(event.target.value);
                             }}
                         >
-                            <Box className="client_developer_selection_box">
+                            <Box className="client_developer_selection_box mx-2">
                                 <FormControlLabel
                                     className='client_developer_radio_label'
                                     value="freelancerregister"
@@ -38,7 +38,7 @@ const JoiningPage = () => {
                                     looking for a project
                                 </Typography>
                             </Box>
-                            <Box className="client_developer_selection_box">
+                            <Box className="client_developer_selection_box mx-3">
                                 <FormControlLabel
                                     className='client_developer_radio_label'
                                     value="clientregister"
@@ -50,7 +50,7 @@ const JoiningPage = () => {
                                     like to offer a project
                                 </Typography>
                             </Box>
-                            <Box className="client_developer_selection_box">
+                            <Box className="client_developer_selection_box mx-2">
                                 <FormControlLabel
                                     className='client_developer_radio_label'
                                     value="recruiterregister"
@@ -65,7 +65,7 @@ const JoiningPage = () => {
                         </RadioGroup>
                     </FormControl>
                     <Typography
-                        className='mt-2 already_account_login'>
+                        className='mt-2 already_account_login mx-2'>
                         Already have an account?
                         <Button
                             disableElevation
