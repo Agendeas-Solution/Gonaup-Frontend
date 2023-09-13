@@ -285,17 +285,18 @@ const ClientProfile = () => {
                     </Box>
                 </Box>
                 : <Box className="client_profile_main_section">
-                    <Box className="d-flex justify-content-between p-4">
-                        <Typography className="profile_section_heading" variant="span">Account</Typography>
-                        <EditIcon className="circular_icon" onClick={
+                    <Box className="d-flex justify-content-between p-2">
+                        <Typography className="profile_section_heading mx-4" variant="span">Account</Typography>
+                        <EditIcon className="circular_icon mx-4" onClick={
                             handleEditClientPersonalDetailStatus
                         } />
                     </Box>
-                    <Box className="d-flex row">
-                        <Box className="d-flex column w-50 align-items-end p-3" >
+                    <Box className="d-flex row mb-3">
+                        <Box className="d-flex column w-50 align-items-end" >
                             <Avatar
                                 alt="Sharp"
                                 src="/static/images/avatar/1.jpg"
+                                className='mx-4'
                                 sx={{ width: 56, height: 56 }}
                             />
                             <Box className="d-flex row px-2">
@@ -307,7 +308,7 @@ const ClientProfile = () => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className="d-flex column w-50 align-items-end p-3 ">
+                        <Box className="d-flex column w-50 align-items-end  ">
                             <Box className="d-flex row px-2">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Email</Typography>
