@@ -60,7 +60,7 @@ const Login = () => {
             setUserType(res?.data?.data?.usedDetails?.type)
             localStorage.setItem('signupCompleted', res?.data?.data?.usedDetails?.signupCompleted)
             const dataToStore = JSON.stringify(res?.data?.data);
-            localStorage.setItem('loginDetail', dataToStore);
+            localStorage.setItem('loginDetail', dataToStore);       
             if (res?.data?.data?.usedDetails?.type == 0 || res?.data?.data?.usedDetails?.type == 1) {
                 handleGetAccountList();
             }
