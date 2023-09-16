@@ -9,7 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
-const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, }) => {
+const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, handleGetDeveloperProfile }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
         skills: []
@@ -44,6 +44,8 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
+            handleGetDeveloperProfile();
+            handleDialogClose();
         },
         onError: (err) => {
             console.log(err);
@@ -154,7 +156,8 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                     label="Project link"
                                     variant="outlined"
-                                    className='my-2' />
+                                    className='my-2'
+                                />
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
@@ -183,12 +186,12 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     InputProps={{
                                         startAdornment: (
                                             <div>
-                                                {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
+                                                {selectedSkillSets.skills && selectedSkillSets.skills.map((chip) => (
                                                     <RectangularChip
                                                         key={chip.id}
                                                         label={chip.name}
                                                         onDelete={handleDeleteSkill(chip)}
-                                                        className='my-2'
+                                                        className='my-3 mx-2'
                                                     />
                                                 ))}
                                             </div>
@@ -196,15 +199,32 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                 />
                                 <Box>
-                                    {serviceSkillList.skillList.map((chip) => (
-                                        <RectangularChip
-                                            key={chip.id}
-                                            deleteIcon={< DoneIcon />}
-                                            label={chip.name}
-                                            onClick={() => { handleAddSkill(chip) }}
-                                            style={{ margin: '4px' }}
-                                        />
-                                    ))}
+                                    {selectedSkillSets.skills.length > 0 ? serviceSkillList.skillList.map((chip) => (
+                                        selectedSkillSets.skills.map((selectedChip) => {
+                                            if (chip.id !== selectedChip.id) {
+                                                return (
+                                                    <RectangularChip
+                                                        key={chip.id}
+                                                        deleteIcon={<DoneIcon />}
+                                                        label={chip.name}
+                                                        onClick={() => { handleAddSkill(chip) }}
+                                                        style={{ margin: '4px' }}
+                                                    />
+                                                );
+                                            }
+                                        })
+                                    ))
+                                        :
+                                        serviceSkillList.skillList.map((chip) => (
+                                            <RectangularChip
+                                                key={chip.id}
+                                                deleteIcon={< DoneIcon />}
+                                                label={chip.name}
+                                                onClick={() => { handleAddSkill(chip) }}
+                                                style={{ margin: '4px' }}
+                                            />
+                                        ))
+                                    }
                                 </Box>
                             </Box>
                         </Box>
@@ -215,6 +235,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="From"
+                                            format="MM/DD/YYYY"
                                             className='w-45'
                                             value={addProjectDialogStatus.dateFrom}
                                             onChange={(e) => {
@@ -223,6 +244,10 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                             renderInput={(params) => <TextField  {...params} />}
                                         />
                                     </LocalizationProvider>
+
+
+
+
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="To"
