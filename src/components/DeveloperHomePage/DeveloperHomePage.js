@@ -1,23 +1,30 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ActiveJobs from '../ActiveJobs/ActiveJobs'
 import { Box, Button, Tab, Typography } from '@mui/material'
 import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
 import Cookie from 'js-cookie'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const DeveloperHomePage = () => {
     const [value, setValue] = React.useState('1');
     const [projectList, setProjectList] = useState([]);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            ;
+
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
+
         }
     });
     const handleGetProjectList = () => {

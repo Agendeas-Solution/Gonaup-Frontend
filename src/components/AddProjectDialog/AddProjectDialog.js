@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useMutation } from 'react-query';
@@ -9,7 +9,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
-const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, }) => {
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
+const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, handleGetDeveloperProfile }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
         skills: []
@@ -18,6 +20,8 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
     useEffect(() => {
@@ -40,13 +44,25 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
+            handleGetDeveloperProfile();
+            handleDialogClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleSaveProject = () => {
@@ -87,6 +103,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -129,7 +148,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                     Add Project
                 </DialogTitle>
                 <DialogContent>
-                    <input type="file" multiple accept="image/*" onChange={onImageChange} />
+                    <input type="file" className='my-2' multiple accept="image/*" onChange={onImageChange} />
                     {imageURLs.map((imageSrc, index) => (
                         <img key={index} src={imageSrc} alt="not found" width={"250px"} />
                     ))}
@@ -143,6 +162,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                     label="Project Title"
                                     variant="outlined"
+                                    className='my-2'
                                 />
                             </Box>
                             <Box className="add_project_textfield w-45">
@@ -152,7 +172,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                         setAddProjectDialogStatus({ ...addProjectDialogStatus, projectUrl: e.target.value })
                                     }}
                                     label="Project link"
-                                    variant="outlined" />
+                                    variant="outlined"
+                                    className='my-2'
+                                />
                             </Box>
                         </Box>
                         <Box className='_add_project_textfield_row'>
@@ -166,12 +188,14 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                     rows={4}
                                     variant="outlined"
+                                    className='my-2'
                                 />
                             </Box>
                             <Box className="add_project_textfield w-45">
                                 <TextField
                                     label="Enter Skill here"
                                     variant="outlined"
+                                    className='my-2'
                                     onChange={() => {
                                         let data = selectedSkillSets.skills.map((chip) => (chip.id))
                                         setAddProjectDialogStatus({ ...addProjectDialogStatus, skills: data })
@@ -179,11 +203,12 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     InputProps={{
                                         startAdornment: (
                                             <div>
-                                                {selectedSkillSets.skills.length > 0 && selectedSkillSets.skills.map((chip) => (
+                                                {selectedSkillSets.skills && selectedSkillSets.skills.map((chip) => (
                                                     <RectangularChip
                                                         key={chip.id}
                                                         label={chip.name}
                                                         onDelete={handleDeleteSkill(chip)}
+                                                        className='my-3 mx-2'
                                                     />
                                                 ))}
                                             </div>
@@ -191,15 +216,32 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     }}
                                 />
                                 <Box>
-                                    {serviceSkillList.skillList.map((chip) => (
-                                        <RectangularChip
-                                            key={chip.id}
-                                            deleteIcon={< DoneIcon />}
-                                            label={chip.name}
-                                            onClick={() => { handleAddSkill(chip) }}
-                                            style={{ margin: '4px' }}
-                                        />
-                                    ))}
+                                    {selectedSkillSets.skills.length > 0 ? serviceSkillList.skillList.map((chip) => (
+                                        selectedSkillSets.skills.map((selectedChip) => {
+                                            if (chip.id !== selectedChip.id) {
+                                                return (
+                                                    <RectangularChip
+                                                        key={chip.id}
+                                                        deleteIcon={<DoneIcon />}
+                                                        label={chip.name}
+                                                        onClick={() => { handleAddSkill(chip) }}
+                                                        style={{ margin: '4px' }}
+                                                    />
+                                                );
+                                            }
+                                        })
+                                    ))
+                                        :
+                                        serviceSkillList.skillList.map((chip) => (
+                                            <RectangularChip
+                                                key={chip.id}
+                                                deleteIcon={< DoneIcon />}
+                                                label={chip.name}
+                                                onClick={() => { handleAddSkill(chip) }}
+                                                style={{ margin: '4px' }}
+                                            />
+                                        ))
+                                    }
                                 </Box>
                             </Box>
                         </Box>
@@ -210,6 +252,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="From"
+                                            format="MM/DD/YYYY"
                                             className='w-45'
                                             value={addProjectDialogStatus.dateFrom}
                                             onChange={(e) => {
@@ -218,6 +261,10 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                                             renderInput={(params) => <TextField  {...params} />}
                                         />
                                     </LocalizationProvider>
+
+
+
+
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DatePicker
                                             label="To"
@@ -236,7 +283,7 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
                 </DialogContent>
                 <DialogActions>
                     <Button className="save_button" onClick={handleSaveProject}>Save</Button>
-                    <Button className="cancel_button" onClick={handleDialogClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleDialogClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Autocomplete, Box, Button, Input, InputLabel, TextField, Typography, createFilterOptions } from '@mui/material'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Cookie from 'js-cookie'
 import Uploader from '../Uploader/Uploader'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 import { useNavigate } from 'react-router-dom'
 const theme = createTheme({
     palette: {
@@ -28,6 +30,8 @@ const ClientProfileDetail = () => {
         phoneno: null,
         skypeId: null,
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [imageUrl, setImageUrl] = useState();
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
@@ -105,11 +109,17 @@ const ClientProfileDetail = () => {
         handleGetCountryCall();
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
-        onSuccess: (response) => {
-
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProfileDetail = async (e) => {

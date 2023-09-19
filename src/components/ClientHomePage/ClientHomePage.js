@@ -1,5 +1,5 @@
 import { Box, Button, Tab, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import ActiveJobs from '../ActiveJobs/ActiveJobs'
@@ -7,8 +7,11 @@ import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
 import Cookie from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ClientHomePage = () => {
     const [value, setValue] = useState('active');
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [projectList, setProjectList] = useState([])
     const navigate = useNavigate();
     const handleChange = (event, newValue) => {
@@ -27,10 +30,12 @@ const ClientHomePage = () => {
     const { mutate: GetProjectList } = useMutation(request, {
         onSuccess: (res) => {
             setProjectList(res.data.data);
-            ;
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
             setProjectList([])
         }
     });

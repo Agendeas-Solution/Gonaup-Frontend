@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Typography, TextField, Button, createFilterOptions, FormControl, Select, MenuItem } from '@mui/material'
 import Cookie from 'js-cookie'
 import { useMutation } from 'react-query'
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import { request } from '../../utils/axios-utils'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const FreelanceExperience = () => {
     const [freelancerExperienceDetail, setFreelancerExperienceDetail] = useState({
         frameworkId: null,
@@ -11,6 +13,8 @@ const FreelanceExperience = () => {
         projectLinks: [],
         description: ''
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [frameWorkList, setFrameWorkList] = useState([])
     const addLink = () => {
         const newLinks = [...freelancerExperienceDetail.projectLinks];
@@ -32,7 +36,9 @@ const FreelanceExperience = () => {
             setFrameWorkList(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: AddFreeLanceExperience } = useMutation(request, {
@@ -40,7 +46,9 @@ const FreelanceExperience = () => {
 
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

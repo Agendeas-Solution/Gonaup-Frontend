@@ -1,6 +1,5 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import React from 'react'
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 const EditAccountDetailDialog = ({ editAccountDetailDialogControl, setEditAccountDetailDialogControl, handleClose, handleUpdateNameEmail }) => {
     return (
         <>
@@ -12,7 +11,7 @@ const EditAccountDetailDialog = ({ editAccountDetailDialogControl, setEditAccoun
                     Edit Account Detail
                 </DialogTitle>
                 <DialogContent>
-                    <Box className="d-flex justify-content-between mb-2">
+                    <Box className="d-flex justify-content-between my-3">
                         <TextField
                             value={editAccountDetailDialogControl.firstName}
                             onChange={(e) => {

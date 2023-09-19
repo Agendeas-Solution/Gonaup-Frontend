@@ -6,6 +6,8 @@ import { Box, Typography } from '@mui/material'
 import Header from '../Header/Header'
 import { PERMISSION } from '../../constants/permissionConstant'
 import HeaderLogo from '../HeaderLogo/HeaderLogo'
+import SuccessSnackbar from '../SuccessSnackbar/SuccessSnackbar'
+import ErrorSnackbar from '../ErrorSnackbar/ErrorSnackbar'
 const DefaultLayout = () => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
@@ -41,6 +43,9 @@ const DefaultLayout = () => {
                     <Typography>Please use Bigger Screen for better visual.</Typography>
                 </Box>
             )}
+
+            <SuccessSnackbar />
+            <ErrorSnackbar />
         </>
     )
 }

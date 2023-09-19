@@ -1,6 +1,6 @@
 import { EditRounded } from '@mui/icons-material'
 import { Box, Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import CloseAccountDialog from '../CloseAccountDialog/CloseAccountDialog'
 import EditAccountDetailDialog from '../container/EditAccountDetailDialog/EditAccountDetailDialog'
@@ -9,6 +9,8 @@ import Cookie from 'js-cookie'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const DeveloperSetting = () => {
     const [accountCloseDialogControl, setAccountCloseDialogControl] = useState({
         status: false
@@ -25,13 +27,14 @@ const DeveloperSetting = () => {
         newPassword: '',
         confirmPassword: ''
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const [userDetail, setUserDetail] = useState({});
     const handleClose = () => {
         setEditAccountDetailDialogControl({ ...editAccountDetailDialogControl, status: false })
         setAccountCloseDialogControl({ ...accountCloseDialogControl, status: false })
         setChangePasswordDialogControl({ ...changePasswordDialogControl, status: false })
-        setEditAccountDetailDialogControl({ ...editAccountDetailDialogControl, status: false })
     }
     const { mutate: GetUserProfile } = useMutation(request, {
         onSuccess: (res) => {
@@ -40,21 +43,30 @@ const DeveloperSetting = () => {
                 ...editAccountDetailDialogControl,
                 firstName: res.data.data.first_name,
                 lastName: res.data.data.last_name,
-                email: res.data.data.email
+                email: res.data.data.email,
+                status: false
             })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
-
 
     const { mutate: CloseAccount } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleCloseAccount = async () => {
@@ -67,14 +79,21 @@ const DeveloperSetting = () => {
         })
     }
 
-
     //Update Name And Email
     const { mutate: UpdateNameEmail } = useMutation(request, {
         onSuccess: (res) => {
-            handleClose();
+            handleGetUserProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
+            setEditAccountDetailDialogControl({ ...editAccountDetailDialogControl, status: false })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateNameEmail = async () => {
@@ -95,10 +114,16 @@ const DeveloperSetting = () => {
     //Update Password
     const { mutate: UpdatePassword } = useMutation(request, {
         onSuccess: (res) => {
-
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdatePassword = async () => {
@@ -119,7 +144,7 @@ const DeveloperSetting = () => {
             return
         }
     }
-    useEffect(() => {
+    const handleGetUserProfile = () => {
         GetUserProfile({
             url: '/user/profile',
             method: 'get',
@@ -127,6 +152,9 @@ const DeveloperSetting = () => {
                 Authorization: `${Cookie.get('userToken')}`,
             },
         })
+    }
+    useEffect(() => {
+        handleGetUserProfile()
     }, [])
     return (
         <>
@@ -162,7 +190,7 @@ const DeveloperSetting = () => {
                 </Box>
                 <Box className="d-flex justify-content-end">
                     <Button onClick={() => {
-                        navigate('/companyprofile')
+                        navigate('/companydetail')
                     }} className="border_common_button" variant="span">New Client Account</Button>
                 </Box>
             </Box>

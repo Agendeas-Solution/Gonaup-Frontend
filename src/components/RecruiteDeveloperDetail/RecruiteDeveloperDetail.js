@@ -1,5 +1,5 @@
 import { Box, Button, Chip, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import './index.css'
 import { request } from '../../utils/axios-utils'
 import { useMutation } from 'react-query'
@@ -7,7 +7,7 @@ import Cookie from 'js-cookie'
 import { PROJECT } from '../../constants/projectConstant'
 import DoneIcon from '@mui/icons-material/Done';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const RecruiteDeveloperDetail = () => {
     const [recruiteDeveloperDetail, setRecruiteDeveloperDetail] = useState({
         jobRole: "",
@@ -23,12 +23,16 @@ const RecruiteDeveloperDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: AddRecruiteDeveloperDetail } = useMutation(request, {
         onSuccess: (res) => {
             localStorage.setItem('projectId', res?.data?.data?.jobId)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetSkillList } = useMutation(request, {
@@ -39,7 +43,9 @@ const RecruiteDeveloperDetail = () => {
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddRecruiteDeveloperDetail = async (e) => {

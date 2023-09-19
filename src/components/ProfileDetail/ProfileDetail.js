@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Header/Header'
 import { Autocomplete, Box, Button, Input, InputLabel, TextField, Typography, createFilterOptions } from '@mui/material'
 import PhoneInput from 'react-phone-number-input'
@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { PERMISSION } from '../../constants/permissionConstant'
 import 'react-phone-number-input/style.css'
 import { styled } from '@mui/system';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const StyledPhoneInput = styled(PhoneInput)({
     '& input': {
         border: 'none', // Remove the border
@@ -46,6 +46,8 @@ const ProfileDetail = () => {
     const [countryList, setCountryList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [cityList, setCityList] = useState([]);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const handleBackPage = () => {
         navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
             - 1].path)
@@ -123,13 +125,20 @@ const ProfileDetail = () => {
         handleGetCountryCall();
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
-        onSuccess: (response) => {
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
             navigate('/homepage')
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProfileDetail = async (e) => {

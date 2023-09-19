@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Box, TextField, Typography, Button } from '@mui/material'
 import './index.css';
 import { useState } from 'react';
@@ -10,6 +10,8 @@ import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const theme = createTheme({
     palette: {
         secondary: {
@@ -20,19 +22,28 @@ const theme = createTheme({
 });
 const ProfileLinks = () => {
     const navigate = useNavigate()
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [profileLink, setProfileLink] = useState({
         githubProfile: "",
         linkdinProfile: "",
         freelanceProfile: ""
     })
     const { mutate: AddProfileLinks } = useMutation(request, {
-        onSuccess: (response) => {
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
             navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) + 1)
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddProfileLink = async (e) => {
@@ -69,8 +80,8 @@ const ProfileLinks = () => {
             <Box className="main_section">
                 <Typography className="main_section_heading" variant='span'>1/7</Typography>
                 <Typography className="main_section_heading" variant='span'>Connect with the World's Finest Talent</Typography>
-                <Typography className="main_section_description" variant='span'>Share your GitHub, LinkedIn, or any other profile link. By providing this valuable insight of your professional background, we efficiently match you with ideal opportunities.</Typography>
-                <Box className="mb-3">
+                <Typography className="main_section_description mb-4" variant='span'>Share your GitHub, LinkedIn, or any other profile link. By providing this valuable insight of your professional background, we efficiently match you with ideal opportunities.</Typography>
+                <Box className="mb-4">
                     <TextField
                         label="Your GitHub Profile Link"
                         className="profile_link_textfield"
@@ -80,7 +91,7 @@ const ProfileLinks = () => {
                         }}
                         variant="outlined" />
                 </Box>
-                <Box className="mb-3">
+                <Box className="mb-4">
                     <TextField
                         label="Your LinkedIn Profile Link"
                         className="profile_link_textfield"
@@ -90,7 +101,7 @@ const ProfileLinks = () => {
                         }}
                         variant="outlined" />
                 </Box>
-                <Box className="mb-3">
+                <Box className="mb-4">
                     <TextField
                         label="Ex: Upwork, Freelancer or Fiverr profile link "
                         className="profile_link_textfield"

@@ -1,23 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Cookie from 'js-cookie'
 import { useMutation } from 'react-query';
 import { requestAdmin } from '../../utils/axios-utils';
 import { Box, Button, Typography } from '@mui/material';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const FrameWorkList = () => {
     const [frameWorkList, setFrameWorkList] = useState(null);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetFrameWorkList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setFrameWorkList(res.data.data);
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: DeleteFrameWork } = useMutation(requestAdmin, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

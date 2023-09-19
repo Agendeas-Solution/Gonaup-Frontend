@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import DoneIcon from '@mui/icons-material/Done';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSkillDialogControl, handleEditSkillDialog }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: editSkillDialogControl?.services,
@@ -14,6 +16,8 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetSkillList } = useMutation(request, {
         onSuccess: (res) => {
             setServiceSkillList((prevState) => ({
@@ -22,7 +26,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetServicesList } = useMutation(request, {
@@ -33,7 +39,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -84,7 +92,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                 <DialogContent>
                     <Box className="add_project_textfield">
                         <TextField
-                            className="my-2 w-100"
+                            className="my-3 w-100"
                             label="Enter Skill here"
                             variant="outlined"
                             onChange={() => {
@@ -99,6 +107,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteSkill(chip)}
+                                                className='my-3 mx-2'
                                             />
                                         ))}
                                     </div>
@@ -106,20 +115,33 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                             }}
                         />
                         <Box>
-                            {serviceSkillList.skillList.map((chip) => (
-                                <RectangularChip
-                                    key={chip.id}
-                                    deleteIcon={< DoneIcon />}
-                                    label={chip.name}
-                                    onClick={() => { handleAddSkill(chip) }}
-                                    style={{ margin: '4px' }}
-                                />
-                            ))}
+                            {selectedSkillSets.skills.length > 0 ? serviceSkillList.skillList.map((chip) => (
+                                selectedSkillSets.skills.map((selectedChip) => (
+                                    selectedChip.id !== chip.id ? (<RectangularChip
+                                        key={chip.id}
+                                        deleteIcon={<DoneIcon />}
+                                        label={chip.name}
+                                        onClick={() => { handleAddSkill(chip) }}
+                                        style={{ margin: '4px' }}
+                                    />
+                                    ) : null
+                                ))
+                            )) :
+                                serviceSkillList.skillList.map((chip) => (
+                                    <RectangularChip
+                                        key={chip.id}
+                                        deleteIcon={< DoneIcon />}
+                                        label={chip.name}
+                                        onClick={() => { handleAddSkill(chip) }}
+                                        style={{ margin: '4px' }}
+                                    />
+                                ))
+                            }
                         </Box>
                         <TextField
                             label="Enter Services here"
                             variant="outlined"
-                            className='skill_detail_textfield my-2 w-100'
+                            className='skill_detail_textfield my-3 w-100'
                             InputProps={{
                                 startAdornment: (
                                     <div>
@@ -128,6 +150,7 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                                                 key={chip.id}
                                                 label={chip.name}
                                                 onDelete={handleDeleteService(chip)}
+                                                className='my-3 mx-2'
                                             />
                                         ))}
                                     </div>
@@ -135,22 +158,46 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
                             }}
                         />
                         <Box>
-                            {serviceSkillList.serviceList.map((chip) => (
-                                <RectangularChip
-                                    key={chip.id}
-                                    deleteIcon={< DoneIcon />}
-                                    label={chip.name}
-                                    onClick={() => { handleAddServices(chip) }}
-                                    style={{ margin: '4px' }}
-                                />
-                            ))}
+                            {selectedSkillSets.services.length > 0 ? serviceSkillList.serviceList.map((chip) => (
+                                selectedSkillSets.services.map((selectedChip) => (
+                                    selectedChip.id !== chip.id ? (<RectangularChip
+                                        key={chip.id}
+                                        deleteIcon={<DoneIcon />}
+                                        label={chip.name}
+                                        onClick={() => { handleAddServices(chip) }}
+                                        style={{ margin: '4px' }}
+                                    />
+                                    ) : null
+                                ))
+                            )) :
+                                serviceSkillList.serviceList.map((chip) => (
+                                    <RectangularChip
+                                        key={chip.id}
+                                        deleteIcon={< DoneIcon />}
+                                        label={chip.name}
+                                        onClick={() => { handleAddServices(chip) }}
+                                        style={{ margin: '4px' }}
+                                    />
+                                ))
+                            }
+                            {/* {serviceSkillList.serviceList.map((chip) => (
+                                serviceSkillList.serviceList.map((chip) => (
+                                    <RectangularChip
+                                        key={chip.id}
+                                        deleteIcon={< DoneIcon />}
+                                        label={chip.name}
+                                        onClick={() => { handleAddServices(chip) }}
+                                        style={{ margin: '4px' }}
+                                    />
+                                )
+                                ))} */}
                         </Box>
                     </Box>
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={
                         () => handleEditSkillDialog(selectedSkillSets)} >Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

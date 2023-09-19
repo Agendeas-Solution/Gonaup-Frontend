@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css';
 import EducationLogo from '../../assets/images/education.svg'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -22,6 +23,7 @@ const theme = createTheme({
         },
     },
 });
+
 const EducationDetail = () => {
     const navigate = useNavigate();
     const [addEducationDialogStatus, setAddEducationDialogStatus] = useState(false)
@@ -29,6 +31,8 @@ const EducationDetail = () => {
         status: false,
         id: null
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [educationDetail, setEducationDetail] = useState({
         school: "",
         degree: "",
@@ -43,7 +47,9 @@ const EducationDetail = () => {
             setEducationList(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleBackPage = () => {
@@ -72,9 +78,16 @@ const EducationDetail = () => {
     const { mutate: AddFreelancerEducation } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddEducationDetail = async () => {
@@ -98,8 +111,16 @@ const EducationDetail = () => {
     const { mutate: DeleteEducation } = useMutation(request, {
         onSuccess: (res) => {
             setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteEducation = async (id) => {

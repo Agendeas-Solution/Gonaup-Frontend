@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material'
 import './index.css'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
@@ -13,10 +13,12 @@ import { PROJECT } from '../../constants/projectConstant';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import ProjectDetailRightSection from './ProjectDetailRightSection';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ClientProjectDetails = () => {
     const { id } = useParams();
     const [projectDetail, setProjectDetail] = useState({});
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [deleteProjectDialogControl, setDeleteProjectDialogControl] = useState({
         status: false,
         reason: "",
@@ -29,6 +31,9 @@ const ClientProjectDetails = () => {
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectDetail = () => {
@@ -49,9 +54,16 @@ const ClientProjectDetails = () => {
     const { mutate: DeleteProject } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteProject = (id) => {
@@ -134,7 +146,7 @@ const ClientProjectDetails = () => {
                         </Box>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
-                    <Box className="p-3 d-flex column">
+                    <Box className="p-3 d-flex column mx-1">
                         <Typography variant='span' className='w-50'>
                             <Typography variant="span" className='project_detail_heading'> Project Type: </Typography>
                             {PROJECT.PROJECT_STATUS.map((data) => {
@@ -153,7 +165,7 @@ const ClientProjectDetails = () => {
                         </Typography>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} />
-                    <Box className="client_project_title_desc">
+                    <Box className="client_project_title_desc mx-1">
                         <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
                         <Stack className="mt-2" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {

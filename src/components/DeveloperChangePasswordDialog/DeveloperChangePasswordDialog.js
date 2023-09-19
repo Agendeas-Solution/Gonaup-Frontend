@@ -16,7 +16,7 @@ const DeveloperChangePasswordDialog = ({ changePasswordDialogControl, setChangeP
                         onChange={(e) => {
                             setChangePasswordDialogControl({ ...changePasswordDialogControl, oldPassword: e.target.value })
                         }}
-                        className='w-100 mb-3'
+                        className='w-100 mb-3 my-2'
                         variant="outlined"
                         label="Old Password" />
                     <TextField
@@ -24,7 +24,7 @@ const DeveloperChangePasswordDialog = ({ changePasswordDialogControl, setChangeP
                         onChange={(e) => {
                             setChangePasswordDialogControl({ ...changePasswordDialogControl, newPassword: e.target.value })
                         }}
-                        className='w-100 mb-3'
+                        className='w-100 mb-3 my-2'
                         variant="outlined"
                         label="New Password" />
                     <TextField
@@ -32,7 +32,7 @@ const DeveloperChangePasswordDialog = ({ changePasswordDialogControl, setChangeP
                         onChange={(e) => {
                             setChangePasswordDialogControl({ ...changePasswordDialogControl, confirmPassword: e.target.value })
                         }}
-                        className='w-100 mb-3'
+                        className='w-100 mb-3 my-2'
                         variant="outlined"
                         label="Confirm New Password" />
                     <FormGroup>

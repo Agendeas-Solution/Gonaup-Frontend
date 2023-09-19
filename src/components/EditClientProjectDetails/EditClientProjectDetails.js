@@ -6,7 +6,7 @@ import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import EditBudgetDialog from '../EditBudgetDialog/EditBudgetDialog';
 import EditSkillDialog from '../EditSkillDialog/EditSkillDialog';
 import EditScopeDialog from '../EditScopeDialog/EditScopeDialog';
@@ -17,7 +17,7 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const EditClientProjectDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -36,6 +36,8 @@ const EditClientProjectDetails = () => {
     const [editScopeDialogControl, setEditScopeDialogControl] = useState({
         status: false,
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const handleClose = () => {
         setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, status: false });
         setEditBudgetDialogControl({ ...editBudgetDialogControl, status: false });
@@ -67,9 +69,17 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateBudget } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateBudget = () => {
@@ -89,9 +99,17 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProjectRequirement = () => {
@@ -113,9 +131,16 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateProjectSkillService } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProjectSkillService = (selectedSkillSets) => {

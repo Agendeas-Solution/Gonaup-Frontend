@@ -1,25 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useMutation } from 'react-query';
 import Cookie from 'js-cookie'
 import { request } from '../../utils/axios-utils';
 import { Box, Button, Typography } from '@mui/material';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const FreelanceExperienceList = () => {
     const [experienceList, setExperienceList] = useState([]);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetFreelanceExperienceList } = useMutation(request, {
         onSuccess: (res) => {
             setExperienceList(res.data.data);
-            ;
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: DeleteFreeLanceExperience } = useMutation(request, {
         onSuccess: (res) => {
-            ;
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useMutation } from 'react-query';
 import { requestAdmin } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { Box, Button, Typography } from '@mui/material';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const SkillList = () => {
     const [skillList, setSkillList] = useState([])
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetSkillList } = useMutation(requestAdmin, {
         onSuccess: (res) => {
             setSkillList(res.data.data);
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

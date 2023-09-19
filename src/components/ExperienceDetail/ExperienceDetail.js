@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import './index.css';
 import EducationLogo from '../../assets/images/education.svg'
@@ -13,6 +13,8 @@ import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { handleNextDeveloper } from '../../hooks/storage';
 import { PERMISSION } from '../../constants/permissionConstant';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const theme = createTheme({
     palette: {
         secondary: {
@@ -26,6 +28,8 @@ const ExperienceDetail = () => {
     const [deleteExperienceDialogStatus, setDeleteExperienceDialogStatus] = useState({
         status: false, id: null
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate()
     const [experienceDetail, setExperienceDetail] = useState({
         title: null,
@@ -49,7 +53,9 @@ const ExperienceDetail = () => {
             setExperienceList(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -69,17 +75,31 @@ const ExperienceDetail = () => {
     const { mutate: AddFreelancerExperience } = useMutation(request, {
         onSuccess: (res) => {
             setAddExperienceDialogStatus(false)
-
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            ;
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: DeleteExperience } = useMutation(request, {
         onSuccess: (res) => {
             setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteExperience = async (id) => {

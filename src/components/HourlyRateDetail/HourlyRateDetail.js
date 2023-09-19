@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress';
 import PropTypes from 'prop-types';
@@ -8,6 +8,8 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const theme = createTheme({
     palette: {
         secondary: {
@@ -20,6 +22,8 @@ const HourlyRateDetail = () => {
     const [hourRate, setHourRate] = useState({
         hourlyRate: 20
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const handleBackPage = () => {
         navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
@@ -27,15 +31,21 @@ const HourlyRateDetail = () => {
         localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
     }
     const { mutate: AddHourlyRate } = useMutation(request, {
-        onSuccess: (response) => {
-            console.log(response);
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
             navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddHourlyRate = async (e) => {

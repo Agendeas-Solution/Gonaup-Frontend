@@ -111,14 +111,14 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                 <DialogTitle className="dialog_heading">
                     Edit Contact
                 </DialogTitle>
-                <DialogContent className="d-flex row">
+                <DialogContent className="d-flex row justify-content-center">
                     {/* <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} /> */}
                     <Box className="d-flex row justify-content-between">
                         <StyledPhoneInput
                             placeholder="Enter Mobile No"
                             value={editContactDialogControl.contactNumber}
                             defaultCountry="US"
-                            className='my-2 w-45'
+                            className='my-3 w-45'
                             onChange={(event) => {
                                 setEditContactDialogControl({ ...editContactDialogControl, contactNumber: event })
                             }}
@@ -127,14 +127,14 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                             label="Skype Id"
                             variant="outlined"
                             type="text"
-                            className='my-2 w-45'
+                            className='my-3 w-45'
                             value={editContactDialogControl.skypeId}
                             onChange={(e) => setEditContactDialogControl({ ...editContactDialogControl, skypeId: e.target.value })}
                         />
                     </Box>
                     <Box className="d-flex row justify-content-between">
                         <Autocomplete
-                            className="my-2 p-0 w-45"
+                            className="my-3 p-0 w-45"
                             disablePortal
                             // disableClearable
                             options={countryList}
@@ -148,7 +148,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                             )}
                         />
                         <Autocomplete
-                            className="my-2 p-0 w-45"
+                            className="my-3 p-0 w-45"
                             options={cityList}
                             // disableClearable
                             // disabled={!editContactDialogControl?.state}
@@ -165,7 +165,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                     </Box>
                     <Box className="d-flex row justify-content-between">
                         <Autocomplete
-                            className="my-2 p-0 w-45"
+                            className="my-3 p-0 w-45"
                             options={stateList}
                             // disableClearable
                             // disabled={!editContactDialogControl?.country}
@@ -181,7 +181,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                         />
                         <TextField
                             label="Zip/Postal Code"
-                            className="my-2 p-0 w-45"
+                            className="my-3 p-0 w-45"
                             variant="outlined"
                             type="text"
                             value={editContactDialogControl.zipCode}
@@ -191,7 +191,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                     <Box className="d-flex row">
                         <TextField
                             label="Address"
-                            className="my-2 p-0 w-100"
+                            className="mt-3 p-0 w-100"
                             variant="outlined"
                             type="text"
                             value={editContactDialogControl.address}
@@ -204,7 +204,7 @@ const EditContactDialog = ({ editContactDialogControl, setEditContactDialogContr
                         onClick={() => handleEditContactDetail(imageUrl)}
                     >
                         Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button px-4 mx-3" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>
