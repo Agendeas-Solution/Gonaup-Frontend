@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -13,6 +13,7 @@ import { request } from '../../utils/axios-utils'
 import { Link, useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import HeaderLogo from '../HeaderLogo/HeaderLogo'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const RegisterUser = () => {
     const [values, setValues] = useState({
         email: '',
@@ -20,7 +21,8 @@ const RegisterUser = () => {
     })
     const location = useLocation();
     const routePath = location.pathname;
-
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const [registerData, setRegisterData] = useState({
         firstName: '',
@@ -28,7 +30,19 @@ const RegisterUser = () => {
         email: '',
         password: '',
     })
-    const { mutate } = useMutation(request);
+    const { mutate } = useMutation(request, {
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.message,
+            })
+            navigate('/login')
+        },
+        onError: (err) => {
+            setErrorSnackbar({ ...errorSnackbar, status: true, message: err.response.data.message })
+        }
+    });
     const handleRegister = async (e) => {
         let data = {
             firstName: registerData.firstName,
@@ -40,12 +54,7 @@ const RegisterUser = () => {
             url: routePath === "/clientregister" ? '/auth/client/signup' : routePath === "/freelancerregister" ? '/auth/freelancer/signup' : "/auth/recruiter/signup",
             method: 'post',
             data: data,
-            onSuccess: (response, variables) => {
-                navigate('/login')
-            },
-            onError: (response) => {
-                console.log(response);
-            }
+
         })
     };
     const handleClickShowPassword = () => {

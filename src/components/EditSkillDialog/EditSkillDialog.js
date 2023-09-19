@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,7 +13,7 @@ import { request } from '../../utils/axios-utils';
 import { useEffect } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, handleClose, handleUpdateProjectSkillService }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
@@ -23,6 +23,8 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetSkillList } = useMutation(request, {
         onSuccess: (res) => {
             setServiceSkillList((prevState) => ({
@@ -31,7 +33,9 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

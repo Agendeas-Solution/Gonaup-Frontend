@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../Header/Header'
 import { Box, InputLabel, TextField, Typography, Chip, FormControl, RadioGroup, FormControlLabel, Radio, Divider, Button } from '@mui/material'
 import './index.css';
@@ -9,6 +9,8 @@ import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie';
 import { PERMISSION } from '../../constants/permissionConstant';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 import { useNavigate } from 'react-router-dom';
 const theme = createTheme({
     palette: {
@@ -28,6 +30,8 @@ const ProjectBudget = () => {
         fixedBudget: null
     });
     const navigate = useNavigate();
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const handleBackPage = () => {
         navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
             - 1].path)
@@ -40,9 +44,16 @@ const ProjectBudget = () => {
                 + 1].path)
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProjectBudget = async () => {

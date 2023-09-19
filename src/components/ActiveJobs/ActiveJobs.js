@@ -1,5 +1,5 @@
 import { Box, Menu, Fade, MenuItem, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './index.css'
@@ -9,12 +9,15 @@ import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import moment from 'moment';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ActiveJobs = ({ projectList }) => {
     const [deleteProjectDialogControl, setDeleteProjectDialogControl] = useState({
         status: false,
         reason: "",
         projectId: null
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -28,9 +31,17 @@ const ActiveJobs = ({ projectList }) => {
     const { mutate: DeleteProject } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteProject = (id) => {

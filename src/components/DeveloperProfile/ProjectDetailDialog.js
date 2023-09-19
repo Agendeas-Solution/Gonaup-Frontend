@@ -1,19 +1,24 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { request } from '../../utils/axios-utils';
 import { useMutation } from 'react-query';
 import Cookie from 'js-cookie';
 import DoneIcon from '@mui/icons-material/Done';
 import moment from 'moment/moment';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ProjectDetailDialog = ({ projectDetailDialogControl, handleClose }) => {
     const [projectDetail, setProjectDetail] = useState({});
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetDeveloperProfile } = useMutation(request, {
         onSuccess: (res) => {
             setProjectDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

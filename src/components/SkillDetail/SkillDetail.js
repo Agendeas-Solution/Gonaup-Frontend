@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, InputLabel, TextField, Typography, Chip, Button } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -29,6 +29,8 @@ const SkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const handleBackPage = () => {
         navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
             - 1].path)
@@ -57,7 +59,9 @@ const SkillDetail = () => {
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetSkillList } = useMutation(request, {
@@ -68,7 +72,9 @@ const SkillDetail = () => {
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -89,14 +95,21 @@ const SkillDetail = () => {
     }, [])
 
     const { mutate: AddSkillService } = useMutation(request, {
-        onSuccess: (response) => {
+        onSuccess: (res) => {
             navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
                 + 1].path)
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddServiceDetail = async (e) => {

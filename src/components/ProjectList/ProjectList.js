@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import Cookie from 'js-cookie'
 import { useNavigate } from 'react-router-dom';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 
 const ProjectList = () => {
     const [projectDetail, setProjectDetail] = useState(null);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const { mutate } = useMutation(request, {
         onSuccess: (response) => {
-            console.log(response);
             setProjectDetail(response.data.data);
-
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

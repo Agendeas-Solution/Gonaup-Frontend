@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Box,
     Typography,
@@ -20,11 +20,14 @@ import { Navigate } from 'react-router-dom'
 import Cookie from 'js-cookie'
 import { PERMISSION } from '../../constants/permissionConstant'
 import HeaderLogo from '../HeaderLogo/HeaderLogo'
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const Login = () => {
     const [userDetail, setUserDetail] = useState({
         email: '',
         password: '',
     })
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate()
     const handleLoginRoute = (loginStep) => {
         const storedData = localStorage.getItem('loginDetail');
@@ -55,6 +58,11 @@ const Login = () => {
     }
     const { mutate: Login } = useMutation(request, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
             setUserType(res?.data?.data?.usedDetails?.type)
@@ -72,6 +80,9 @@ const Login = () => {
             }
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetAccountList } = useMutation(request, {
@@ -80,6 +91,9 @@ const Login = () => {
             localStorage.setItem('accountList', dataToStore);
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetAccountList = async (e) => {
@@ -97,6 +111,9 @@ const Login = () => {
             handleLoginRoute(res.data.data);
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetFreelancerSteps = async () => {

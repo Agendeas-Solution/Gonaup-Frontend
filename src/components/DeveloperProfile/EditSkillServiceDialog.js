@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
 import DoneIcon from '@mui/icons-material/Done';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSkillDialogControl, handleEditSkillDialog }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: editSkillDialogControl?.services,
@@ -14,6 +16,8 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: GetSkillList } = useMutation(request, {
         onSuccess: (res) => {
             setServiceSkillList((prevState) => ({
@@ -22,7 +26,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: GetServicesList } = useMutation(request, {
@@ -33,7 +39,9 @@ const EditSkillServiceDialog = ({ handleClose, editSkillDialogControl, setEditSk
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

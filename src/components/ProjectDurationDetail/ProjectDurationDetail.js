@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 // import './index.css';
 import { Box, Button, Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { useMutation } from 'react-query';
@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { PROJECT } from '../../constants/projectConstant';
 import { useNavigate } from 'react-router-dom';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -20,6 +21,8 @@ const theme = createTheme({
 });
 const ProjectDurationDetail = () => {
     const navigate = useNavigate();
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [projectDurationDetail, setProjectDurationDetail] = useState({
         experienceNeeded: null,
         projectDuration: null,
@@ -30,9 +33,17 @@ const ProjectDurationDetail = () => {
 
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProjectRequirement = async () => {

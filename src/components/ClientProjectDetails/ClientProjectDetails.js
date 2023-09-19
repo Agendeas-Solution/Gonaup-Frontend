@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material'
 import './index.css'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
@@ -13,10 +13,12 @@ import { PROJECT } from '../../constants/projectConstant';
 import DeleteProjectDialog from '../DeleteProjectDialog/DeleteProjectDialog';
 import ProjectDetailRightSection from './ProjectDetailRightSection';
 import RectangularChip from '../RectangularChip/RectangularChip';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ClientProjectDetails = () => {
     const { id } = useParams();
     const [projectDetail, setProjectDetail] = useState({});
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [deleteProjectDialogControl, setDeleteProjectDialogControl] = useState({
         status: false,
         reason: "",
@@ -29,6 +31,9 @@ const ClientProjectDetails = () => {
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectDetail = () => {
@@ -49,9 +54,16 @@ const ClientProjectDetails = () => {
     const { mutate: DeleteProject } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteProject = (id) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Autocomplete, Avatar, Box, Button, FormControl, FormControlLabel, FormLabel, InputLabel, Radio, RadioGroup, TextField, Typography, createFilterOptions } from '@mui/material'
 import './index.css'
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,6 +11,7 @@ import Uploader from '../Uploader/Uploader';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'
 import { styled } from '@mui/system';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 
 const StyledPhoneInput = styled(PhoneInput)({
     '& input': {
@@ -23,6 +24,8 @@ const StyledPhoneInput = styled(PhoneInput)({
 const ClientProfile = () => {
     const [clientDetail, setClientDetail] = useState({})
     const navigate = useNavigate();
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [editClientPersonalDetail, setEditClientPersonalDetail] = useState(false)
     const [editCompanyDetail, seteditCompanyDetail] = useState(false)
     const [editCompanyContactDetail, seteditCompanyContactDetail] = useState(false)
@@ -97,12 +100,15 @@ const ClientProfile = () => {
         handleGetCountryCall();
     }, [])
     const { mutate: UpdateProfileDetail } = useMutation(request, {
-        onSuccess: (response) => {
-            console.log(response);
+        onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
 
         },
-        onError: (response) => {
-            console.log(response);
+        onError: (err) => {
         }
     });
     const handleUpdateProfileDetail = async (e) => {
@@ -162,7 +168,9 @@ const ClientProfile = () => {
             })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetClientDetail = () => {
@@ -180,9 +188,16 @@ const ClientProfile = () => {
     const { mutate: UpdateUserDetail } = useMutation(request, {
         onSuccess: (res) => {
             handleEditClientPersonalDetailStatus();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditClientPersonalDetailStatus = () => {

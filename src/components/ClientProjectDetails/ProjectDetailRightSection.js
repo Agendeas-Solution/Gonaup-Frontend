@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import FreelancerApplyJobDialog from './FreelancerApplyJobDialog';
 import Cookie from 'js-cookie';
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogControl, deleteProjectDialogControl }) => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -16,12 +16,23 @@ const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogContro
         bidAmount: 0,
         projectId: id
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const { mutate: ApplyForProject } = useMutation(request, {
         onSuccess: (res) => {
             handleDialogClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
+
         }
     });
     const handleDialogClose = () => {
@@ -30,7 +41,7 @@ const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogContro
     const handleApplyProject = () => {
         ApplyForProject({
             url: '/project/apply',
-            method: 'PUT',
+            method: 'put',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
             },

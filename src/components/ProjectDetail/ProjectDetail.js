@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, LinearProgress, ThemeProvider, Typography, createTheme } from '@mui/material'
 import './index.css';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -11,6 +11,7 @@ import Cookie from 'js-cookie';
 import DeleteFreelancerProjectDialog from '../DeleteFreelancerProjectDialog/DeleteFreelancerProjectDialog';
 import { useNavigate } from 'react-router-dom';
 import { PERMISSION } from '../../constants/permissionConstant';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const theme = createTheme({
     palette: {
         secondary: {
@@ -21,6 +22,8 @@ const theme = createTheme({
 });
 const ProjectDetail = () => {
     const navigate = useNavigate();
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [addProjectDialogStatus, setAddProjectDialogStatus] = useState({
         status: false,
         title: '',
@@ -42,7 +45,9 @@ const ProjectDetail = () => {
             setProjectList(res.data.data);
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetProjectList = () => {
@@ -63,8 +68,16 @@ const ProjectDetail = () => {
     const { mutate: DeleteFreelancerProject } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteFreelancerProject = async (id) => {

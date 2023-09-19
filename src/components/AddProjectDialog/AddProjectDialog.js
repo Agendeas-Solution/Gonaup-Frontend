@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material'
 import './index.css'
 import { useMutation } from 'react-query';
@@ -9,6 +9,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Cookie from 'js-cookie';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, handleDialogClose, handleGetDeveloperProfile }) => {
     const [selectedSkillSets, setSelectedSkillSets] = useState({
         services: [],
@@ -18,6 +20,8 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [images, setImages] = useState([]);
     const [imageURLs, setImageURLs] = useState([]);
     useEffect(() => {
@@ -40,15 +44,25 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: AddProject } = useMutation(request, {
         onSuccess: (res) => {
             handleGetDeveloperProfile();
             handleDialogClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleSaveProject = () => {
@@ -89,6 +103,9 @@ const AddProjectDialog = ({ addProjectDialogStatus, setAddProjectDialogStatus, h
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {

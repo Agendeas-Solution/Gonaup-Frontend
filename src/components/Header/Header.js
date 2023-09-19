@@ -14,12 +14,14 @@ import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneR
 import Cookie from 'js-cookie'
 import { useMutation } from 'react-query'
 import { request } from '../../utils/axios-utils'
-
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
 const Header = () => {
     const navigate = useNavigate()
     let accountList = []
     let storedData = ''
     const [anchorEl, setAnchorEl] = useState(null);
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [value, setValue] = useState('1');
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -50,6 +52,9 @@ const Header = () => {
             localStorage.setItem('accountList', dataToStore);
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetAccountList = async (e) => {
@@ -63,6 +68,11 @@ const Header = () => {
     }
     const { mutate: SwitchAccount } = useMutation(request, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
             localStorage.setItem('type', res?.data?.data?.type)
             setLoginToken(res.data.data.token)
             handleGetAccountList();
@@ -74,6 +84,9 @@ const Header = () => {
             }
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleSwitchAccount = async () => {
@@ -81,7 +94,7 @@ const Header = () => {
         const desiredValue = mainFalseData ? mainFalseData.type : null;
         await SwitchAccount({
             url: '/auth/switch-account',
-            method: 'PUT',
+            method: 'put',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
             },

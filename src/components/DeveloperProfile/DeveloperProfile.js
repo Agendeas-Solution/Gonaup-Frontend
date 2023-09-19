@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Chip, Divider, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './index.css'
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Cookie from 'js-cookie';
@@ -25,7 +25,11 @@ import ProjectDetailDialog from './ProjectDetailDialog';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import moment from 'moment';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const DeveloperProfile = () => {
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const [serviceSkillList, setServiceSkillList] = useState({
         serviceList: [],
         skillList: []
@@ -98,16 +102,32 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             setAddExperienceDialogStatus(false)
             handleGetDeveloperProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const { mutate: DeleteExperience } = useMutation(request, {
         onSuccess: (res) => {
             setDeleteExperienceDialogStatus({ ...deleteExperienceDialogStatus, status: false })
             handleGetDeveloperProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteExperience = async (id) => {
@@ -157,9 +177,16 @@ const DeveloperProfile = () => {
                 dateFrom: null,
                 dateTo: null
             })
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddEducationDetail = async () => {
@@ -188,9 +215,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             setDeleteEducationDialogStatus({ ...deleteEducationDialogStatus, status: false })
             handleGetDeveloperProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteEducation = async (id) => {
@@ -208,7 +242,9 @@ const DeveloperProfile = () => {
             setDeveloperDetail(res.data.data)
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleGetDeveloperProfile = (res) => {
@@ -231,7 +267,9 @@ const DeveloperProfile = () => {
             }));
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -247,14 +285,19 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleGetDeveloperProfile();
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditUserName = () => {
-        console.log("Printing", editUserNameDialogControl.email);
-        debugger
         EditUserName({
             url: '/user/details',
             method: 'put',
@@ -272,9 +315,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleGetDeveloperProfile();
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditHourlyRate = () => {
@@ -306,9 +356,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleGetDeveloperProfile();
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditRoleAndOverviewDialog = () => {
@@ -328,9 +385,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleGetDeveloperProfile();
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditSkillDialog = (selectedSkillSets) => {
@@ -350,9 +414,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleClose()
             handleGetDeveloperProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditProfileLink = () => {
@@ -373,9 +444,16 @@ const DeveloperProfile = () => {
         onSuccess: (res) => {
             handleClose();
             handleGetDeveloperProfile();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleEditContactDetail = (image_url) => {
@@ -407,8 +485,16 @@ const DeveloperProfile = () => {
     const { mutate: DeleteFreelancerProject } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleDeleteFreelancerProject = async (id) => {

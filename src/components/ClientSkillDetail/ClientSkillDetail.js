@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, InputLabel, TextField, Typography, Chip, Button } from '@mui/material'
 import { useMutation } from 'react-query';
 import { request } from '../../utils/axios-utils';
@@ -11,6 +11,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { PERMISSION } from '../../constants/permissionConstant';
 import { useNavigate } from 'react-router-dom';
 import RectangularChip from '../RectangularChip/RectangularChip';
+import { Context as ContextSnackbar } from '../../context/notificationContext/notificationContext'
+
 const theme = createTheme({
     palette: {
         secondary: {
@@ -28,6 +30,8 @@ const ClientSkillDetail = () => {
         serviceList: [],
         skillList: []
     });
+    const { successSnackbar, errorSnackbar } = useContext(ContextSnackbar)?.state
+    const { setSuccessSnackbar, setErrorSnackbar } = useContext(ContextSnackbar)
     const navigate = useNavigate();
     const { mutate: GetServiceList } = useMutation(request, {
         onSuccess: (res) => {
@@ -37,6 +41,9 @@ const ClientSkillDetail = () => {
             }));
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
             console.log(err);
         }
     });
@@ -49,6 +56,9 @@ const ClientSkillDetail = () => {
         },
         onError: (err) => {
             console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     useEffect(() => {
@@ -100,9 +110,16 @@ const ClientSkillDetail = () => {
                 + 1].path)
             localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus'))
                 + 1)
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleAddSkillService = () => {
