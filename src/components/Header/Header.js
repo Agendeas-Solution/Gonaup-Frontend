@@ -175,7 +175,7 @@ const Header = () => {
                                             </>
                                         }
                                     })}</MenuItem>
-                                    <MenuItem onClick={() => {
+                                    {localStorage.getItem('type') == 0 && <MenuItem onClick={() => {
                                         navigate("/developersetting")
                                         handleClose();
                                     }} >{accountList && accountList.map((data) => {
@@ -185,7 +185,7 @@ const Header = () => {
                                                 <Typography variant="span">Settings</Typography>
                                             </>
                                         }
-                                    })}</MenuItem>
+                                    })}</MenuItem>}
                                     <MenuItem onClick={clearLoginToken}><LogoutRoundedIcon />Logout</MenuItem>
                                 </Menu>
                             </Box>

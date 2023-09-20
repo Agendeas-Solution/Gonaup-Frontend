@@ -64,6 +64,7 @@ const ClientProfile = () => {
         },
         onError: (response) => {
             console.log(response);
+
         }
     });
     const handleGetStateCall = async (data) => {
@@ -106,9 +107,12 @@ const ClientProfile = () => {
                 status: true,
                 message: res.data.message,
             })
-
+            handleEditCompanyContactDetail()
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProfileDetail = async (e) => {
@@ -225,9 +229,17 @@ const ClientProfile = () => {
     }
     const { mutate: UpdateCompanyDetail } = useMutation(request, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
+            handleEditCompanyDetailStatus()
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateCompanyDetail = () => {
