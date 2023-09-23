@@ -105,7 +105,6 @@ const Header = () => {
     }
     return (
         <>
-
             <Box className="company_logo">
                 <Box className="d-flex column align-items-center justify-content-start w-50">
                     <img src={Logo} alt="Company logo" />
@@ -151,30 +150,34 @@ const Header = () => {
                                         horizontal: 'left',
                                     }}
                                 >
-                                    <MenuItem >{accountList && accountList.map((data) => {
-                                        if (data.main) {
-                                            return <>
-                                                <Box className="user_profession_detail">
-                                                    <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
-                                                    <Typography variant="span">{data.fullName} </Typography>
-                                                    <Typography variant="span">{data.type === 0 ? "Freelancer" : "Client"} </Typography>
-                                                </Box>
-                                            </>
-                                        }
-                                    })}</MenuItem>
-                                    <MenuItem >{accountList && accountList.map((data) => {
-                                        if (!data.main) {
-                                            return <>
-                                                <Box onClick={handleSwitchAccount}>
-                                                    <AccountCircleRoundedIcon />
-                                                    <Box className="d-flex row">
+                                    <MenuItem >
+                                        {accountList && accountList.map((data) => {
+                                            if (data.main) {
+                                                return <>
+                                                    <Box className="user_profession_detail">
+                                                        <Avatar onClick={handleClick} alt="Remy Sharp" src={data.imageUrl} />
                                                         <Typography variant="span">{data.fullName} </Typography>
-                                                        <Typography variant="span">{data.type == 0 ? "Freelancer" : "Client"} </Typography>
+                                                        <Typography variant="span">{data.type === 0 ? "Freelancer" : "Client"} </Typography>
                                                     </Box>
-                                                </Box>
-                                            </>
-                                        }
-                                    })}</MenuItem>
+                                                </>
+                                            }
+                                        })}
+                                    </MenuItem>
+                                    <MenuItem >
+                                        {accountList && accountList.map((data) => {
+                                            if (!data.main) {
+                                                return <>
+                                                    <Box onClick={handleSwitchAccount}>
+                                                        <AccountCircleRoundedIcon />
+                                                        <Box className="d-flex row">
+                                                            <Typography variant="span">{data.fullName} </Typography>
+                                                            <Typography variant="span">{data.type == 0 ? "Freelancer" : "Client"} </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </>
+                                            }
+                                        })}
+                                    </MenuItem>
                                     {localStorage.getItem('type') == 0 && <MenuItem onClick={() => {
                                         navigate("/developersetting")
                                         handleClose();

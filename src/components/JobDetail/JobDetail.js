@@ -99,7 +99,7 @@ const JobDetail = () => {
                 </Box>
             </Box>
             <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel value={10} />
+                <LinearProgressWithLabel value={0} />
                 <Box className="d-flex justify-content-end mt-2 p-1">
                     {/* <Button onClick={handleBackPage} className="back_button">Back</Button> */}
                     <Button onClick={handleAddProjectTitle} className="save_button">Next</Button>

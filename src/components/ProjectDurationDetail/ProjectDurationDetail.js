@@ -71,6 +71,9 @@ const ProjectDurationDetail = () => {
         value: PropTypes.number.isRequired,
     };
     const handleBackPage = () => {
+        console.log("Printing", PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
+            - 1])
+        debugger;
         navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[parseInt(localStorage.getItem('stepStatus'))
             - 1].path)
         localStorage.setItem('stepStatus', parseInt(localStorage.getItem('stepStatus')) - 1)
@@ -135,7 +138,7 @@ const ProjectDurationDetail = () => {
                 </Box>
             </Box>
             <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel value={10} />
+                <LinearProgressWithLabel value={75} />
                 <Box className="d-flex justify-content-between mt-2 p-1">
                     <Button onClick={handleBackPage} className="back_button">Back</Button>
                     <Button onClick={handleUpdateProjectRequirement} className="save_button">Next</Button>
