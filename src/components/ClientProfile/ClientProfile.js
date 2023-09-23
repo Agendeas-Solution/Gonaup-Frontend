@@ -261,18 +261,18 @@ const ClientProfile = () => {
     return (
         <>
             {editClientPersonalDetail ?
-                <Box className="client_profile_main_section p-4">
-                    <Typography className='profile_section_heading' variant='span'>Account</Typography>
-                    <Box className="d-flex justify-content-between column" >
-                        <Box sx={{ width: "15%" }}>
+                <Box className="client_profile_main_section p-2">
+                    <Typography className='profile_section_heading mx-4' variant='span'>Account</Typography>
+                    <Box className="d-flex justify-content-between column mx-4 mt-3" >
+                        <Box sx={{ width: "14%" }}>
                             <Avatar
                                 alt="Sharp"
                                 src="/static/images/avatar/1.jpg"
-                                sx={{ width: 56, height: 56 }}
+                                sx={{ width: 95, height: 95 }}
                             />
                         </Box>
-                        <Box sx={{ width: "85%" }} className="d-flex justify-content-between row">
-                            <Box className="d-flex justify-content-between row">
+                        <Box sx={{ width: "86%" }} className="d-flex justify-content-between row mt-3">
+                            <Box className="d-flex justify-content-between row mb-1">
                                 <TextField
                                     onChange={(e) => {
                                         setClientDetail({ ...clientDetail, first_name: e.target.value })
@@ -280,7 +280,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.first_name}
                                     variant="outlined"
                                     label='First Name'
-                                    sx={{ width: "20%" }}
+                                    sx={{ width: "23%" }}
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -289,7 +289,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.last_name}
                                     variant="outlined"
                                     label='Last Name'
-                                    sx={{ width: "20%" }}
+                                    sx={{ width: "23%" }}
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -298,10 +298,10 @@ const ClientProfile = () => {
                                     value={clientDetail?.email}
                                     variant="outlined"
                                     label='Email'
-                                    sx={{ width: "40%" }}
+                                    sx={{ width: "46%" }}
                                 />
                             </Box>
-                            <Box className="mt-2">
+                            <Box className="mt-4">
                                 <Button onClick={
                                     handleSaveUserDetail
                                 }
@@ -312,18 +312,18 @@ const ClientProfile = () => {
                     </Box>
                 </Box>
                 : <Box className="client_profile_main_section">
-                    <Box className="d-flex justify-content-between p-4">
-                        <Typography className="profile_section_heading" variant="span">Account</Typography>
-                        <EditIcon className="circular_icon" onClick={
+                    <Box className="d-flex justify-content-between mx-2 mt-2">
+                        <Typography className="profile_section_heading mx-4" variant="span">Account</Typography>
+                        <EditIcon className="circular_icon mx-4" onClick={
                             handleEditClientPersonalDetailStatus
                         } />
                     </Box>
-                    <Box className="d-flex row">
-                        <Box className="d-flex column w-50 align-items-start p-3" >
+                    <Box className="d-flex row mb-3 mx-3">
+                        <Box className="d-flex column w-50 align-items-top" >
                             <img
                                 alt="Sharp"
                                 src={clientDetail.image_url}
-                                className='profile_image'
+                                className='profile_image mx-1'
                             />
                             <Box className="d-flex row px-2">
                                 <Typography variant='span' className="mb-2 profile_section_heading">
@@ -334,7 +334,7 @@ const ClientProfile = () => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className="d-flex column w-50 align-items-end p-3 ">
+                        <Box className="d-flex column w-50 align-items-end">
                             <Box className="d-flex row px-2">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Email</Typography>
@@ -449,41 +449,42 @@ const ClientProfile = () => {
                     </Box>
                 </Box> :
                 <Box className="client_profile_main_section">
-                    <Box className="d-flex justify-content-between p-4">
-                        <Typography className="profile_section_heading" variant="span">Company details</Typography>
-                        <EditIcon onClick={handleEditCompanyDetailStatus} className="circular_icon" />
+                    <Box className="d-flex justify-content-between mx-2 mt-2">
+                        <Typography className="profile_section_heading mx-4" variant="span">Company details</Typography>
+                        <EditIcon onClick={handleEditCompanyDetailStatus} className="circular_icon mx-4" />
                     </Box>
-                    <Box className="d-flex row">
-                        <Box className="d-flex column w-50 align-items-end p-3" >
+                    <Box className="d-flex row mx-3">
+                        <Box className="d-flex column w-50 align-items-top" >
                             <Avatar
                                 alt="Remy Sharp"
+                                className='mx-1'
                                 src="/static/images/avatar/1.jpg"
                                 sx={{ width: 56, height: 56 }}
                             />
                             <Box className="d-flex row px-2">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Company Name</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                    <Typography variant='span' className='profile_section_heading mb-2'>
                                         {clientDetail?.companyDetails?.company_name}</Typography>
                                 </Box>
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Company Size </Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                    <Typography variant='span' className='profile_section_heading mb-3'>
                                         {clientDetail?.companyDetails?.size}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className="d-flex column w-50 align-items-end p-3 ">
+                        <Box className="d-flex column w-50 align-items-center ">
                             <Box className="d-flex row px-2">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Website</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                    <Typography variant='span' className='profile_section_heading mb-2'>
                                         {clientDetail?.companyDetails?.website}</Typography>
                                 </Box>
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>LinkedIn</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                    <Typography variant='span' className='profile_section_heading mb-3'>
                                         {clientDetail?.companyDetails?.linkdin_profile}</Typography>
                                 </Box>
                             </Box>
@@ -590,50 +591,50 @@ const ClientProfile = () => {
                 </Box>
             </Box> :
                 <Box className="client_profile_main_section">
-                    <Box className="d-flex justify-content-between p-4">
-                        <Typography className="profile_section_heading" variant="span">Company contacts</Typography>
-                        <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon" />
+                    <Box className="d-flex justify-content-between mx-2 mt-2">
+                        <Typography className="profile_section_heading mx-4" variant="span">Company contacts</Typography>
+                        <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon mx-4" />
                     </Box>
-                    <Box className="d-flex row p-4">
-                        <Box className="d-flex column w-50 align-items-end" >
+                    <Box className="d-flex row">
+                        <Box className="d-flex column w-50 align-items-start" >
                             <Box className="d-flex row">
-                                <Box className="d-flex row">
-                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Phone</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                <Box className="d-flex row mx-3">
+                                    <Typography variant='span' className='mx-1' sx={{ color: "#8E8E8E" }}>Phone</Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2 mx-1'>
                                         {clientDetail?.contact_number}</Typography>
                                 </Box>
-                                <Box className="d-flex row">
-                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Country </Typography>
-                                    <Typography variant='span' className='profile_section_heading'>
+                                <Box className="d-flex row mx-3">
+                                    <Typography variant='span' className='mx-1' sx={{ color: "#8E8E8E" }}>Country </Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2 mx-1'>
                                         {clientDetail?.country_name}</Typography>
                                 </Box>
-                                <Box className="d-flex row">
-                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>State </Typography>
-                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.state_name}</Typography>
+                                <Box className="d-flex row mx-3">
+                                    <Typography variant='span' className='mx-1' sx={{ color: "#8E8E8E" }}>State </Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2 mx-1'>{clientDetail?.state_name}</Typography>
                                 </Box>
-                                <Box className="d-flex row">
-                                    <Typography variant='span' sx={{ color: "#8E8E8E" }}>Address </Typography>
-                                    <Typography variant='span' className='profile_section_heading'>{
+                                <Box className="d-flex row mx-3">
+                                    <Typography variant='span' className='mx-1' sx={{ color: "#8E8E8E" }}>Address </Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2 mx-1'>{
                                         clientDetail?.address
                                     }</Typography>
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className="d-flex column w-50 align-items-end">
+                        <Box className="d-flex column w-50 align-items-start">
                             <Box className="d-flex row px-2">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Skype</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>{
+                                    <Typography variant='span' className='profile_section_heading mb-2'>{
                                         clientDetail?.skype_id
                                     }</Typography>
                                 </Box>
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>City</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.city_name}</Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2'>{clientDetail?.city_name}</Typography>
                                 </Box>
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Zip/Postal Code</Typography>
-                                    <Typography variant='span' className='profile_section_heading'>{clientDetail?.zip_code}</Typography>
+                                    <Typography variant='span' className='profile_section_heading mb-2'>{clientDetail?.zip_code}</Typography>
                                 </Box>
                             </Box>
                         </Box>
