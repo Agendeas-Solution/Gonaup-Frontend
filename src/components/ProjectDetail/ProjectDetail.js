@@ -114,8 +114,12 @@ const ProjectDetail = () => {
         <>
             <Box className="main_section">
                 <Typography className="main_section_heading" variant='span'>3/7</Typography>
-                <Typography className="main_section_heading" variant='span'>Share Past Project Images, Links, Titles, Descriptions, and Timelines</Typography>
-                <Typography className="main_section_description" variant='span'>Highlight your expertise and track record by sharing the visual essence of your past projects. This comprehensive showcase of your professional journey allows us to gain insight into your capabilities and accomplishments.</Typography>
+                <Typography className="main_section_heading" variant='span'>
+                    Share Past Project Images, Links, Titles, Descriptions, and Timelines
+                </Typography>
+                <Typography className="main_section_description" variant='span'>
+                    Highlight your expertise and track record by sharing the visual essence of your past projects. This comprehensive showcase of your professional journey allows us to gain insight into your capabilities and accomplishments.
+                </Typography>
                 <Box className="d-flex">
                     <Button className='project_detail_button' variant='outlined' onClick={() => {
                         setAddProjectDialogStatus({ ...addProjectDialogStatus, status: true });

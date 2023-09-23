@@ -26,7 +26,7 @@ const EditClientProjectDetails = () => {
         title: '', description: ""
     })
     const location = useLocation();
-    const projectDetail = location.state;
+    const [projectDetail, setProjectDetail] = useState(location.state);
     const [editBudgetDialogControl, setEditBudgetDialogControl] = useState({
         status: false, budget: ""
     })
@@ -47,11 +47,32 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateTitleDescription } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            handleGetProjectDetail()
         },
         onError: (err) => {
             console.log(err);
         }
     });
+    const { mutate: GetProjectList } = useMutation(request, {
+        onSuccess: (res) => {
+            setProjectDetail(res.data.data);
+        },
+        onError: (err) => {
+            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
+        }
+    });
+    const handleGetProjectDetail = () => {
+        GetProjectList({
+            url: `/project/details/freelancer?projectId=${id}`,
+            method: 'get',
+            headers: {
+                Authorization: `${Cookie.get('userToken')}`,
+            },
+        })
+    }
     const handleUpdateTitleDescription = () => {
         UpdateTitleDescription({
             url: `/project/title`,
@@ -69,6 +90,7 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateBudget } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            handleGetProjectDetail()
             setSuccessSnackbar({
                 ...successSnackbar,
                 status: true,
@@ -99,6 +121,7 @@ const EditClientProjectDetails = () => {
     const { mutate: UpdateProjectRequirement } = useMutation(request, {
         onSuccess: (res) => {
             handleClose();
+            handleGetProjectDetail()
             setSuccessSnackbar({
                 ...successSnackbar,
                 status: true,
@@ -130,6 +153,7 @@ const EditClientProjectDetails = () => {
     }
     const { mutate: UpdateProjectSkillService } = useMutation(request, {
         onSuccess: (res) => {
+            handleGetProjectDetail()
             handleClose();
             setSuccessSnackbar({
                 ...successSnackbar,

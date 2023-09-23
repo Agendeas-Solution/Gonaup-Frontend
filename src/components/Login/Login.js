@@ -44,9 +44,11 @@ const Login = () => {
             navigate(PERMISSION.DEVELOPER_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
         }
         else if (loginDetail?.usedDetails?.type == 1 && loginDetail?.usedDetails?.hasCompany) {
-            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[loginStep.stepStatus - 1].path)
+            localStorage.setItem('stepStatus', 0)
+            navigate(PERMISSION.CLIENT_PERMISSION_ROUTE[0].path)
         }
         else if (loginDetail?.usedDetails?.type == 1) {
+            localStorage.setItem('stepStatus', 0)
             navigate("/companydetail")
         }
         else if (loginDetail?.usedDetails?.type == 2 && loginDetail?.usedDetails?.hasCompany) {
@@ -63,6 +65,7 @@ const Login = () => {
                 status: true,
                 message: res.data.message,
             })
+            debugger
             setLoginToken(res.data.data.token)
             localStorage.setItem('type', res?.data?.data?.usedDetails?.type)
             setUserType(res?.data?.data?.usedDetails?.type)

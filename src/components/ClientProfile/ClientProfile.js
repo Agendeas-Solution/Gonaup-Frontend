@@ -64,6 +64,7 @@ const ClientProfile = () => {
         },
         onError: (response) => {
             console.log(response);
+
         }
     });
     const handleGetStateCall = async (data) => {
@@ -106,9 +107,12 @@ const ClientProfile = () => {
                 status: true,
                 message: res.data.message,
             })
-
+            handleEditCompanyContactDetail()
         },
         onError: (err) => {
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateProfileDetail = async (e) => {
@@ -225,9 +229,17 @@ const ClientProfile = () => {
     }
     const { mutate: UpdateCompanyDetail } = useMutation(request, {
         onSuccess: (res) => {
+            setSuccessSnackbar({
+                ...successSnackbar,
+                status: true,
+                message: res.data.message,
+            })
+            handleEditCompanyDetailStatus()
         },
         onError: (err) => {
-            console.log(err);
+            setErrorSnackbar({
+                ...errorSnackbar, status: true, message: err.response.data.message,
+            })
         }
     });
     const handleUpdateCompanyDetail = () => {
@@ -307,11 +319,11 @@ const ClientProfile = () => {
                         } />
                     </Box>
                     <Box className="d-flex row">
-                        <Box className="d-flex column w-50 align-items-end p-3" >
-                            <Avatar
+                        <Box className="d-flex column w-50 align-items-start p-3" >
+                            <img
                                 alt="Sharp"
-                                src="/static/images/avatar/1.jpg"
-                                sx={{ width: 56, height: 56 }}
+                                src={clientDetail.image_url}
+                                className='profile_image'
                             />
                             <Box className="d-flex row px-2">
                                 <Typography variant='span' className="mb-2 profile_section_heading">
