@@ -262,17 +262,17 @@ const ClientProfile = () => {
         <>
             {editClientPersonalDetail ?
                 <Box className="client_profile_main_section p-2">
-                    <Typography className='profile_section_heading mx-4' variant='span'>Account</Typography>
+                    <Typography className='profile_section_heading mx-4 mt-1' variant='span'>Account</Typography>
                     <Box className="d-flex justify-content-between column mx-4 mt-3" >
-                        <Box sx={{ width: "14%" }}>
+                        <Box sx={{ width: "12%" }}>
                             <Avatar
                                 alt="Sharp"
                                 src="/static/images/avatar/1.jpg"
-                                sx={{ width: 95, height: 95 }}
+                                sx={{ width: 80, height: 80 }}
                             />
                         </Box>
-                        <Box sx={{ width: "86%" }} className="d-flex justify-content-between row mt-3">
-                            <Box className="d-flex justify-content-between row mb-1">
+                        <Box sx={{ width: "88%" }} className="d-flex justify-content-end row mt-3">
+                            <Box className="d-flex justify-content-between mb-1">
                                 <TextField
                                     onChange={(e) => {
                                         setClientDetail({ ...clientDetail, first_name: e.target.value })
@@ -301,7 +301,7 @@ const ClientProfile = () => {
                                     sx={{ width: "46%" }}
                                 />
                             </Box>
-                            <Box className="mt-4">
+                            <Box className="mt-4 mb-3">
                                 <Button onClick={
                                     handleSaveUserDetail
                                 }
@@ -313,19 +313,20 @@ const ClientProfile = () => {
                 </Box>
                 : <Box className="client_profile_main_section">
                     <Box className="d-flex justify-content-between mx-2 mt-2">
-                        <Typography className="profile_section_heading mx-4" variant="span">Account</Typography>
+                        <Typography className="profile_section_heading mx-4 mt-1" variant="span">Account</Typography>
                         <EditIcon className="circular_icon mx-4" onClick={
                             handleEditClientPersonalDetailStatus
                         } />
                     </Box>
                     <Box className="d-flex row mb-3 mx-3">
                         <Box className="d-flex column w-50 align-items-top" >
-                            <img
-                                alt="Sharp"
-                                src={clientDetail.image_url}
-                                className='profile_image mx-1'
+                            <Avatar
+                                alt="Remy Sharp"
+                                src="/static/images/avatar/1.jpg"
+                                sx={{ width: 80, height: 80 }}
+                                className='mx-1'
                             />
-                            <Box className="d-flex row px-2">
+                            <Box className="d-flex row px-4">
                                 <Typography variant='span' className="mb-2 profile_section_heading">
                                     {clientDetail?.first_name} {clientDetail?.last_name}</Typography>
                                 <Box className="d-flex row">
@@ -347,18 +348,18 @@ const ClientProfile = () => {
                 </Box>
             }
             {editCompanyDetail ?
-                <Box className="client_profile_main_section p-4">
-                    <Typography className='edit_profile_section_heading' variant='span'>Company details</Typography>
-                    <Box className="d-flex justify-content-between column">
-                        <Box sx={{ width: "15%" }}>
+                <Box className="client_profile_main_section p-2">
+                    <Typography className='profile_section_heading mx-4 mt-1' variant='span'>Company details</Typography>
+                    <Box className="d-flex justify-content-between column mx-4 mt-3">
+                        <Box sx={{ width: "12%" }}>
                             <Avatar
                                 alt="Remy Sharp"
                                 src="/static/images/avatar/1.jpg"
-                                sx={{ width: 56, height: 56 }}
+                                sx={{ width: 80, height: 80 }}
                             />
                         </Box>
-                        <Box sx={{ width: "85%" }} className="d-flex justify-content-between row">
-                            <Box className="d-flex justify-content-between column">
+                        <Box sx={{ width: "88%" }} className="d-flex justify-content-between row mt-1">
+                            <Box className="d-flex justify-content-between column mb-2">
                                 <TextField
                                     onChange={(e) => {
                                         setClientDetail(prevUserData => ({
@@ -372,7 +373,8 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.company_name}
                                     variant="outlined"
                                     label='Company Name'
-                                    className="edit_profile_text_field"
+                                    sx={{ width: "46.5%" }}
+                                    className="edit_profile_text_field mb-1"
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -387,10 +389,11 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.position}
                                     variant="outlined"
                                     label='Role in Company'
+                                    sx={{ width: "46.5%" }}
                                     className="edit_profile_text_field"
                                 />
                             </Box>
-                            <Box className="d-flex justify-content-between column mt-2">
+                            <Box className="d-flex justify-content-between column mt-2 mb-3">
                                 <TextField
                                     onChange={(e) => {
                                         setClientDetail(prevUserData => ({
@@ -404,7 +407,8 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.website}
                                     variant="outlined"
                                     label='Website'
-                                    className="edit_profile_text_field"
+                                    sx={{ width: "46.5%" }}
+                                    className="edit_profile_text_field mb-2"
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -419,6 +423,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.linkdin_profile}
                                     variant="outlined"
                                     label='Linkedin Profile'
+                                    sx={{ width: "46.5%" }}
                                     className="edit_profile_text_field"
                                 />
                             </Box>
@@ -441,16 +446,16 @@ const ClientProfile = () => {
                                     })}
                                 </RadioGroup>
                             </FormControl>
-                            <Box className="mt-2">
-                                <Button onClick={handleUpdateCompanyDetail} variant='standard' className='save_button'>Save</Button>
-                                <Button onClick={handleEditCompanyDetailStatus} variant='standard' className="cancel_button">Cancel</Button>
+                            <Box className="mt-2 mb-3">
+                                <Button onClick={handleUpdateCompanyDetail} variant='standard' className='save_button mt-2'>Save</Button>
+                                <Button onClick={handleEditCompanyDetailStatus} variant='standard' className="cancel_button mt-2">Cancel</Button>
                             </Box>
                         </Box>
                     </Box>
                 </Box> :
                 <Box className="client_profile_main_section">
                     <Box className="d-flex justify-content-between mx-2 mt-2">
-                        <Typography className="profile_section_heading mx-4" variant="span">Company details</Typography>
+                        <Typography className="profile_section_heading mx-4 mt-1" variant="span">Company details</Typography>
                         <EditIcon onClick={handleEditCompanyDetailStatus} className="circular_icon mx-4" />
                     </Box>
                     <Box className="d-flex row mx-3">
@@ -459,9 +464,9 @@ const ClientProfile = () => {
                                 alt="Remy Sharp"
                                 className='mx-1'
                                 src="/static/images/avatar/1.jpg"
-                                sx={{ width: 56, height: 56 }}
+                                sx={{ width: 80, height: 80 }}
                             />
-                            <Box className="d-flex row px-2">
+                            <Box className="d-flex row px-4">
                                 <Box className="d-flex row">
                                     <Typography variant='span' sx={{ color: "#8E8E8E" }}>Company Name</Typography>
                                     <Typography variant='span' className='profile_section_heading mb-2'>
@@ -492,15 +497,16 @@ const ClientProfile = () => {
                     </Box>
                 </Box>
             }
-            {editCompanyContactDetail ? <Box className="client_profile_main_section">
-                <Box>
+            {editCompanyContactDetail ? <Box className="client_profile_main_section p-2">
+                <Typography className='profile_section_heading mx-4 mt-1 mb-3' variant='span'>Company details</Typography>
+                {/* <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
 
-                </Box>
-                <Box className="d-flex column justify-content-between m-2">
+                </Box> */}
+                <Box className="d-flex column justify-content-between row m-2 mx-4">
                     <StyledPhoneInput
                         label="Enter Mobile No"
-                        className="w-45"
+                        sx={{ width: "39%" }}
                         value={profileDetail.phoneno}
                         defaultCountry="US"
                         placeholder="Enter phone number"
@@ -509,7 +515,7 @@ const ClientProfile = () => {
                         }}
                     />
                     <TextField
-                        className="w-45"
+                        sx={{ width: "39%" }}
                         label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
@@ -518,29 +524,10 @@ const ClientProfile = () => {
                         }}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-between m-2">
-                    <TextField
-                        label="Street Address"
-                        type="text"
-                        className='w-45'
-                        value={profileDetail.address}
-                        onChange={(e) => {
-                            setProfileDetail({ ...profileDetail, address: e.target.value })
-                        }}
-                    />
-                    <TextField
-                        label="Pincode/Zip Code"
-                        type="text"
-                        className='w-45'
-                        value={profileDetail.pincode}
-                        onChange={(e) => {
-                            setProfileDetail({ ...profileDetail, pincode: e.target.value })
-                        }}
-                    />
-                </Box>
-                <Box className="d-flex column justify-content-between m-2">
+                <Box className="d-flex column justify-content-between m-2 mx-4">
                     <Autocomplete
-                        className="input_fields w-25"
+                        className="input_fields"
+                        sx={{ width: "39%" }}
                         disablePortal
                         disableClearable
                         options={countryList}
@@ -554,7 +541,8 @@ const ClientProfile = () => {
                         )}
                     />
                     <Autocomplete
-                        className="input_fields w-25"
+                        className="input_fields"
+                        sx={{ width: "39%" }}
                         options={stateList}
                         disableClearable
                         disabled={!profileDetail?.country}
@@ -568,8 +556,11 @@ const ClientProfile = () => {
                             <TextField {...params} label=" Select State" />
                         )}
                     />
+                </Box>
+                <Box className="d-flex column justify-content-between m-2 mx-4">
                     <Autocomplete
-                        className="input_fields w-25"
+                        className="input_fields"
+                        sx={{ width: "39%" }}
                         options={cityList}
                         disableClearable
                         disabled={!profileDetail?.state}
@@ -583,16 +574,35 @@ const ClientProfile = () => {
                             <TextField {...params} label="Select City" />
                         )}
                     />
+                    <TextField
+                        label="Pincode/Zip Code"
+                        type="text"
+                        sx={{ width: "39%" }}
+                        value={profileDetail.pincode}
+                        onChange={(e) => {
+                            setProfileDetail({ ...profileDetail, pincode: e.target.value })
+                        }}
+                    />
                 </Box>
-
-                <Box sx={{ width: '100%' }}>
+                <Box className="d-flex column justify-content-between m-2 mx-4">
+                    <TextField
+                        label="Street Address"
+                        type="text"
+                        sx={{ width: "78%" }}
+                        value={profileDetail.address}
+                        onChange={(e) => {
+                            setProfileDetail({ ...profileDetail, address: e.target.value })
+                        }}
+                    />
+                </Box>
+                <Box sx={{ width: '100%' }} className="mx-4 mb-3">
                     <Button onClick={handleUpdateProfileDetail} className="save_button">Save</Button>
                     <Button onClick={handleEditCompanyContactDetail} className="cancel_button">Cancel</Button>
                 </Box>
             </Box> :
                 <Box className="client_profile_main_section">
                     <Box className="d-flex justify-content-between mx-2 mt-2">
-                        <Typography className="profile_section_heading mx-4" variant="span">Company contacts</Typography>
+                        <Typography className="profile_section_heading mx-4 justify-content-center mt-1" variant="span">Company contacts</Typography>
                         <EditIcon onClick={handleEditCompanyContactDetail} className="circular_icon mx-4" />
                     </Box>
                     <Box className="d-flex row">
