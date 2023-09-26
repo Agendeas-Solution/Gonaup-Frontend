@@ -16,3 +16,13 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.edit_profile_text_box{
+  width: 46.5%;
+}
+.edit_profile_contacts_text_box{
+  width: 38.9%;
+  margin-bottom: 3px !important;
+}
+.edit_profile_contacts_address_box{
+  width: 81%;
+}

@@ -305,7 +305,7 @@ const ClientProfile = () => {
                                 <Button onClick={
                                     handleSaveUserDetail
                                 }
-                                    variant='standard' className="save_button">Save</Button>
+                                    variant='standard' className="save_button me-1">Save</Button>
                                 <Button onClick={handleEditClientPersonalDetailStatus} variant='standard' className="cancel_button">Cancel</Button>
                             </Box>
                         </Box>
@@ -373,8 +373,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.company_name}
                                     variant="outlined"
                                     label='Company Name'
-                                    sx={{ width: "46.5%" }}
-                                    className="edit_profile_text_field mb-1"
+                                    className="edit_profile_text_field edit_profile_text_box mb-1"
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -389,8 +388,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.position}
                                     variant="outlined"
                                     label='Role in Company'
-                                    sx={{ width: "46.5%" }}
-                                    className="edit_profile_text_field"
+                                    className="edit_profile_text_field edit_profile_text_box"
                                 />
                             </Box>
                             <Box className="d-flex justify-content-between column mt-2 mb-3">
@@ -407,8 +405,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.website}
                                     variant="outlined"
                                     label='Website'
-                                    sx={{ width: "46.5%" }}
-                                    className="edit_profile_text_field mb-2"
+                                    className="edit_profile_text_field edit_profile_text_box mb-2"
                                 />
                                 <TextField
                                     onChange={(e) => {
@@ -423,8 +420,7 @@ const ClientProfile = () => {
                                     value={clientDetail?.companyDetails?.linkdin_profile}
                                     variant="outlined"
                                     label='Linkedin Profile'
-                                    sx={{ width: "46.5%" }}
-                                    className="edit_profile_text_field"
+                                    className="edit_profile_text_field edit_profile_text_box"
                                 />
                             </Box>
                             <FormControl sx={{ marginLeft: "12px" }}>
@@ -447,7 +443,7 @@ const ClientProfile = () => {
                                 </RadioGroup>
                             </FormControl>
                             <Box className="mt-2 mb-3">
-                                <Button onClick={handleUpdateCompanyDetail} variant='standard' className='save_button mt-2'>Save</Button>
+                                <Button onClick={handleUpdateCompanyDetail} variant='standard' className='save_button mt-2 me-1'>Save</Button>
                                 <Button onClick={handleEditCompanyDetailStatus} variant='standard' className="cancel_button mt-2">Cancel</Button>
                             </Box>
                         </Box>
@@ -498,15 +494,14 @@ const ClientProfile = () => {
                 </Box>
             }
             {editCompanyContactDetail ? <Box className="client_profile_main_section p-2">
-                <Typography className='profile_section_heading mx-4 mt-1 mb-3' variant='span'>Company details</Typography>
-                {/* <Box>
+                <Typography className='profile_section_heading mx-4 mt-1 mb-3' variant='span'>Company contacts</Typography>
+                <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
-
-                </Box> */}
-                <Box className="d-flex column justify-content-between row m-2 mx-4">
+                </Box>
+                <Box className="d-flex column justify-content-start row m-2 mx-4 mb-4">
                     <StyledPhoneInput
+                        className='edit_profile_contacts_text_box me-4'
                         label="Enter Mobile No"
-                        sx={{ width: "39%" }}
                         value={profileDetail.phoneno}
                         defaultCountry="US"
                         placeholder="Enter phone number"
@@ -515,7 +510,7 @@ const ClientProfile = () => {
                         }}
                     />
                     <TextField
-                        sx={{ width: "39%" }}
+                        className='edit_profile_contacts_text_box ms-2'
                         label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
@@ -524,10 +519,9 @@ const ClientProfile = () => {
                         }}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-between m-2 mx-4">
+                <Box className="d-flex column justify-content-start m-2 mx-4 mb-4">
                     <Autocomplete
-                        className="input_fields"
-                        sx={{ width: "39%" }}
+                        className="input_fields edit_profile_contacts_text_box me-4"
                         disablePortal
                         disableClearable
                         options={countryList}
@@ -541,8 +535,7 @@ const ClientProfile = () => {
                         )}
                     />
                     <Autocomplete
-                        className="input_fields"
-                        sx={{ width: "39%" }}
+                        className="input_fields edit_profile_contacts_text_box ms-2"
                         options={stateList}
                         disableClearable
                         disabled={!profileDetail?.country}
@@ -557,10 +550,9 @@ const ClientProfile = () => {
                         )}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-between m-2 mx-4">
+                <Box className="d-flex column justify-content-start m-2 mx-4 mb-4">
                     <Autocomplete
-                        className="input_fields"
-                        sx={{ width: "39%" }}
+                        className="input_fields edit_profile_contacts_text_box me-4"
                         options={cityList}
                         disableClearable
                         disabled={!profileDetail?.state}
@@ -575,29 +567,29 @@ const ClientProfile = () => {
                         )}
                     />
                     <TextField
+                        className='edit_profile_contacts_text_box ms-2'
                         label="Pincode/Zip Code"
                         type="text"
-                        sx={{ width: "39%" }}
                         value={profileDetail.pincode}
                         onChange={(e) => {
                             setProfileDetail({ ...profileDetail, pincode: e.target.value })
                         }}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-between m-2 mx-4">
+                <Box className="d-flex column justify-content-between m-2 mx-4 mb-4">
                     <TextField
+                        className='edit_profile_contacts_address_box'
                         label="Street Address"
                         type="text"
-                        sx={{ width: "78%" }}
                         value={profileDetail.address}
                         onChange={(e) => {
                             setProfileDetail({ ...profileDetail, address: e.target.value })
                         }}
                     />
                 </Box>
-                <Box sx={{ width: '100%' }} className="mx-4 mb-3">
-                    <Button onClick={handleUpdateProfileDetail} className="save_button">Save</Button>
-                    <Button onClick={handleEditCompanyContactDetail} className="cancel_button">Cancel</Button>
+                <Box sx={{ width: '100%' }} className="mx-4 mb-3 mt-1">
+                    <Button onClick={handleUpdateProfileDetail} variant='standard' className="save_button me-1">Save</Button>
+                    <Button onClick={handleEditCompanyContactDetail} variant='standard' className="cancel_button">Cancel</Button>
                 </Box>
             </Box> :
                 <Box className="client_profile_main_section">
