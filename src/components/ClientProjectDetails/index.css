@@ -27,7 +27,11 @@
 .client_project_title_desc {
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding-top: 10px;
+  padding-left: 25px;
+}
+.client_project_type{
+  padding-left: 14px;
 }
 .project_detail {
   display: flex;
@@ -43,6 +47,7 @@
   min-width: 50%;
   max-width: 50%;
   display: flex;
+  padding-top: 10px;
 }
 
 .client_project_detail_button {

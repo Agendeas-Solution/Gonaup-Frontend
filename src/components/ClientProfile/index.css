@@ -2,7 +2,7 @@
   border: 1px solid #e5e5e5;
   display: flex;
   flex-direction: column;
-  margin: 1% 15% 0% 15%;
+  margin: 1% 15% 1% 15%;
   border-radius: 5px;
 }
 .profile_section_heading {
@@ -17,12 +17,12 @@
   border-radius: 5px;
 }
 .edit_profile_text_box{
-  width: 46.5%;
+  width: 47.5%;
 }
 .edit_profile_contacts_text_box{
-  width: 38.9%;
+  width: 48%;
   margin-bottom: 3px !important;
 }
 .edit_profile_contacts_address_box{
-  width: 81%;
+  width: 100%;
 }

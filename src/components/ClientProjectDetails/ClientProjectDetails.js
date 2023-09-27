@@ -88,7 +88,7 @@ const ClientProjectDetails = () => {
                         <Typography className='description' variant="span">{projectDetail.description}</Typography>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
-                    <Box className="client_project_title_desc">
+                    <Box className="client_project_title_desc mx-1">
                         <Box className="project_detail">
                             <Box className="project_detail_component">
                                 <AccessTimeRoundedIcon />
@@ -146,16 +146,16 @@ const ClientProjectDetails = () => {
                         </Box>
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} className="mt-3" />
-                    <Box className="p-3 d-flex column mx-1">
+                    <Box className="p-3 d-flex column">
                         <Typography variant='span' className='w-50'>
-                            <Typography variant="span" className='project_detail_heading'> Project Type: </Typography>
+                            <Typography variant="span" className='project_detail_heading client_project_type'> Project Type: </Typography>
                             {PROJECT.PROJECT_STATUS.map((data) => {
                                 if (data.id === projectDetail.project_status) {
                                     return data.type
                                 }
                             })}
                         </Typography>
-                        <Typography variant='span' className='w-50'>
+                        <Typography variant='span' className='w-50 ms-4'>
                             <Typography variant="span" className='project_detail_heading'> Job Opportunity: </Typography>
                             {PROJECT.PROJECT_TYPE.map((data) => {
                                 if (data.id === projectDetail.project_type) {
@@ -166,8 +166,8 @@ const ClientProjectDetails = () => {
                     </Box>
                     <Divider sx={{ borderColor: "#E5E5E5" }} />
                     <Box className="client_project_title_desc mx-1">
-                        <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
-                        <Stack className="mt-2" direction="row" spacing={1}>
+                        <Typography className="project_detail_heading mt-1" variant="span"> Skills and Expertise </Typography>
+                        <Stack className="mt-1" direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
                                 return <RectangularChip label={data.name} />
                             })}

@@ -130,7 +130,7 @@ const ClientProfile = () => {
         formData.append('cityId', profileDetail.city.id)
         formData.append('cityName', profileDetail.city.name)
         formData.append('zipCode', profileDetail.pincode)
-        formData.append('profile_image', imageUrl)
+        // formData.append('profile_image', imageUrl)
         await UpdateProfileDetail({
             url: '/user/freelancer/contact-details',
             method: 'put',
@@ -245,7 +245,7 @@ const ClientProfile = () => {
     const handleUpdateCompanyDetail = () => {
         UpdateCompanyDetail({
             url: `/company/details`,
-            method: 'post',
+            method: 'put',
             headers: {
                 Authorization: `${Cookie.get('userToken')}`,
             },
@@ -498,9 +498,9 @@ const ClientProfile = () => {
                 <Box>
                     <Uploader imageUrl={imageUrl} setImageUrl={setImageUrl} />
                 </Box>
-                <Box className="d-flex column justify-content-start row m-2 mx-4 mb-4">
+                <Box className="d-flex column justify-content-between row m-2 mx-4 mb-4">
                     <StyledPhoneInput
-                        className='edit_profile_contacts_text_box me-4'
+                        className='edit_profile_contacts_text_box'
                         label="Enter Mobile No"
                         value={profileDetail.phoneno}
                         defaultCountry="US"
@@ -510,7 +510,7 @@ const ClientProfile = () => {
                         }}
                     />
                     <TextField
-                        className='edit_profile_contacts_text_box ms-2'
+                        className='edit_profile_contacts_text_box'
                         label="Skype Id"
                         type="text"
                         value={profileDetail.skypeId}
@@ -519,9 +519,9 @@ const ClientProfile = () => {
                         }}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-start m-2 mx-4 mb-4">
+                <Box className="d-flex column justify-content-between m-2 mx-4 mb-4">
                     <Autocomplete
-                        className="input_fields edit_profile_contacts_text_box me-4"
+                        className="input_fields edit_profile_contacts_text_box"
                         disablePortal
                         disableClearable
                         options={countryList}
@@ -535,7 +535,7 @@ const ClientProfile = () => {
                         )}
                     />
                     <Autocomplete
-                        className="input_fields edit_profile_contacts_text_box ms-2"
+                        className="input_fields edit_profile_contacts_text_box"
                         options={stateList}
                         disableClearable
                         disabled={!profileDetail?.country}
@@ -550,9 +550,9 @@ const ClientProfile = () => {
                         )}
                     />
                 </Box>
-                <Box className="d-flex column justify-content-start m-2 mx-4 mb-4">
+                <Box className="d-flex column justify-content-between m-2 mx-4 mb-4">
                     <Autocomplete
-                        className="input_fields edit_profile_contacts_text_box me-4"
+                        className="input_fields edit_profile_contacts_text_box"
                         options={cityList}
                         disableClearable
                         disabled={!profileDetail?.state}
@@ -567,7 +567,7 @@ const ClientProfile = () => {
                         )}
                     />
                     <TextField
-                        className='edit_profile_contacts_text_box ms-2'
+                        className='edit_profile_contacts_text_box'
                         label="Pincode/Zip Code"
                         type="text"
                         value={profileDetail.pincode}

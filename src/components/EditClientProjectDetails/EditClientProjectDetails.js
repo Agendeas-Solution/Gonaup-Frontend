@@ -194,7 +194,7 @@ const EditClientProjectDetails = () => {
                 </Box>
                 <Divider />
                 <Box className="edit_client_project_title_desc">
-                    <Box className="project_detail">
+                    <Box className="project_detail mx-1">
                         <Box className="edit_project_detail_component">
                             <AccessTimeRoundedIcon />
                             <Box className="d-flex row">
@@ -242,12 +242,12 @@ const EditClientProjectDetails = () => {
                     }} className="circular_icon" />
                 </Box>
                 <Divider className="mt-3" />
-                <Box className=" edit_client_project_title_desc p-3">
+                <Box className=" edit_client_project_title_desc ">
                     <Box className="edit_project_detail_component">
                         {/* <SellOutlinedIcon /> */}
-                        <Box className="d-flex row">
+                        <Box className="d-flex edit_client_project_budget row">
                             <Typography className='project_detail_heading'>Budget</Typography>
-                            <Typography className='mx-1 project_detail_heading'>
+                            <Typography className='project_detail_heading'>
                                 {
                                     projectDetail.budget_type === 0 ?
                                         projectDetail.fixed_budget : " $ " + projectDetail.min_hourly_budget + " to " + projectDetail.max_hourly_budget
@@ -257,10 +257,10 @@ const EditClientProjectDetails = () => {
                     </Box>
                     <EditIcon onClick={() => { setEditBudgetDialogControl({ ...editBudgetDialogControl, status: true, budget: projectDetail.fixed_budget }) }} className="circular_icon" />
                 </Box>
-                <Divider className="mt-3" />
+                <Divider className="mt-2" />
                 <Box className="edit_client_project_title_desc">
                     <Box>
-                        <Typography className="project_detail_heading" variant="span"> Skills and Expertise </Typography>
+                        <Typography className="project_detail_heading mx-1" variant="span"> Skills and Expertise </Typography>
                         <Stack direction="row" spacing={1}>
                             {projectDetail.skills && projectDetail.skills.map((data) => {
                                 return <RectangularChip label={data.name} />
@@ -269,7 +269,7 @@ const EditClientProjectDetails = () => {
                     </Box>
                     <EditIcon onClick={() => { setEditSkillDialogControl({ ...editSkillDialogControl, status: true, skills: projectDetail.skills }) }} className="circular_icon" />
                 </Box>
-                <Divider className="mt-3" />
+                <Divider className="mt-1" />
             </Box >
             <EditTitleDescriptionDialog editTitleDescriptionDialogControl={editTitleDescriptionDialogControl} setEditTitleDescriptionDialogControl={setEditTitleDescriptionDialogControl} handleClose={handleClose} handleUpdateTitleDescription={handleUpdateTitleDescription} />
 
