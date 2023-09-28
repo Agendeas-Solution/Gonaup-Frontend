@@ -5,7 +5,7 @@
 .client_project_main_section {
   display: flex;
   flex-direction: row;
-  margin: 1% 15% 0% 15%;
+  margin: 2% 15% 0% 15%;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }

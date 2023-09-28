@@ -27,20 +27,20 @@ const EditBudgetDialog = ({ editBudgetDialogControl, setEditBudgetDialogControl,
                 <DialogTitle className="dialog_heading">
                     Edit Budget
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className='d-flex justify-content-center align-item-center row '>
                     <TextField
                         value={editBudgetDialogControl.budget}
                         onChange={(e) => {
                             setEditBudgetDialogControl({ ...editBudgetDialogControl, budget: e.target.value });
                         }}
-                        className='w-100 my-2'
+                        className='edit_client_project_title my-2'
                         variant="outlined"
                         label="Maximum project budget(USD)"
                         placeholder="0"
                         type="text" />
-                    <Typography className="sub_heading" variant='span'>You will have the option to create milestones which divide your project into manageable phases.</Typography>
+                    <Typography className="sub_heading edit_client_project_title" variant='span'>You will have the option to create milestones which divide your project into manageable phases.</Typography>
                     <ClickAwayListener onClickAway={handleTooltipClose}>
-                        <div>
+                        <div className='edit_client_project_title'>
                             <Tooltip
                                 PopperProps={{
                                     disablePortal: true,
@@ -62,7 +62,7 @@ const EditBudgetDialog = ({ editBudgetDialogControl, setEditBudgetDialogControl,
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleClose}>Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button edit_client_project_cancel" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

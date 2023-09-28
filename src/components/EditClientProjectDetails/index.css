@@ -5,7 +5,7 @@
 .edit_client_project_main_section {
   display: flex;
   flex-direction: column;
-  margin: 1% 15% 0% 15%;
+  margin: 2% 15% 0% 15%;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 }
@@ -29,7 +29,18 @@
   justify-content: space-between;
   padding: 10px 25px; 
 }
-.edit_client_project_budget{
+.edit_client_project_title_paragraph {
+  display: flex;
+  padding-left:25px; 
+  padding-bottom: 10px;
+}
+.edit_client_project{
+  padding-top: 20px; 
+}
+.edit_client_project_skill {
+  padding-top: 15px; 
+}
+.edit_client_project_budget {
   padding-left: 5px;
 }
 .project_detail {
@@ -49,7 +60,6 @@
   min-width: 25%;
   max-width: 25%;
   display: flex;
-  padding-top: 10px;
 }
 .project_detail_heading {
   font-weight: 600;

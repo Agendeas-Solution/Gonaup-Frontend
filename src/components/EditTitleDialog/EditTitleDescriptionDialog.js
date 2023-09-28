@@ -7,9 +7,11 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import './index.css'
 import { TextField } from '@mui/material';
+
 const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEditTitleDescriptionDialogControl, handleClose, handleUpdateTitleDescription }) => {
     return (
         <>
+        
             <Dialog
                 open={editTitleDescriptionDialogControl.status}
                 onClose={handleClose}
@@ -18,13 +20,13 @@ const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEdit
                 <DialogTitle className="dialog_heading">
                     Edit Title & Description
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className='d-flex justify-content-center align-item-center row'>
                     <TextField
                         value={editTitleDescriptionDialogControl.title}
                         onChange={(e) => {
                             setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, title: e.target.value })
                         }}
-                        className='w-100 my-2'
+                        className='edit_client_project_title my-2 '
                         variant="outlined"
                         label="Job Title"
                         type="text" />
@@ -33,7 +35,7 @@ const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEdit
                         onChange={(e) => {
                             setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, description: e.target.value })
                         }}
-                        className='w-100 my-2'
+                        className='edit_client_project_title mt-4'
                         variant="outlined"
                         label="Detailed Job description here"
                         type="text"
@@ -43,7 +45,7 @@ const EditTitleDescriptionDialog = ({ editTitleDescriptionDialogControl, setEdit
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleUpdateTitleDescription}>Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button edit_client_project_cancel" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

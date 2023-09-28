@@ -19,7 +19,7 @@ const EditScopeDialog = ({ editScopeDialogControl, setEditScopeDialogControl, ha
                 <DialogTitle className="dialog_heading">
                     Edit Scope
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className='d-flex justify-content-center align-item-center'>
                     <Box className="d-flex column">
                         <FormControl>
                             <FormLabel>Level of experience ?</FormLabel>
@@ -36,7 +36,7 @@ const EditScopeDialog = ({ editScopeDialogControl, setEditScopeDialogControl, ha
                                 }
                             </RadioGroup>
                         </FormControl>
-                        <FormControl>
+                        <FormControl className='ms-2'>
                             <FormLabel>How long will your work take?</FormLabel>
                             <RadioGroup
                                 value={editScopeDialogControl.projectDuration}
@@ -52,7 +52,7 @@ const EditScopeDialog = ({ editScopeDialogControl, setEditScopeDialogControl, ha
 
                             </RadioGroup>
                         </FormControl>
-                        <FormControl>
+                        <FormControl className='ms-2'>
                             <FormLabel>Hours per week</FormLabel>
                             <RadioGroup
                                 value={editScopeDialogControl.hourePerWeek}
@@ -71,7 +71,7 @@ const EditScopeDialog = ({ editScopeDialogControl, setEditScopeDialogControl, ha
                 </DialogContent>
                 <DialogActions>
                     <Button className='save_button' onClick={handleUpdateProjectRequirement}>Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button edit_client_project_cancel" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>

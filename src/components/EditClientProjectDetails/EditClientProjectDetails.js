@@ -189,11 +189,11 @@ const EditClientProjectDetails = () => {
                     <Typography className="client_main_heading" variant="span">{projectDetail?.title}</Typography>
                     <EditIcon onClick={() => { setEditTitleDescriptionDialogControl({ ...editTitleDescriptionDialogControl, status: true, title: projectDetail.title, description: projectDetail?.description }) }} className="circular_icon" />
                 </Box>
-                <Box className="edit_client_project_title_desc">
+                <Box className="edit_client_project_title_paragraph">
                     <Typography sx={{ padding: "4px" }} variant="span">{projectDetail?.description} </Typography>
                 </Box>
                 <Divider />
-                <Box className="edit_client_project_title_desc">
+                <Box className="edit_client_project_title_desc edit_client_project">
                     <Box className="project_detail mx-1">
                         <Box className="edit_project_detail_component">
                             <AccessTimeRoundedIcon />
@@ -242,7 +242,7 @@ const EditClientProjectDetails = () => {
                     }} className="circular_icon" />
                 </Box>
                 <Divider className="mt-3" />
-                <Box className=" edit_client_project_title_desc ">
+                <Box className=" edit_client_project_title_desc edit_client_project">
                     <Box className="edit_project_detail_component">
                         {/* <SellOutlinedIcon /> */}
                         <Box className="d-flex edit_client_project_budget row">
@@ -258,7 +258,7 @@ const EditClientProjectDetails = () => {
                     <EditIcon onClick={() => { setEditBudgetDialogControl({ ...editBudgetDialogControl, status: true, budget: projectDetail.fixed_budget }) }} className="circular_icon" />
                 </Box>
                 <Divider className="mt-2" />
-                <Box className="edit_client_project_title_desc">
+                <Box className="edit_client_project_title_desc edit_client_project_skill">
                     <Box>
                         <Typography className="project_detail_heading mx-1" variant="span"> Skills and Expertise </Typography>
                         <Stack direction="row" spacing={1}>
@@ -269,7 +269,7 @@ const EditClientProjectDetails = () => {
                     </Box>
                     <EditIcon onClick={() => { setEditSkillDialogControl({ ...editSkillDialogControl, status: true, skills: projectDetail.skills }) }} className="circular_icon" />
                 </Box>
-                <Divider className="mt-1" />
+                <Divider className="mt-2" />
             </Box >
             <EditTitleDescriptionDialog editTitleDescriptionDialogControl={editTitleDescriptionDialogControl} setEditTitleDescriptionDialogControl={setEditTitleDescriptionDialogControl} handleClose={handleClose} handleUpdateTitleDescription={handleUpdateTitleDescription} />
 

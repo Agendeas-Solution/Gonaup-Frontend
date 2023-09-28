@@ -1,0 +1,11 @@
+.edit_client_project_title{
+    width: 90%;
+}
+.edit_client_project_cancel{
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-right: 33px !important;
+}
+.dialog_section [role="dialog"] {
+    width: 40%;
+}

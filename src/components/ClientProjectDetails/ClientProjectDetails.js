@@ -155,8 +155,8 @@ const ClientProjectDetails = () => {
                                 }
                             })}
                         </Typography>
-                        <Typography variant='span' className='w-50 ms-4'>
-                            <Typography variant="span" className='project_detail_heading'> Job Opportunity: </Typography>
+                        <Typography variant='span' className='w-50 ms-3'>
+                            <Typography variant="span" className='project_detail_heading ms-2'> Job Opportunity: </Typography>
                             {PROJECT.PROJECT_TYPE.map((data) => {
                                 if (data.id === projectDetail.project_type) {
                                     return data.type

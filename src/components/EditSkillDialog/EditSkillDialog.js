@@ -66,9 +66,10 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                 <DialogTitle className="dialog_heading">
                     Edit Skill
                 </DialogTitle>
-                <DialogContent className="d-flex row">
-                    <Typography variant='span'>Search skills or add your own</Typography>
+                <DialogContent className="d-flex justify-content-center align-item-center row">
+                    <Typography className='edit_client_project_title mb-1' variant='span'>Search skills or add your own</Typography>
                     <TextField
+                        className='edit_client_project_title mb-3'
                         placeholder="Enter Skill here"
                         variant="outlined"
                         InputProps={{
@@ -88,6 +89,7 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                     <Box>
                         {serviceSkillList.skillList.map((chip) => (
                             <RectangularChip
+                                className='ms-3'
                                 key={chip.id}
                                 deleteIcon={< DoneIcon />}
                                 label={chip.name}
@@ -102,7 +104,7 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                         handleUpdateProjectSkillService(selectedSkillSets)
                     }}>
                         Save</Button>
-                    <Button className="cancel_button" onClick={handleClose} autoFocus>
+                    <Button className="cancel_button edit_client_project_cancel" onClick={handleClose} autoFocus>
                         Cancel
                     </Button>
                 </DialogActions>
