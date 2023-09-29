@@ -62,13 +62,13 @@ const ProjectDetailRightSection = ({ projectDetail, setDeleteProjectDialogContro
                             localStorage.getItem('type') == 2 && navigate(`/editrecruiterprojectdetails/${id}`, { state: projectDetail })
                         }}
                         className='client_project_detail_button'>
-                        <EditIcon />Edit Posting</Button>
+                        <EditIcon className='mx-1' />Edit Posting</Button>
                     <Button onClick={() => {
                         setDeleteProjectDialogControl({ ...deleteProjectDialogControl, status: true, projectId: projectDetail.id })
                     }}
                         variant="standard"
                         className='client_project_detail_button'
-                    ><DeleteRoundedIcon />
+                    ><DeleteRoundedIcon className='mx-1' />
                         Delete Posting
                     </Button>
                 </>

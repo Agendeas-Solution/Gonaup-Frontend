@@ -21,7 +21,7 @@
   flex-direction: column;
   width: 25%;
   justify-content: flex-start;
-  align-items: center;
+  align-items:start !important;
   padding: 10px;
 }
 .client_project_title_desc {

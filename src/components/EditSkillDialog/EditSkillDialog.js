@@ -80,6 +80,7 @@ const EditSkillDialog = ({ editSkillDialogControl, setEditSkillDialogControl, ha
                                             key={chip.id}
                                             label={chip.name}
                                             onDelete={handleDeleteSkill(chip)}
+                                            className='my-2 mx-1'
                                         />
                                     ))}
                                 </div>
